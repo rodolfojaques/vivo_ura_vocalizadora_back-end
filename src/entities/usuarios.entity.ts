@@ -10,6 +10,9 @@ export class Usuarios {
 
     @Column()
     nome: string
+    
+    @Column({default:"12345"})
+    password?: string
 
     @Column({unique: true})
     RE: string

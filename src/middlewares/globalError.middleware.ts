@@ -2,20 +2,27 @@ import { NextFunction, Request, Response } from "express";
 
 import { AppError } from "../error/appError";
 
-const globalErrorMiddleware = async (error:Error, req:Request, res:Response, _:NextFunction) => {
-    if(error instanceof AppError){
-        return res.status(error.statusCode).json({
-            status: "error",
-            message: error.message
-        })
-    }
-
-    console.error(error)
-
-    return res.status(500).json({
+const globalErrorMiddleware = async (
+    err: any,
+    request: Request,
+    response: Response,
+    _: NextFunction
+  ) => {
+    if (err instanceof AppError) {
+      return response.status(err.statusCode).json({
         status: "error",
-        message: "Internal server error"
-    })
-}
+        code: err.statusCode,
+        message: err.message,
+      });
+    }
+  
+    console.error(err);
+  
+    return response.status(500).json({
+      status: "error",
+      code: 500,
+      message: "Internal server error",
+    });
+};
 
 export default globalErrorMiddleware
