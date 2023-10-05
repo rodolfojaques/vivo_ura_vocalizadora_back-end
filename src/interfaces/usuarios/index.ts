@@ -15,3 +15,8 @@ export interface IUsuarioUpdate {
     tel_cel?: string
     perfil?: string
 }
+
+export interface IUsuarioLogin {
+    RE: string
+    password: string
+}

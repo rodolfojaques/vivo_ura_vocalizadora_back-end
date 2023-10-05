@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinTable, ManyToOne, OneToMany, Prim
 import { Exclude } from "class-transformer"
 import { GruposAtuacao } from "./gruposAtuacao.entity"
 import { Datas } from "./datas.entity"
+import { hash, hashSync } from "bcrypt"
 
 @Entity()
 export class Usuarios {
@@ -11,7 +12,7 @@ export class Usuarios {
     @Column()
     nome: string
     
-    @Column({default:"12345"})
+    @Column({default:hashSync("12345",10)})
     password?: string
 
     @Column({unique: true})
