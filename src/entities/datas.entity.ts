@@ -12,6 +12,6 @@ export class Datas {
   @Column()
   turno: string;
 
-  @ManyToOne(()=> Usuarios)
+  @ManyToOne(()=> Usuarios,(datas) => datas.datas)
   usuario: Usuarios;
 }
