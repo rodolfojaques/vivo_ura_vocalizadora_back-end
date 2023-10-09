@@ -1,8 +1,8 @@
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
-import { Exclude } from "class-transformer"
+
 import { GruposAtuacao } from "./gruposAtuacao.entity"
 import { Datas } from "./datas.entity"
-import { hash, hashSync } from "bcrypt"
+import { hashSync } from "bcrypt"
 
 @Entity()
 export class Usuarios {
@@ -12,7 +12,7 @@ export class Usuarios {
     @Column()
     nome: string
     
-    @Column({default:hashSync("12345",10)})
+    @Column({default:hashSync("12345",10),select:false})
     password?: string
 
     @Column({unique: true})
@@ -27,7 +27,7 @@ export class Usuarios {
     @Column()
     perfil: string
 
-    @ManyToOne(()=> GruposAtuacao)
+    @ManyToOne(()=> GruposAtuacao, (grupo)=> grupo.usuarios)
     grupoAtuacao?: GruposAtuacao;
 
     @OneToMany(()=> Datas, (datas)=> datas.usuario, {eager:true})

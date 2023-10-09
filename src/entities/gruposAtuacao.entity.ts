@@ -6,6 +6,9 @@ export class GruposAtuacao {
   @PrimaryGeneratedColumn()
   readonly id: number;
 
+  @Column({nullable:true})
+  nomeGrupo: string;
+
   @Column()
   gerente1: string;
 
