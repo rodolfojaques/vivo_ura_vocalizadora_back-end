@@ -12,7 +12,7 @@ export class Usuarios {
     @Column()
     nome: string
     
-    @Column({default:hashSync("12345",10),select:false})
+    @Column({default:hashSync("12345",10)})
     password?: string
 
     @Column({unique: true})
