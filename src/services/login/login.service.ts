@@ -11,6 +11,7 @@ const loginService = async (data:IUsuarioLogin) => {
 
     const usuario = await usuariosRepository.findOneBy({RE:data.RE})
     if(!usuario) throw new AppError(403,"RE ou senha inválidos")
+    
 
     const matchPassword = await compare(data.password, usuario.password!)
     if(!matchPassword) throw new AppError(403,"RE ou senha inválidos")
