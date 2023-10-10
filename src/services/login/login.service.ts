@@ -25,7 +25,10 @@ const loginService = async (data:IUsuarioLogin) => {
         }
     )
 
-    return token
+    return {
+        token:token,
+        user:usuario
+    }
 }
 
 export default loginService
