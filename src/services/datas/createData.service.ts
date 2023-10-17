@@ -11,11 +11,24 @@ const createDataService = async (data:IDataReq, id:number) => {
     const usuario = await usuariosRepository.findOneBy({id:id})
     if(!usuario) throw new AppError(400,"Usuário não encontrado")
 
+    const dataExist = await dataRepository.findOne({
+        relations: {usuario:true},
+        where:{
+            usuario: {id: usuario.id},
+            dia: data.dia,
+            turno: data.turno
+        }
+    })
+    console.log(!!dataExist);
+    console.log(usuario);
+    
+    if(!!dataExist) throw new AppError(400,"Não encontrado")
+        
     const newData = dataRepository.create({
         ...data, usuario: usuario
     })
-    await dataRepository.save(newData)
-
+    await dataRepository.save(newData) 
+    
     return newData
 }
 
