@@ -17,7 +17,11 @@ const loginService = async (data:IUsuarioLogin) => {
     if(!matchPassword) throw new AppError(403,"RE ou senha inválidos")
 
     const token = jwt.sign(
-        {usuario:usuario},
+        {
+            nome:usuario.nome,
+            RE: usuario.RE,
+            perfil: usuario.perfil
+        },
         process.env.SECRET_KEY as string,
         {
             subject: usuario.id.toString(),
