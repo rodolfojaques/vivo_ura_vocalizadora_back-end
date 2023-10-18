@@ -6,9 +6,9 @@ import { Usuarios } from "../entities/usuarios.entity";
 const validateTokenMiddleware = async (req:Request,res:Response,next:NextFunction) => {
     const token = req.headers.authorization?.split(" ")[1]
 
-    if(!!token && process.env.SECRET_KEY){
+    if(!!token && (process.env.SECRET_KEY || "@secretkey")){
         jwt.verify(
-            token, process.env.SECRET_KEY,async (error,decoded) => {
+            token, process.env.SECRET_KEY || "@secretkey",async (error,decoded) => {
                 if(!!error) return res.status(401).json({
                     message: "Invalid token!"
                 })

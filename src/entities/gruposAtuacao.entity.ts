@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
 import { Usuarios } from "./usuarios.entity";
+import { GruposAlarmes } from "./gruposAlarmes.entity";
 
 @Entity()
 export class GruposAtuacao {
@@ -23,4 +24,7 @@ export class GruposAtuacao {
 
   @OneToMany(()=> Usuarios, (usuarios)=> usuarios.grupoAtuacao, {eager:true})
   usuarios: Usuarios[];
+
+  @OneToMany(()=> GruposAlarmes, (grupo)=> grupo.grupoAtuacao, {eager:true})
+  gruposAlarmes: GruposAlarmes[];
 }
