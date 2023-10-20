@@ -22,9 +22,6 @@ export class TipoAlarme {
   @Column()
   localidade: string;
 
-  @Column()
-  setor: string;
-
-  @ManyToOne(()=> GruposAlarmes,(tipoAlarme) => tipoAlarme.tiposAlarmes)
+  @ManyToOne(()=> GruposAlarmes,(tipoAlarme) => tipoAlarme.tiposAlarmes, {onDelete: "SET NULL"})
   grupoAlarme: GruposAlarmes;
 }

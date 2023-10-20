@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 
 import { GruposAtuacao } from "./gruposAtuacao.entity"
 import { Datas } from "./datas.entity"
@@ -26,9 +26,6 @@ export class Usuarios {
 
     @Column()
     perfil: string
-
-    @ManyToOne(()=> GruposAtuacao, (grupo)=> grupo.usuarios)
-    grupoAtuacao?: GruposAtuacao;
 
     @OneToMany(()=> Datas, (datas)=> datas.usuario, {eager:true})
     datas?: Datas[];

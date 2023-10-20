@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { Usuarios } from "./usuarios.entity";
 import { GruposAlarmes } from "./gruposAlarmes.entity";
 
@@ -22,9 +22,11 @@ export class GruposAtuacao {
   @Column()
   contato_ger2: string;
 
-  @OneToMany(()=> Usuarios, (usuarios)=> usuarios.grupoAtuacao, {eager:true})
+  @ManyToMany(()=> Usuarios, {eager:true})
+  @JoinTable()
   usuarios: Usuarios[];
 
-  @OneToMany(()=> GruposAlarmes, (grupo)=> grupo.grupoAtuacao, {eager:true})
+  @ManyToMany(()=> GruposAlarmes, {eager:true})
+  @JoinTable()
   gruposAlarmes: GruposAlarmes[];
 }
