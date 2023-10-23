@@ -16,6 +16,7 @@ RUN yarn install
 # Copie todo o código-fonte do aplicativo para o contêiner
 COPY . .
 
+RUN npm rebuild bcrypt --update-binary 
 # Compile o código TypeScript
 RUN yarn build
 
