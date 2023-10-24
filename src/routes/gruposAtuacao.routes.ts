@@ -18,8 +18,8 @@ grupoAtuacaoRouter.get("/:id",validateTokenMiddleware,listGrupoAtuacaoByIdContro
 grupoAtuacaoRouter.patch("/update/:id",validateTokenMiddleware,updateGrupoAtuacaoController)
 grupoAtuacaoRouter.delete("/delete/:id",validateTokenMiddleware,deleteGrupoAtuacaoByIdController)
 grupoAtuacaoRouter.post("/add-user/:id",validateTokenMiddleware,addUsuarioController)
-grupoAtuacaoRouter.delete("/delete-user/:id",validateTokenMiddleware,deleteUsuarioController)
+grupoAtuacaoRouter.patch("/delete-user/:id",validateTokenMiddleware,deleteUsuarioController)
 grupoAtuacaoRouter.post("/add-grupo-alarme/:id",validateTokenMiddleware,addGrupoAlarmeController)
-grupoAtuacaoRouter.delete("/delete-grupo-alarme/:id",validateTokenMiddleware,deleteGrupoAlarmeController)
+grupoAtuacaoRouter.patch("/delete-grupo-alarme/:id",validateTokenMiddleware,deleteGrupoAlarmeController)
 
 export default grupoAtuacaoRouter
