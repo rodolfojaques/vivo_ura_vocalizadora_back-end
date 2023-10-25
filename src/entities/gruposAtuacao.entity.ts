@@ -25,8 +25,4 @@ export class GruposAtuacao {
   @ManyToMany(()=> Usuarios, {eager:true})
   @JoinTable()
   usuarios: Usuarios[];
-
-  @ManyToMany(()=> GruposAlarmes, {eager:true})
-  @JoinTable()
-  gruposAlarmes: GruposAlarmes[];
 }

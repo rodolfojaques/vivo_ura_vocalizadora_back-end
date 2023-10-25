@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, ManyToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { TipoAlarme } from "./tipoAlarme.entity";
 import { GruposAtuacao } from "./gruposAtuacao.entity";
 
@@ -13,4 +13,8 @@ export class GruposAlarmes {
 
   @OneToMany(()=> TipoAlarme, (grupo)=> grupo.grupoAlarme, {eager:true})
   tiposAlarmes?: TipoAlarme[];
+
+  @ManyToMany(()=> GruposAtuacao, {eager:true})
+  @JoinTable()
+  gruposAtuacao: GruposAtuacao[];
 }
