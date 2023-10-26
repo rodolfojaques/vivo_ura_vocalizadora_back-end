@@ -12,6 +12,6 @@ export class Datas {
   @Column()
   turno: string;
 
-  @ManyToOne(()=> Usuarios,(datas) => datas.datas)
+  @ManyToOne(()=> Usuarios,(datas) => datas.datas, {onDelete: "SET NULL"})
   usuario: Usuarios;
 }
