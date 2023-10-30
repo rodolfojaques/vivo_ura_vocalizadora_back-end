@@ -1,10 +1,10 @@
-import AppDataSource from "../../data-source"
-import { GruposAlarmes } from "../../entities/gruposAlarmes.entity"
+import { AppDataSource } from "../../data-source";
+import { GruposAlarmes } from "../../entities/gruposAlarmes.entity";
 
 const listGruposAlarmesService = async () => {
-    const gruposAlarmesRepository = AppDataSource.getRepository(GruposAlarmes)
+  const gruposAlarmesRepository = AppDataSource.getRepository(GruposAlarmes);
 
-    return (await gruposAlarmesRepository.find())
-}
+  return await gruposAlarmesRepository.find();
+};
 
-export default listGruposAlarmesService
+export default listGruposAlarmesService;

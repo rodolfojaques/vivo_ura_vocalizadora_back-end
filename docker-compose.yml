@@ -1,34 +1,54 @@
-version: '3.7'
+version: "3.7"
 
 services:
-  api:
-    container_name: ura-vocalizadora
-    build: .
+  app:
+    container_name: node-app
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     environment:
       - DB_HOST=db
-      - DB_PASSWORD=1234
-      - DB=ura_vocalizadora
       - DB_USER=ura@dev
-      - SECRET_KEY=minha_chave_secreta
+      - DB_PASSWORD=1234
+      - DB_NAME=ura_vocalizadora
+      - DB_NEW_HOST=db_new # Adicione as variáveis de ambiente para o novo banco de dados
+      - DB_NEW_USER=ura@history
+      - DB_NEW_PASSWORD=1234
+      - DB_NEW_NAME=ura_history
+    depends_on:
+      - db
+      - db_new # Certifique-se de que o aplicativo dependa do novo serviço do banco de dados
     volumes:
-      - .:/app
-  
+      - ./app:/app
+
   db:
-    container_name: data_base_ura
+    container_name: postgres-db
     image: postgres:15
     ports:
-      - 5431:5432
+      - 5432:5432
     environment:
       - POSTGRES_USER=ura@dev
       - POSTGRES_PASSWORD=1234
       - POSTGRES_DB=ura_vocalizadora
     volumes:
-     - db_ura:/var/lib/postgresql/data
-      - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
-volumes:
-  db_ura:
-    driver: local
-   
+      - db_data:/var/lib/postgresql/data
 
+  db_new:
+    container_name: db_history
+    image: postgres:15
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=ura@history
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=ura_history
+    volumes:
+      - db_new_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+    driver: local
+  db_new_data:
+    driver: local

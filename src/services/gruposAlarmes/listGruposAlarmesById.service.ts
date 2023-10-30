@@ -1,14 +1,14 @@
-import AppDataSource from "../../data-source"
-import { GruposAlarmes } from "../../entities/gruposAlarmes.entity"
-import { AppError } from "../../error/appError"
+import { AppDataSource } from "../../data-source";
+import { GruposAlarmes } from "../../entities/gruposAlarmes.entity";
+import { AppError } from "../../error/appError";
 
-const listGruposAlarmesByIdService = async (id:number) => {
-    const gruposAlarmesRepository = AppDataSource.getRepository(GruposAlarmes)
-    
-    const grupo = await gruposAlarmesRepository.findOneBy({id:id})
-    if(!grupo) throw new AppError(400, "Grupo não encontrado!")
+const listGruposAlarmesByIdService = async (id: number) => {
+  const gruposAlarmesRepository = AppDataSource.getRepository(GruposAlarmes);
 
-    return grupo
-}
+  const grupo = await gruposAlarmesRepository.findOneBy({ id: id });
+  if (!grupo) throw new AppError(400, "Grupo não encontrado!");
 
-export default listGruposAlarmesByIdService
+  return grupo;
+};
+
+export default listGruposAlarmesByIdService;

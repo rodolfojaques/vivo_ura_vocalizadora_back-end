@@ -1,16 +1,16 @@
-import AppDataSource from "../../data-source"
-import { TipoAlarme } from "../../entities/tipoAlarme.entity"
-import { AppError } from "../../error/appError"
+import { AppDataSource } from "../../data-source";
+import { TipoAlarme } from "../../entities/tipoAlarme.entity";
+import { AppError } from "../../error/appError";
 
-const deleteTipoAlarmeByIdService = async (id:number) => {
-    const tiposAlarmesRepository = AppDataSource.getRepository(TipoAlarme)
+const deleteTipoAlarmeByIdService = async (id: number) => {
+  const tiposAlarmesRepository = AppDataSource.getRepository(TipoAlarme);
 
-    const tipoAlarme = await tiposAlarmesRepository.findOneBy({id:id})
-    if(!tipoAlarme) throw new AppError(400,"Tipo de alarme não encontrado")
+  const tipoAlarme = await tiposAlarmesRepository.findOneBy({ id: id });
+  if (!tipoAlarme) throw new AppError(400, "Tipo de alarme não encontrado");
 
-    await tiposAlarmesRepository.delete(id)
+  await tiposAlarmesRepository.delete(id);
 
-    return true
-}
+  return true;
+};
 
-export default deleteTipoAlarmeByIdService
+export default deleteTipoAlarmeByIdService;

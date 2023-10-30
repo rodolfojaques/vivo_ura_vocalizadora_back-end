@@ -6,13 +6,15 @@ import grupoAtuacaoRouter from "./gruposAtuacao.routes";
 import alarmesRouter from "./alarmes.routes";
 import gruposAlarmesRouter from "./gruposAlarmes.routes";
 import tiposAlarmesRouter from "./tiposAlarmes.routes";
+import alarmesHistoryRouter from "./alarmes.history.routes";
 
 export const appRoutes = (app: Express) => {
-    app.use("/usuario", usuarioRoutes)
-    app.use("/datas", dataRouter)
-    app.use("/login", loginRouter)
-    app.use("/grupos-atuacao", grupoAtuacaoRouter)
-    app.use("/grupos-alarmes", gruposAlarmesRouter)
-    app.use("/tipos-alarmes", tiposAlarmesRouter)
-    app.use("/alarmes", alarmesRouter)
+  app.use("/usuario", usuarioRoutes);
+  app.use("/datas", dataRouter);
+  app.use("/login", loginRouter);
+  app.use("/grupos-atuacao", grupoAtuacaoRouter);
+  app.use("/grupos-alarmes", gruposAlarmesRouter);
+  app.use("/tipos-alarmes", tiposAlarmesRouter);
+  app.use("/alarmes", alarmesRouter);
+  app.use("/history-alarmes", alarmesHistoryRouter);
 };
