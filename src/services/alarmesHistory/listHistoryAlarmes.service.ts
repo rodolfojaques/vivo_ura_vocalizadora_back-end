@@ -7,11 +7,8 @@ const listAlarmesHistoryService = async (
   TIPO_REDE: string
 ) => {
   const alarmesRepository = AppDataSourceHistory.getRepository(AlarmesHistory);
-
-  //   Sua consulta SQL com placeholders nomeados
-  const query = `
-    SELECT * FROM alarmes_history;
-  `;
+  const query = `SELECT * FROM alarmes_history WHERE ($1::text IS NULL OR "TIPO_TA" = $1::text)
+                                             AND ($2::text IS NULL OR "TIPO_REDE" = $2::text)`;
 
   const results = await alarmesRepository.query(query, [TIPO_TA, TIPO_REDE]);
   console.log(results);

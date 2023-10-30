@@ -28,21 +28,17 @@ async function queryBuilderParamsService(
     console.log(typeof RTIPO_TA, RTIPO_TA);
     console.log(typeof RTIPO_REDE, RTIPO_REDE);
     const query = {
-      text: `SELECT * FROM alarmes_history
-            WHERE
-            ((:RTIPO_TA) IS NULL OR "TIPO_TA" = (:RTIPO_TA))
-            AND ((:RTIPO_REDE) IS NULL OR "TIPO_REDE" = (:RTIPO_REDE))`,
+      text: `SELECT * FROM alarmes_history WHERE ($1::text IS NULL OR "TIPO_TA" = $1::text)
+                                             AND ($2::text IS NULL OR "TIPO_REDE" = $2::text)`,
       values: [RTIPO_TA, RTIPO_REDE],
     };
 
     const results = await queryDatabase(query);
 
     console.log("Resultados da consulta:");
-    console.log(results);
+    return results;
   } catch (error) {
     console.error("Erro ao consultar o banco de dados:", error);
-  } finally {
-    pool.end(); // Fecha a pool de conexão quando terminar
   }
 }
 
