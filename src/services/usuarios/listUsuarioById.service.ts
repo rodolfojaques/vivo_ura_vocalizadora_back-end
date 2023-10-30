@@ -1,14 +1,14 @@
-import AppDataSource from "../../data-source"
-import { Usuarios } from "../../entities/usuarios.entity"
-import { AppError } from "../../error/appError"
+import { AppDataSource } from "../../data-source";
+import { Usuarios } from "../../entities/usuarios.entity";
+import { AppError } from "../../error/appError";
 
-const listUsuarioByIdService = async (id:number) => {
-    const usuarioRepository = AppDataSource.getRepository(Usuarios)
-    const usuario = await usuarioRepository.findOneBy({id: id})
+const listUsuarioByIdService = async (id: number) => {
+  const usuarioRepository = AppDataSource.getRepository(Usuarios);
+  const usuario = await usuarioRepository.findOneBy({ id: id });
 
-    if(!usuario) throw new AppError(404,"Usuário não encontrado")
+  if (!usuario) throw new AppError(404, "Usuário não encontrado");
 
-    return usuario
-}
+  return usuario;
+};
 
-export default listUsuarioByIdService
+export default listUsuarioByIdService;
