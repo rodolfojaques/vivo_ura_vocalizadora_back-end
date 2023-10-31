@@ -3,6 +3,6 @@ import listAlarmesHistoryController from "../controllers/alarmesHistory/listAlar
 
 const alarmesHistoryRouter = Router();
 
-alarmesHistoryRouter.get("", listAlarmesHistoryController);
+alarmesHistoryRouter.post("", listAlarmesHistoryController);
 
 export default alarmesHistoryRouter;
