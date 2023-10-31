@@ -4,7 +4,6 @@ import { AppError, handleError } from "../../error/appError";
 
 const listAlarmesHistoryController = async (req: Request, res: Response) => {
   try {
-    const { TIPO_TA, TIPO_REDE } = req.body;
     const alarmes = await listAlarmesHistoryService(req.body);
 
     return res.json(alarmes);
