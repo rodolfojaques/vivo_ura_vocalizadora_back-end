@@ -1,16 +1,16 @@
-import AppDataSource from "../../data-source"
-import { GruposAtuacao } from "../../entities/gruposAtuacao.entity"
-import { AppError } from "../../error/appError"
+import { AppDataSource } from "../../data-source";
+import { GruposAtuacao } from "../../entities/gruposAtuacao.entity";
+import { AppError } from "../../error/appError";
 
-const deleteGrupoAtuacaoByIdService = async (id:number) => {
-    const gruposAtuacaoRepository = AppDataSource.getRepository(GruposAtuacao)
-    
-    const grupo = await gruposAtuacaoRepository.findOneBy({id:id})
-    if(!grupo) throw new AppError(400,"Grupo não encontrado")
+const deleteGrupoAtuacaoByIdService = async (id: number) => {
+  const gruposAtuacaoRepository = AppDataSource.getRepository(GruposAtuacao);
 
-    await gruposAtuacaoRepository.delete(id)
+  const grupo = await gruposAtuacaoRepository.findOneBy({ id: id });
+  if (!grupo) throw new AppError(400, "Grupo não encontrado");
 
-    return true
-}
+  await gruposAtuacaoRepository.delete(id);
 
-export default deleteGrupoAtuacaoByIdService
+  return true;
+};
+
+export default deleteGrupoAtuacaoByIdService;

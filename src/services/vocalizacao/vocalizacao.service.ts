@@ -1,10 +1,10 @@
 import { In } from "typeorm";
-import AppDataSource from "../../data-source"
-import { GruposAlarmes } from "../../entities/gruposAlarmes.entity"
+import { AppDataSource } from "../../data-source";
+import { GruposAlarmes } from "../../entities/gruposAlarmes.entity";
 
-const vocalizacaoService = async (data:any) => {
+const vocalizacaoService = async (data: any) => {
 
-    const dt = new Date();
+  const dt = new Date();
     const ano = dt.getFullYear();
     const mes = String(dt.getMonth() + 1).padStart(2, '0');
     const dia = String(dt.getDate()).padStart(2, '0');
@@ -347,4 +347,5 @@ const vocalizacaoService = async (data:any) => {
     // }
 }
 
-export default vocalizacaoService
+
+export default vocalizacaoService;
