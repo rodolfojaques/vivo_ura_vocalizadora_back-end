@@ -26,7 +26,7 @@ const chamadaVocalizacaoService = async (data: any) => {
     contacts: [
       {
         name: data.plantonista.nome,
-        code: uuidv4(),
+        code: newData.code,
         phones: [data.plantonista.tel_cel],
         CLASSIFICACAO: data.alarme.CLASSIFICACAO,
         TIPO_ALARME: data.alarme.TIPO_ALARME,
@@ -37,7 +37,6 @@ const chamadaVocalizacaoService = async (data: any) => {
         TIPO_TA: data.alarme.TIPO_TA,
         TIPO_REDE: data.alarme.TIPO_REDE,
         DATA_APRESENTACAO: data.alarme.DATA_APRESENTACAO,
-        status: true,
       },
     ],
   };
