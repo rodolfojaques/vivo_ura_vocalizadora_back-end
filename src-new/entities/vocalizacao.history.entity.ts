@@ -5,8 +5,11 @@ import {
   OneToMany,
   JoinColumn,
   OneToOne,
+  AfterInsert,
+  BeforeInsert,
 } from "typeorm";
 import { AlarmesHistory } from "./alarmes.entity";
+import { AppDataSourceHistory } from "../../src/data-source";
 
 @Entity()
 export class VocalizacaoHistory {
@@ -14,7 +17,7 @@ export class VocalizacaoHistory {
   readonly id: number;
 
   @Column()
-  contact_id: string;
+  contact_id: number;
 
   @Column()
   plantonista: string;
@@ -22,7 +25,7 @@ export class VocalizacaoHistory {
   @Column()
   phone: string;
 
-  @Column()
+  @Column({ nullable: true })
   code: number;
 
   @OneToOne((type) => AlarmesHistory, { eager: true })

@@ -7,8 +7,8 @@ const createAlarmeService = async (data: any) => {
   const alarmeHistory = AppDataSourceHistory.getRepository(AlarmesHistory);
 
   const alarme = alarmesRepository.create({ ...data });
-  const history = alarmeHistory.create({ ...data });
   await alarmesRepository.save(alarme);
+  const history = alarmeHistory.create({ ...data });
   await alarmeHistory.save(history);
 
   return alarme;
