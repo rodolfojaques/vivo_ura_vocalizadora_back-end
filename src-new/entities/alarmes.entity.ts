@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { VocalizacaoHistory } from "./vocalizacao.history.entity";
 
 @Entity()
 export class AlarmesHistory {
@@ -109,4 +110,7 @@ export class AlarmesHistory {
 
   @Column({ nullable: true })
   ELEMENTO_SIGLA: string;
+
+  @OneToMany(()=> VocalizacaoHistory, (vocHist)=> vocHist.alarme)
+  vocsHist: VocalizacaoHistory[]
 }

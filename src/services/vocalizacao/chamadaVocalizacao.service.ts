@@ -9,22 +9,14 @@ const chamadaVocalizacaoService = async (data: any) => {
 
   const returnVocalizacaoRepository =
     AppDataSource.getRepository(ReturnVocalizacao);
+  
 
-  let code: number = 0;
-
-  const generateCode = async () => {
-    const lastRecord = await vocalizacaoHistoryRepository.find({
-      order: { id: "DESC" },
-    });
-    lastRecord ? (code = lastRecord[0].id + 1) : (code = 1);
-  };
-  generateCode();
+  const chamadas = async () => {
 
   const newData = vocalizacaoHistoryRepository.create({
     contact_id: data.plantonista.id,
     plantonista: data.plantonista.nome,
     phone: data.plantonista.tel_cel,
-    code: code,
     alarme: data.alarme,
   });
 
@@ -48,24 +40,19 @@ const chamadaVocalizacaoService = async (data: any) => {
       },
     ],
   };
+    console.log(output);
 
-  const chamadas = async () => {
-    axios.post("", output, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    // axios.post("", output, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
     const monitorando = output.contacts[0].code;
 
     setTimeout(async () => {
       const oneReturnVocalizacao = await returnVocalizacaoRepository.findOneBy({
         code: monitorando,
       });
-        console.log("terminou");
-        console.log("terminou");
-        console.log("terminou");
-        console.log("terminou");
-        console.log("terminou");
       if (oneReturnVocalizacao) {
         vocalizacaoHistoryRepository.update(oneReturnVocalizacao.id, {
           status: true,
@@ -75,13 +62,12 @@ const chamadaVocalizacaoService = async (data: any) => {
         
       } else {
         setTimeout(async() => {
-            generateCode();
+            
 
             const newData = vocalizacaoHistoryRepository.create({
             contact_id: data.grupoAtuacao.id,
             plantonista: data.grupoAtuacao.gerente1,
             phone: data.grupoAtuacao.contato_ger1,
-            code: code,
             alarme: data.alarme,
             });
 
@@ -104,12 +90,13 @@ const chamadaVocalizacaoService = async (data: any) => {
                     },
                 ],
             };
+            
 
-            axios.post("", output, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            // axios.post("", output, {
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            // });
 
             const monitorando = output.contacts[0].code;
 
@@ -127,13 +114,12 @@ const chamadaVocalizacaoService = async (data: any) => {
             } else {
 
             setTimeout(async () => {
-                generateCode();
+                
                 
                 const newData = vocalizacaoHistoryRepository.create({
                   contact_id: data.grupoAtuacao.id,
                   plantonista: data.grupoAtuacao.gerente2,
                   phone: data.grupoAtuacao.contato_ger2,
-                  code: code,
                   alarme: data.alarme,
                 });
       
@@ -158,11 +144,11 @@ const chamadaVocalizacaoService = async (data: any) => {
                   ],
                 };
 
-                axios.post("", output, {
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                });
+                // axios.post("", output, {
+                //   headers: {
+                //     "Content-Type": "application/json",
+                //   },
+                // });
 
                 const monitorando = output.contacts[0].code;
 
@@ -194,8 +180,6 @@ const chamadaVocalizacaoService = async (data: any) => {
     }, 30000);    
   };
   chamadas();
-
-  console.log(output);
 };
 
 export default chamadaVocalizacaoService;

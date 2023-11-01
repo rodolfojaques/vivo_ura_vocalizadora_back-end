@@ -7,6 +7,7 @@ import {
   OneToOne,
   AfterInsert,
   BeforeInsert,
+  ManyToOne,
 } from "typeorm";
 import { AlarmesHistory } from "./alarmes.entity";
 import { AppDataSourceHistory } from "../../src/data-source";
@@ -25,11 +26,10 @@ export class VocalizacaoHistory {
   @Column()
   phone: string;
 
-  @Column({ nullable: true })
+  @Column({ type: "bigint", unsigned: true, generated: "increment" })
   code: number;
 
-  @OneToOne((type) => AlarmesHistory, { eager: true })
-  @JoinColumn()
+  @ManyToOne(() => AlarmesHistory, (vocHist)=> vocHist.vocsHist, { eager: true })
   alarme: AlarmesHistory;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
