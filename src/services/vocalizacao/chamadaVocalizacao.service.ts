@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios"
 import { AppDataSourceHistory } from "../../data-source";
 import { VocalizacaoHistory } from "../../../src-new/entities/vocalizacao.history.entity";
 
@@ -47,6 +48,7 @@ const chamadaVocalizacaoService = async (data: any) => {
             "Content-Type": "application/json"
         }
     })
+    
     console.log("axios mandou o post");
     console.log();
     const monitorando = output.contacts[0].code;
