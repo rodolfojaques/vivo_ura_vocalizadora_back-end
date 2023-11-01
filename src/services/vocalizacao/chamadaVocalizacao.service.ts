@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 const chamadaVocalizacaoService = async (data:any) => {
@@ -24,6 +25,12 @@ const chamadaVocalizacaoService = async (data:any) => {
     }
 
     const chamadas = async () => {
+        axios.post("",output,{
+            headers:{
+                "Content-Type": "application/json"
+            }
+        })
+        
         console.log("axios mandou o post");
         console.log();
         const monitorando = output.contacts[0].code
