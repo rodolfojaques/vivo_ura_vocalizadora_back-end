@@ -7,6 +7,7 @@ import alarmesRouter from "./alarmes.routes";
 import gruposAlarmesRouter from "./gruposAlarmes.routes";
 import tiposAlarmesRouter from "./tiposAlarmes.routes";
 import alarmesHistoryRouter from "./alarmes.history.routes";
+import returnVocalizacaoRouter from "./returnVocalizacao.routes";
 
 export const appRoutes = (app: Express) => {
   app.use("/usuario", usuarioRoutes);
@@ -17,4 +18,5 @@ export const appRoutes = (app: Express) => {
   app.use("/tipos-alarmes", tiposAlarmesRouter);
   app.use("/alarmes", alarmesRouter);
   app.use("/history-alarmes", alarmesHistoryRouter);
+  app.use("/return-vocalizacao", returnVocalizacaoRouter);
 };
