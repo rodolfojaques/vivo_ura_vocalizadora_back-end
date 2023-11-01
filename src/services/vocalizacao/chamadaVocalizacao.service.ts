@@ -122,9 +122,13 @@ const chamadaVocalizacaoService = async (data: any) => {
                 vocalizacaoHistoryRepository.update(oneReturnVocalizacao.id, {
                     status: true,
                 });
+
+                return
             } else {
+
             setTimeout(async () => {
                 generateCode();
+                
                 const newData = vocalizacaoHistoryRepository.create({
                   contact_id: data.grupoAtuacao.id,
                   plantonista: data.grupoAtuacao.gerente2,
@@ -182,11 +186,11 @@ const chamadaVocalizacaoService = async (data: any) => {
         console.log("proximo contado");
         }, 30000);
       }
-    //   console.log("acabou o tempo");
-    //   console.log();
-    //   console.log("plantonista não atendeu", " code: ", monitorando);
-    //   console.log();
-    //   console.log("proximo contado");
+      console.log("acabou o tempo");
+      console.log();
+      console.log("plantonista não atendeu", " code: ", monitorando);
+      console.log();
+      console.log("proximo contado");
     }, 30000);    
   };
   chamadas();
