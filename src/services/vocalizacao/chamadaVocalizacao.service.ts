@@ -42,6 +42,11 @@ const chamadaVocalizacaoService = async (data: any) => {
   };
 
   const chamadas = async () => {
+    axios.post("",output,{
+        headers:{
+            "Content-Type": "application/json"
+        }
+    })
     console.log("axios mandou o post");
     console.log();
     const monitorando = output.contacts[0].code;
