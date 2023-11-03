@@ -7,8 +7,10 @@ const createUsuarioService = async (usuarioData:IUsuarioReq) => {
     const usuarioRepository = AppDataSource.getRepository(Usuarios)
 
     const usuarioAlreadyExist = await usuarioRepository.findOneBy({RE:usuarioData.RE})
+    const emailAlreadyExist = await usuarioRepository.findOneBy({email:usuarioData.email})
 
     if (!!usuarioAlreadyExist) throw new AppError(400, "User already exists")
+    if (!!emailAlreadyExist) throw new AppError(400, "User already exists")
 
     const newUsuario = usuarioRepository.create({...usuarioData})
     await usuarioRepository.save(newUsuario)
