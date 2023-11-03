@@ -19,8 +19,6 @@ const createDataService = async (data: IDataReq, id: number) => {
       turno: data.turno,
     },
   });
-  console.log(!!dataExist);
-  console.log(usuario);
 
   if (!!dataExist) throw new AppError(400, "Não encontrado");
 
