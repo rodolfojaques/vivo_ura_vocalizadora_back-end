@@ -36,8 +36,7 @@ const listAlarmesHistoryService = async (data: any) => {
     DATA_INICIO,
     DATA_FIM,
   ]);
-
-  console.log(results);
+  
   return results;
 };
 

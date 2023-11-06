@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { AppError, handleError } from "../../error/appError";
 import updateGrupoAtuacaoService from "../../services/gruposAtuacao/updateGrupoAtuacao.service";
+import { instanceToPlain } from "class-transformer";
 
 const updateGrupoAtuacaoController = async (req:Request,res:Response) => {
     try {
@@ -9,7 +10,7 @@ const updateGrupoAtuacaoController = async (req:Request,res:Response) => {
 
         const grupo = await updateGrupoAtuacaoService(Number(id),data)
 
-        return res.json(grupo)
+        return res.json(instanceToPlain(grupo))
     } catch (error) {
         if(error instanceof AppError) handleError(error,res)
     }

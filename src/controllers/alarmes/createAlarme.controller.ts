@@ -10,7 +10,6 @@ const createAlarmeController = async (req: Request, res: Response) => {
     const alarme = await createAlarmeService(data);
 
     if (!!alarme) {
-      console.log("Vou criar um alarme");
       const getGrupo = await vocalizacaoService(alarme);
       if (!!getGrupo) await chamadaVocalizacaoService(getGrupo);
     }

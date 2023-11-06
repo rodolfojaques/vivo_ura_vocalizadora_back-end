@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { AppError, handleError } from "../../error/appError";
 import deleteUsuarioService from "../../services/gruposAtuacao/deleteUsuario.service";
+import { instanceToPlain } from "class-transformer";
 
 const deleteUsuarioController = async (req:Request,res:Response) => {
     try {
@@ -9,7 +10,7 @@ const deleteUsuarioController = async (req:Request,res:Response) => {
 
         const grupo = await deleteUsuarioService(Number(id),Number(userId))
 
-        return res.json(grupo)
+        return res.json(instanceToPlain(grupo))
     } catch (error) {
         if(error instanceof AppError) handleError(error,res)
     }
