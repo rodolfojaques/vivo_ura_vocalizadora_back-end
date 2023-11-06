@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { AppError, handleError } from "../../error/appError";
 import createTipoAlarmeService from "../../services/tiposAlarmes/createTipoAlarme.service";
+import { instanceToPlain } from "class-transformer";
 
 const createTipoAlarmeController = async (req:Request,res:Response) => {
     try {
@@ -8,7 +9,7 @@ const createTipoAlarmeController = async (req:Request,res:Response) => {
         const data = req.body
         const tipoAlarme = await createTipoAlarmeService(Number(idGrupo),data)
 
-        return res.status(201).json(tipoAlarme)
+        return res.status(201).json(instanceToPlain(tipoAlarme))
     } catch (error) {
         if(error instanceof AppError) handleError(error,res)
     }
