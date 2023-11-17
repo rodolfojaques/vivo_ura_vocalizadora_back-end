@@ -4,6 +4,8 @@ import { VocalizacaoHistory } from "../../../src-new/entities/vocalizacao.histor
 import { ReturnVocalizacao } from "../../entities/returnVocalizacao.entity";
 
 const chamadaVocalizacaoService = async (data: any) => {
+  const dtFormatado = data.alarme.DATA_APRESENTACAO.slice(0,10) + " " + data.alarme.DATA_APRESENTACAO.slice(11,19)
+  
   const vocalizacaoHistoryRepository =
     AppDataSourceHistory.getRepository(VocalizacaoHistory);
 
@@ -40,26 +42,25 @@ const chamadaVocalizacaoService = async (data: any) => {
           {
             name: data.plantonista.nome,
             code: newData.code,
-            phones: [data.plantonista.tel_cel],
-            CLASSIFICACAO: data.alarme.CLASSIFICACAO,
-            TIPO_ALARME: data.alarme.TIPO_ALARME,
+            phones: [data.plantonista.tel_cel],            
+            ALARME: data.alarme.TIPO_ALARME,
             SITE: data.alarme.SITE,
             LOCALIDADE: data.alarme.LOCALIDADE,
             ESTADO: data.alarme.ESTADO,
-            TA: data.alarme.TA,
-            TIPO_TA: data.alarme.TIPO_TA,
+            TA: data.alarme.TA,            
             TIPO_REDE: data.alarme.TIPO_REDE,
-            DATA_APRESENTACAO: data.alarme.DATA_APRESENTACAO,
+            DATA_HORA: dtFormatado,
           },
         ],
       };
       console.log(output);
 
-      // axios.post("", output, {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
+      axios.post("186.238.82.229/api/mailing/11/contacts?key=kKoD1X4n", output, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+
       const monitorando = output.contacts[0].code;
 
       setTimeout(async () => {
@@ -89,26 +90,24 @@ const chamadaVocalizacaoService = async (data: any) => {
                     {
                     name: data.grupoAtuacao.gerente1,
                     code: newData.code,
-                    phones: [data.grupoAtuacao.contato_ger1],
-                    CLASSIFICACAO: data.alarme.CLASSIFICACAO,
-                    TIPO_ALARME: data.alarme.TIPO_ALARME,
+                    phones: [data.grupoAtuacao.contato_ger1],                    
+                    ALARME: data.alarme.TIPO_ALARME,
                     SITE: data.alarme.SITE,
                     LOCALIDADE: data.alarme.LOCALIDADE,
                     ESTADO: data.alarme.ESTADO,
-                    TA: data.alarme.TA,
-                    TIPO_TA: data.alarme.TIPO_TA,
+                    TA: data.alarme.TA,                    
                     TIPO_REDE: data.alarme.TIPO_REDE,
-                    DATA_APRESENTACAO: data.alarme.DATA_APRESENTACAO,
+                    DATA_HORA: dtFormatado,
                     },
                 ],
             };
             
 
-            // axios.post("", output, {
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            // });
+            axios.post("186.238.82.229/api/mailing/11/contacts?key=kKoD1X4n", output, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
 
             const monitorando = output.contacts[0].code;
 
@@ -142,25 +141,23 @@ const chamadaVocalizacaoService = async (data: any) => {
                     {
                       name: data.grupoAtuacao.gerente2,
                       code: newData.code,
-                      phones: [data.grupoAtuacao.contato_ger2],
-                      CLASSIFICACAO: data.alarme.CLASSIFICACAO,
-                      TIPO_ALARME: data.alarme.TIPO_ALARME,
+                      phones: [data.grupoAtuacao.contato_ger2],                      
+                      ALARME: data.alarme.TIPO_ALARME,
                       SITE: data.alarme.SITE,
                       LOCALIDADE: data.alarme.LOCALIDADE,
                       ESTADO: data.alarme.ESTADO,
-                      TA: data.alarme.TA,
-                      TIPO_TA: data.alarme.TIPO_TA,
+                      TA: data.alarme.TA,                      
                       TIPO_REDE: data.alarme.TIPO_REDE,
-                      DATA_APRESENTACAO: data.alarme.DATA_APRESENTACAO,
+                      DATA_HORA: dtFormatado,
                     },
                   ],
                 };
 
-                // axios.post("", output, {
-                //   headers: {
-                //     "Content-Type": "application/json",
-                //   },
-                // });
+                axios.post("186.238.82.229/api/mailing/11/contacts?key=kKoD1X4n", output, {
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                })
 
                 const monitorando = output.contacts[0].code;
 
@@ -179,21 +176,21 @@ const chamadaVocalizacaoService = async (data: any) => {
                 console.log("Gerente2 não atendeu", " code: ", monitorando);
                 console.log();
                 console.log("não atendido");
-              }, 30000);
+              }, 420000);
             }
             console.log("acabou o tempo");
             console.log();
             console.log("Gerente1 não atendeu", " code: ", monitorando);
             console.log();
             console.log("proximo contado");
-            }, 30000);
+            }, 420000);
         }
         console.log("acabou o tempo");
         console.log();
         console.log("plantonista não atendeu", " code: ", monitorando);
         console.log();
         console.log("proximo contado");
-      }, 30000);    
+      }, 420000);    
     };
     chamadas();    
   }
