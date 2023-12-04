@@ -2,3 +2,4 @@ node_modules
 dist
 yarn.lock
 .env
+ura_backend_v1.tar

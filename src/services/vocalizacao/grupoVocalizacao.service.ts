@@ -1,9 +1,11 @@
-import { AppDataSource } from "../../data-source";
+import { VocalizacaoHistory } from "../../../src-new/entities/vocalizacao.history.entity";
+import { AppDataSource, AppDataSourceHistory } from "../../data-source";
 import { GruposAlarmes } from "../../entities/gruposAlarmes.entity";
 
 const vocalizacaoService = async (data: any) => {
+    const vocalizacaoHistoryRepository = AppDataSourceHistory.getRepository(VocalizacaoHistory);
 
-  const dt = new Date();
+    const dt = new Date();
     const ano = dt.getFullYear();
     const mes = String(dt.getMonth() + 1).padStart(2, '0');
     const dia = String(dt.getDate()).padStart(2, '0');
@@ -86,6 +88,18 @@ const vocalizacaoService = async (data: any) => {
             grupoAtuacao: grupoResp,
             plantonista: responsavel
         }
+    } else {
+        
+        const newData = vocalizacaoHistoryRepository.create({
+            contact_id: 0,
+            plantonista: "Alarme sem plantonista responsavel",
+            phone: "Alarme sem plantonista responsavel",
+            alarme: data,
+        });
+      
+        await vocalizacaoHistoryRepository.save(newData);
+      
+        return
     }
 }
 
