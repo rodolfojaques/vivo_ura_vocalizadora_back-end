@@ -12,5 +12,5 @@ export class ReturnVocalizacao {
   phone: string;
 
   @Column({ nullable: true })
-  code: number;
+  code: string;
 }

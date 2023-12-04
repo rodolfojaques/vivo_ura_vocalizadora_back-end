@@ -14,6 +14,4 @@ import { AppDataSource, AppDataSourceHistory } from "./data-source";
   app.listen(3000, () => {
     console.log("Servidor executando");
   });
-
-  testConected()
 })();

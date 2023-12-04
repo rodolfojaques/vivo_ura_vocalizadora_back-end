@@ -5,8 +5,8 @@ const returnVocalizacaoService = async (data: any) => {
   const repository = AppDataSource.getRepository(ReturnVocalizacao);
 
   const newData = {
-    plantonista: data.contacts[0].plantonista,
-    phone: data.contacts[0].phone[0],
+    plantonista: data.contacts[0].name,
+    phone: data.contacts[0].phones[0],
     code: data.contacts[0].code,
   };
 
