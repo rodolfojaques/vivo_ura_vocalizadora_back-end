@@ -29,6 +29,12 @@ export class Usuarios {
     @Column()
     perfil: string
 
+    @Column({default:false})
+    emChamada: boolean
+
+    @Column({default:0})
+    emEspera: number
+
     @OneToMany(()=> Datas, (datas)=> datas.usuario, {eager:true})
     datas?: Datas[];
 }
