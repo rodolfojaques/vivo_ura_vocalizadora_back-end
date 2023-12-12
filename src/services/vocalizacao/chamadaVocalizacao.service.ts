@@ -57,7 +57,7 @@ const chamadaVocalizacaoService = async (data: any) => {
     setTimeout(async () => {
       if(usuario?.emEspera! <= 0){
         await usuarioRepository.update(userId,{emChamada: false})
-        await usuarioRepository.update(userId,{emEspera: 0})
+        await usuarioRepository.update(userId,{emEspera: 0})        
       }
 
       const oneReturnVocalizacao = await returnVocalizacaoRepository.findOneBy({
@@ -220,7 +220,7 @@ const chamadaVocalizacaoService = async (data: any) => {
 
     return
 
-  } else if(data.plantonista.emChamada){    
+  } else if(data.plantonista.emChamada){   
     const emEspDefault = data.plantonista.emEspera +1
     await usuarioRepository.update(userId,{emEspera: emEspDefault})
 
@@ -230,8 +230,13 @@ const chamadaVocalizacaoService = async (data: any) => {
     let qtdEspera = usuario?.emEspera!
 
     setTimeout(async () => {
-      await usuarioRepository.update(userId,{emEspera: (usuario?.emEspera! -1)})
+      const usuarioIn = await usuarioRepository.findOneBy({id:userId})
+      await usuarioRepository.update(userId,{emEspera: (usuarioIn?.emEspera! -1)})
+      console.log(usuarioIn?.emEspera!,usuarioIn?.emEspera! -1);
+      
       const usuarioUp = await usuarioRepository.findOneBy({id:userId})
+      console.log(usuarioUp?.emEspera!);
+      
 
       if(usuarioUp?.emEspera! <= 0){
         await usuarioRepository.update(userId,{emEspera: 0})
