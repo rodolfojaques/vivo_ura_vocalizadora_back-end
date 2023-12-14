@@ -38,7 +38,7 @@ const chamadaVocalizacaoService = async (data: any) => {
           SITE: data.alarme.SITE,
           LOCALIDADE: data.alarme.LOCALIDADE,
           ESTADO: data.alarme.ESTADO,
-          TA: data.alarme.TA.toString(),            
+          TA: data.alarme.TA !== null? data.alarme.TA.toString() : 'SEMTA',            
           TIPO_REDE: data.alarme.TIPO_REDE,
           DATA_HORA: dtFormatado,
         },
@@ -87,36 +87,36 @@ const chamadaVocalizacaoService = async (data: any) => {
         });
 
         await vocalizacaoHistoryRepository.save(newData);
+
         const output = {
-            contacts: [
-                {
-                name: data.grupoAtuacao.gerente1,
-                code: newData.code.toString(),
-                phones: [data.grupoAtuacao.contato_ger1],                    
-                ALARME: data.alarme.TIPO_ALARME,
-                SITE: data.alarme.SITE,
-                LOCALIDADE: data.alarme.LOCALIDADE,
-                ESTADO: data.alarme.ESTADO,
-                TA: data.alarme.TA.toString(),                    
-                TIPO_REDE: data.alarme.TIPO_REDE,
-                DATA_HORA: dtFormatado,
-                },
-            ],
+          contacts: [
+            {
+            name: data.grupoAtuacao.gerente1,
+            code: newData.code.toString(),
+            phones: [data.grupoAtuacao.contato_ger1],                    
+            ALARME: data.alarme.TIPO_ALARME,
+            SITE: data.alarme.SITE,
+            LOCALIDADE: data.alarme.LOCALIDADE,
+            ESTADO: data.alarme.ESTADO,
+            TA: data.alarme.TA !== null? data.alarme.TA.toString() : 'SEMTA',                    
+            TIPO_REDE: data.alarme.TIPO_REDE,
+            DATA_HORA: dtFormatado,
+            },
+          ],
         };
         
 
         axios.post("http://186.238.82.229/api/mailing/12/contacts?key=kKoD1X4n", output, {
-            headers: {
-                "Content-Type": "application/json",
-            },
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
 
         const monitorando = output.contacts[0].code;
 
         setTimeout(async() => {
 
-          const oneReturnVocalizacao =
-          await returnVocalizacaoRepository.findOneBy({
+          const oneReturnVocalizacao = await returnVocalizacaoRepository.findOneBy({
               code: monitorando,
           });
 
@@ -153,7 +153,7 @@ const chamadaVocalizacaoService = async (data: any) => {
                   SITE: data.alarme.SITE,
                   LOCALIDADE: data.alarme.LOCALIDADE,
                   ESTADO: data.alarme.ESTADO,
-                  TA: data.alarme.TA.toString(),                      
+                  TA: data.alarme.TA !== null? data.alarme.TA.toString() : 'SEMTA',                      
                   TIPO_REDE: data.alarme.TIPO_REDE,
                   DATA_HORA: dtFormatado,
                 },
@@ -170,8 +170,7 @@ const chamadaVocalizacaoService = async (data: any) => {
 
             setTimeout(async () => {
 
-              const oneReturnVocalizacao =
-                await returnVocalizacaoRepository.findOneBy({
+              const oneReturnVocalizacao = await returnVocalizacaoRepository.findOneBy({
                   code: monitorando,
                 });
 
