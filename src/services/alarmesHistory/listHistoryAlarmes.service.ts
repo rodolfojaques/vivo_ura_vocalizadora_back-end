@@ -18,7 +18,7 @@ const listAlarmesHistoryService = async (data: any, page:number,pageSize:number)
   } = data;
 
   const alarmesRepository = AppDataSourceHistory.getRepository(AlarmesHistory);
-  const totalItems = (await alarmesRepository.find()).length
+  const totalItems = await alarmesRepository.count()
 
   const query = `SELECT * FROM alarmes_history 
                  WHERE ($1::text IS NULL OR "TIPO_TA" = $1::text)
