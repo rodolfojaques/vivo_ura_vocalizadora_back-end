@@ -7,6 +7,6 @@ const alarmesHistoryRouter = Router();
 
 alarmesHistoryRouter.post("", listAlarmesHistoryController);
 alarmesHistoryRouter.post("/create", createAlarmesHistoryController);
-alarmesHistoryRouter.get("", listVocalizaoHistoryController);
+alarmesHistoryRouter.get("/vocalizacao-hist", listVocalizaoHistoryController);
 
 export default alarmesHistoryRouter;
