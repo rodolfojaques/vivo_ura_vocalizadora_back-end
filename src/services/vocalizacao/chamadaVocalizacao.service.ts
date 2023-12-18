@@ -5,16 +5,17 @@ import { ReturnVocalizacao } from "../../entities/returnVocalizacao.entity";
 import { Usuarios } from "../../entities/usuarios.entity";
 
 const chamadaVocalizacaoService = async (data: any) => {
+    
   const dtFormatado = data.alarme.DATA_APRESENTACAO.slice(0,10) + " " + data.alarme.DATA_APRESENTACAO.slice(11,19)
-  
+    
   const vocalizacaoHistoryRepository = AppDataSourceHistory.getRepository(VocalizacaoHistory);
-
+  
   const returnVocalizacaoRepository = AppDataSource.getRepository(ReturnVocalizacao);
-
+  
   const usuarioRepository = AppDataSource.getRepository(Usuarios)
-
-  const userId = data.plantonista.id
-
+  
+  const userId = data?.plantonista?.id
+  
   const chamadas = async () => {
 
     const usuario = await usuarioRepository.findOneBy({id:userId})
@@ -205,9 +206,10 @@ const chamadaVocalizacaoService = async (data: any) => {
       console.log();
       console.log("proximo contado");
     }, 320000);    
-  };
+  };  
 
   if(!data.grupoAtuacao || !data.plantonista){
+
     const newData = vocalizacaoHistoryRepository.create({
       contact_id: 0,
       plantonista: "Alarme sem plantonista responsavel",
