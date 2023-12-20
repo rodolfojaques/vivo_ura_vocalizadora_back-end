@@ -6,37 +6,42 @@ const clearRoutine = async () => {
     const alarmesRepository = AppDataSource.getRepository(Alarmes)
     const returnVocalizacaoRepository = AppDataSource.getRepository(ReturnVocalizacao)
 
-    const allAlarmes = await alarmesRepository.find()
-    const allReturns = await returnVocalizacaoRepository.find()
-
-    if(allAlarmes.length > 0){
-        allAlarmes.forEach(async alarme => {
-            const dt = new Date()
-            const ontem = `${dt.getDate() - 1}-${dt.getMonth() + 1}-${dt.getFullYear()}`
-            const hoje = `${dt.getDate()}-${dt.getMonth() + 1}-${dt.getFullYear()}`
-
-            const dateDb = `${alarme.DATA_APRESENTACAO.getDate()}-${alarme.DATA_APRESENTACAO.getMonth() + 1}-${alarme.DATA_APRESENTACAO.getFullYear()}`
-
-            if(hoje !== dateDb && ontem !== dateDb){
-                await alarmesRepository.delete(alarme.id)
-            }
-        });        
+    async function deleteAlarmsBeforeTwoDays() {
+      
+        const result = await alarmesRepository
+          .createQueryBuilder()
+          .delete()
+          .from(Alarmes)
+          .where('DATA_APRESENTACAO < current_date - interval \'1 days\'')
+          .orWhere('DATA_APRESENTACAO is null')
+          .execute();
+      
+        return result;
     }
+    
+    deleteAlarmsBeforeTwoDays().then(result => {
+    console.log(result);
+    }).catch(error => {
+    console.error(error);
+    });
 
-    if(allReturns.length > 0){
-        allReturns.forEach(async retorno => {
-            const dt = new Date()
-            const hoje = `${dt.getDate()}-${dt.getMonth() + 1}-${dt.getFullYear()}`
-            const hora = dt.getHours()
-
-            const dateDb = `${retorno.createAt.getDate()}-${retorno.createAt.getMonth() + 1}-${retorno.createAt.getFullYear()}`
-            const hrDb = retorno.createAt.getHours()
-
-            if(hora - hrDb > 2 || hoje !== dateDb){
-                await returnVocalizacaoRepository.delete(retorno.id)
-            }
-        });
+    async function deleteReturnsBeforeTwoHours() {
+    
+    const result = await returnVocalizacaoRepository
+        .createQueryBuilder()
+        .delete()
+        .from(ReturnVocalizacao)
+        .where('createAt < current_timestamp - interval \'2 hours\'')
+        .execute();
+    
+    return result;
     }
+    
+    deleteReturnsBeforeTwoHours().then(result => {
+    console.log(result);
+    }).catch(error => {
+    console.error(error);
+    });
 }
 
 export default clearRoutine
