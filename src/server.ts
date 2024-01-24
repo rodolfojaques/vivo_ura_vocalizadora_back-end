@@ -1,6 +1,7 @@
 import testConected from "../testeConect";
 import app from "./app";
 import { AppDataSource, AppDataSourceHistory } from "./data-source";
+import catchAlarmKafka from "./utils/consumerKafka";
 
 (async () => {
   await AppDataSource.initialize().catch((err) => {
@@ -14,4 +15,6 @@ import { AppDataSource, AppDataSourceHistory } from "./data-source";
   app.listen(3000, () => {
     console.log("Servidor executando");
   });
+
+  // catchAlarmKafka() // ATIVA CONSUMER
 })();
