@@ -25,6 +25,19 @@ const AppDataSourceHistory = new DataSource({
   synchronize: true,
   entities: ["src-new/entities/*.ts"],
   migrations: ["src/migrations/*.ts"],
+})
+
+const AppDataSourceTemsHistory = new DataSource({
+  type: "postgres",
+  host: process.env.DB_TEMS_HOST || "10.215.19.183",
+  port: 5432,
+  username: process.env.DB_TEMS_USER || "ura@historyTems",
+  password: process.env.DB_TEMS_PASSWORD || "1234",
+  database: process.env.DB_TEMS_NAME || "ura_history_tems",
+  logging: true,
+  synchronize: true,
+  entities: ["src-temsHist/entities/*.ts"],
+  migrations: ["src/migrations/*.ts"],
 });
 
-export { AppDataSource, AppDataSourceHistory };
+export { AppDataSource, AppDataSourceHistory, AppDataSourceTemsHistory };
