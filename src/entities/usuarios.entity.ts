@@ -37,4 +37,7 @@ export class Usuarios {
 
     @OneToMany(()=> Datas, (datas)=> datas.usuario, {eager:true})
     datas?: Datas[];
+
+    @Column({default: 'SG'})
+    typeTeam: string
 }

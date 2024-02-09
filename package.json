@@ -49,6 +49,7 @@
     "pg-format": "^1.0.4",
     "pg-promise": "^11.5.4",
     "reflect-metadata": "^0.1.13",
+    "say": "^0.16.0",
     "ts-node": "^10.9.1",
     "typeorm": "^0.3.17",
     "uuid": "^8.3.2"

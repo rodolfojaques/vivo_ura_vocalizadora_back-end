@@ -6,12 +6,16 @@ import deleteUsuarioController from "../controllers/usuarios/deleteUsuario.contr
 import updateUsuarioController from "../controllers/usuarios/updateUsuario.controller";
 import validateTokenMiddleware from "../middlewares/validateToken.middleware";
 import validateTypeUserMiddleware from "../middlewares/validateTypeUser.middleware";
+import listAllUsuariosTemsController from "../controllers/usuarios/listAllUsuariosTems.controller";
+import listAllUsuariosInfraController from "../controllers/usuarios/listAllUsuariosInfra.controller";
 
 const usuarioRoutes = Router()
 
 usuarioRoutes.post("/register",validateTokenMiddleware,validateTypeUserMiddleware,createUsuarioController)
-usuarioRoutes.get("/:id",validateTokenMiddleware,listUsuarioByIdController)
 usuarioRoutes.get("",validateTokenMiddleware,listAllUsuariosController)
+usuarioRoutes.get("/tems",validateTokenMiddleware,listAllUsuariosTemsController)
+usuarioRoutes.get("/infra",validateTokenMiddleware,listAllUsuariosInfraController)
+usuarioRoutes.get("/:id",validateTokenMiddleware,listUsuarioByIdController)
 usuarioRoutes.patch("/update/:id",validateTokenMiddleware,validateTypeUserMiddleware,updateUsuarioController)
 usuarioRoutes.delete("/delete/:id",validateTokenMiddleware,validateTypeUserMiddleware,deleteUsuarioController)
 
