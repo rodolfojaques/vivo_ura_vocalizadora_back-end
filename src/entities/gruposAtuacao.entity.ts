@@ -25,4 +25,7 @@ export class GruposAtuacao {
   @ManyToMany(()=> Usuarios, {eager:true})
   @JoinTable()
   usuarios: Usuarios[];
+
+  @Column({default:'SG'})
+  typeTeam: string
 }

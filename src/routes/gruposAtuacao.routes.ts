@@ -7,11 +7,13 @@ import updateGrupoAtuacaoController from "../controllers/gruposAtuacao/updateGru
 import deleteGrupoAtuacaoByIdController from "../controllers/gruposAtuacao/deleteGrupoAtuacaoById.controller";
 import addUsuarioController from "../controllers/gruposAtuacao/addUsuario.constroller";
 import deleteUsuarioController from "../controllers/gruposAtuacao/deleteUsuario.controller";
+import listGruposAtuacaoTemsController from "../controllers/gruposAtuacao/listGruposAtuacaoTems.controller";
 
 const grupoAtuacaoRouter = Router()
 
 grupoAtuacaoRouter.post("/register",validateTokenMiddleware,createGruposDeAtuacaoController)
 grupoAtuacaoRouter.get("",validateTokenMiddleware,listGruposAtuacaoController)
+grupoAtuacaoRouter.get("/tems",validateTokenMiddleware,listGruposAtuacaoTemsController)
 grupoAtuacaoRouter.get("/:id",validateTokenMiddleware,listGrupoAtuacaoByIdController)
 grupoAtuacaoRouter.patch("/update/:id",validateTokenMiddleware,updateGrupoAtuacaoController)
 grupoAtuacaoRouter.delete("/delete/:id",validateTokenMiddleware,deleteGrupoAtuacaoByIdController)
