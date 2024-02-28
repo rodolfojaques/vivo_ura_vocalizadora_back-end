@@ -1,6 +1,7 @@
 import testConected from "../testeConect";
 import app from "./app";
 import { AppDataSource, AppDataSourceHistory, AppDataSourceTemsHistory } from "./data-source";
+import createAlarmesHistoryTemsService from "./services/alarmesHistoryTems/createAlarmesHistoryTems.service";
 import catchAlarmKafka from "./utils/consumerKafka";
 
 (async () => {
@@ -19,6 +20,6 @@ import catchAlarmKafka from "./utils/consumerKafka";
   app.listen(3000, () => {
     console.log("Servidor executando");
   });
-
+  
   // catchAlarmKafka() // ATIVA CONSUMER
 })();
