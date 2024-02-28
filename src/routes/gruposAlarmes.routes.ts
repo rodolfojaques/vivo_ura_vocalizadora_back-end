@@ -7,6 +7,7 @@ import updateGrupoAlarmesController from "../controllers/gruposAlarmes/updateGru
 import deleteGrupoAlarmesController from "../controllers/gruposAlarmes/deleteGrupoAlarmes.controller";
 import addGrupoAtuacaoController from "../controllers/gruposAlarmes/addGrupoAtuacao.controller";
 import deleteGrupoAtuacaoController from "../controllers/gruposAlarmes/deleteGrupoAtuacao.controller";
+import filterGruposAlarmesController from "../controllers/gruposAlarmes/filterGruposAlarmes.controller";
 
 const gruposAlarmesRouter = Router()
 
@@ -15,6 +16,7 @@ gruposAlarmesRouter.get("",validateTokenMiddleware,listGruposAlarmesController)
 gruposAlarmesRouter.get("/:id",validateTokenMiddleware,listGruposAlarmesByIdController)
 gruposAlarmesRouter.patch("/update/:id",validateTokenMiddleware,updateGrupoAlarmesController)
 gruposAlarmesRouter.delete("/delete/:id",validateTokenMiddleware,deleteGrupoAlarmesController)
+gruposAlarmesRouter.post("/filter",validateTokenMiddleware,filterGruposAlarmesController)
 gruposAlarmesRouter.post("/add-grupo-atuacao/:id",validateTokenMiddleware,addGrupoAtuacaoController)
 gruposAlarmesRouter.patch("/delete-grupo-atuacao/:id",validateTokenMiddleware,deleteGrupoAtuacaoController)
 
