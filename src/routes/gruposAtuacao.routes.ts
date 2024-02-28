@@ -8,6 +8,8 @@ import deleteGrupoAtuacaoByIdController from "../controllers/gruposAtuacao/delet
 import addUsuarioController from "../controllers/gruposAtuacao/addUsuario.constroller";
 import deleteUsuarioController from "../controllers/gruposAtuacao/deleteUsuario.controller";
 import listGruposAtuacaoTemsController from "../controllers/gruposAtuacao/listGruposAtuacaoTems.controller";
+import filterGruposAtuacaoController from "../controllers/gruposAtuacao/filterGruposAtuacao.controller";
+import filterGruposAtuacaoTemsController from "../controllers/gruposAtuacao/filterGruposAtuacaoTems.controller";
 
 const grupoAtuacaoRouter = Router()
 
@@ -19,5 +21,8 @@ grupoAtuacaoRouter.patch("/update/:id",validateTokenMiddleware,updateGrupoAtuaca
 grupoAtuacaoRouter.delete("/delete/:id",validateTokenMiddleware,deleteGrupoAtuacaoByIdController)
 grupoAtuacaoRouter.post("/add-user/:id",validateTokenMiddleware,addUsuarioController)
 grupoAtuacaoRouter.patch("/delete-user/:id",validateTokenMiddleware,deleteUsuarioController)
+
+grupoAtuacaoRouter.post('/filter',validateTokenMiddleware,filterGruposAtuacaoController)
+grupoAtuacaoRouter.post('/tems/filter',validateTokenMiddleware,filterGruposAtuacaoTemsController)
 
 export default grupoAtuacaoRouter

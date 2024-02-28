@@ -7,6 +7,7 @@ import updateGrupoAlarmesTemsController from "../controllers/gruposAlarmesTems/u
 import deleteGrupoAlarmesTemsController from "../controllers/gruposAlarmesTems/deleteGrupoAlarmesTems.controller";
 import addGrupoAtuacaoTemsController from "../controllers/gruposAlarmesTems/addGrupoAtuacaoTems.controller";
 import deleteGrupoAtuacaoTemsController from "../controllers/gruposAlarmesTems/deleteGrupoAtuacaoTems.controller";
+import filterGruposAlarmesTemsController from "../controllers/gruposAlarmesTems/filterGruposAlarmesTems.controller";
 
 const gruposAlarmesTemsRouter = Router()
 
@@ -15,6 +16,7 @@ gruposAlarmesTemsRouter.get("",validateTokenMiddleware,listGruposAlarmesTemsCont
 gruposAlarmesTemsRouter.get("/:id",validateTokenMiddleware,listGruposAlarmesByIdTemsController)
 gruposAlarmesTemsRouter.patch("/update/:id",validateTokenMiddleware,updateGrupoAlarmesTemsController)
 gruposAlarmesTemsRouter.delete("/delete/:id",validateTokenMiddleware,deleteGrupoAlarmesTemsController)
+gruposAlarmesTemsRouter.post("/filter",validateTokenMiddleware,filterGruposAlarmesTemsController)
 gruposAlarmesTemsRouter.post("/add-grupo-atuacao/:id",validateTokenMiddleware,addGrupoAtuacaoTemsController)
 gruposAlarmesTemsRouter.patch("/delete-grupo-atuacao/:id",validateTokenMiddleware,deleteGrupoAtuacaoTemsController)
 
