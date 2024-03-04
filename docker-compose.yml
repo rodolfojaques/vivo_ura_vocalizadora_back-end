@@ -17,9 +17,14 @@ services:
       - DB_NEW_USER=ura@history
       - DB_NEW_PASSWORD=1234
       - DB_NEW_NAME=ura_history
+      - DB_TEMS_HOST=db_tems # Adicione as variáveis de ambiente para o novo banco de dados
+      - DB_TEMS_USER=ura@historyTems
+      - DB_TEMS_PASSWORD=1234
+      - DB_TEMS_NAME=ura_history_tems
     depends_on:
       - db
-      - db_new # Certifique-se de que o aplicativo dependa do novo serviço do banco de dados
+      - db_new
+      - db_tems # Certifique-se de que o aplicativo dependa do novo serviço do banco de dados
     volumes:
       - ./app:/app
 
@@ -27,7 +32,7 @@ services:
     container_name: postgres-db
     image: postgres:15
     ports:
-      - 5432:5432
+      - 5430:5432
     environment:
       - POSTGRES_USER=ura@dev
       - POSTGRES_PASSWORD=1234
@@ -47,8 +52,22 @@ services:
     volumes:
       - db_new_data:/var/lib/postgresql/data
 
+  db_tems:
+    container_name: db_tems
+    image: postgres:15
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_USER=ura@historyTems
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=ura_history_tems
+    volumes:
+      - db_tems_data:/var/lib/postgresql/data
+
 volumes:
   db_data:
     driver: local
   db_new_data:
+    driver: local
+  db_tems_data:
     driver: local
