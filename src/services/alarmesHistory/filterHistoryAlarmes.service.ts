@@ -11,14 +11,28 @@ const filterAlarmesHistoryService = async (data: any, page:number,pageSize:numbe
 
   const alarmesRepository = AppDataSourceHistory.getRepository(AlarmesHistory);
 
-  const query = `SELECT * FROM alarmes_history 
-                 WHERE ($1::text IS NULL OR "ALARME" ILIKE '%' || $1::text || '%')
+  const query = `SELECT * FROM alarmes_history
+                 WHERE ($1::text IS NULL OR "TIPO_TA" ILIKE '%' || $1::text || '%')
+                 OR ($1::text IS NULL OR "TIPO_REDE" ILIKE '%' || $1::text || '%')
+                 OR ($1::text IS NULL OR "ESTADO" ILIKE '%' || $1::text || '%')
+                 OR ($1::text IS NULL OR "LOCALIDADE" ILIKE '%' || $1::text || '%')
+                 OR ($1::text IS NULL OR "SITE" ILIKE '%' || $1::text || '%')
+                 OR ($1::text IS NULL OR "TIPO_ALARME" ILIKE '%' || $1::text || '%')
+                 OR ($1::text IS NULL OR "CLASSIFICACAO" ILIKE '%' || $1::text || '%') 
+                 OR ($1::text IS NULL OR "ALARME" ILIKE '%' || $1::text || '%')
                  ORDER BY "id" DESC
                  LIMIT $2  OFFSET $3
                  `;
 
   const queryCount = `SELECT * FROM alarmes_history 
-                WHERE ($1::text IS NULL OR "ALARME" ILIKE '%' || $1::text || '%')
+                WHERE ($1::text IS NULL OR "TIPO_TA" ILIKE '%' || $1::text || '%')
+                OR ($1::text IS NULL OR "TIPO_REDE" ILIKE '%' || $1::text || '%')
+                OR ($1::text IS NULL OR "ESTADO" ILIKE '%' || $1::text || '%')
+                OR ($1::text IS NULL OR "LOCALIDADE" ILIKE '%' || $1::text || '%')
+                OR ($1::text IS NULL OR "SITE" ILIKE '%' || $1::text || '%')
+                OR ($1::text IS NULL OR "TIPO_ALARME" ILIKE '%' || $1::text || '%')
+                OR ($1::text IS NULL OR "CLASSIFICACAO" ILIKE '%' || $1::text || '%') 
+                OR ($1::text IS NULL OR "ALARME" ILIKE '%' || $1::text || '%')
                 `;
 
   const results = await alarmesRepository.query(query, [
