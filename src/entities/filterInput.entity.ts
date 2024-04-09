@@ -15,7 +15,7 @@ import { GruposAlarmes } from "./gruposAlarmes.entity";
 */
 
 @Entity()
-export class TipoAlarme {
+export class FilterInput {
   @PrimaryGeneratedColumn()
   readonly id: number;
   
