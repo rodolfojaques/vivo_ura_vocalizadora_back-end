@@ -17,6 +17,9 @@ export class GruposAlarmesTems {
   @OneToMany(()=> TipoAlarmeTems, (grupo)=> grupo.grupoAlarme, {eager:true})
   tiposAlarmes?: TipoAlarmeTems[];
 
+  // @OneToMany(()=> TipoAlarmeTems, (grupo)=> grupo.grupoAlarme, {eager:true})
+  // filtersInput?: TipoAlarmeTems[];
+
   @ManyToMany(()=> GruposAtuacao, {eager:true})
   @JoinTable()
   gruposAtuacao: GruposAtuacao[];
