@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { GruposAtuacao } from "./gruposAtuacao.entity";
 import { TipoAlarmeTems } from "./tipoAlarmeTems.entity";
+import { FilterInput } from "./filterInput.entity";
 
 
 @Entity()
@@ -17,10 +18,11 @@ export class GruposAlarmesTems {
   @OneToMany(()=> TipoAlarmeTems, (grupo)=> grupo.grupoAlarme, {eager:true})
   tiposAlarmes?: TipoAlarmeTems[];
 
-  // @OneToMany(()=> TipoAlarmeTems, (grupo)=> grupo.grupoAlarme, {eager:true})
-  // filtersInput?: TipoAlarmeTems[];
-
   @ManyToMany(()=> GruposAtuacao, {eager:true})
   @JoinTable()
   gruposAtuacao: GruposAtuacao[];
+
+  @ManyToMany(()=> FilterInput, {eager:true})
+  @JoinTable()
+  filtersInput: FilterInput[];
 }
