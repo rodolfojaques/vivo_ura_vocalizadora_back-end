@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { GruposAlarmes } from "./gruposAlarmes.entity";
+import { GruposAlarmesTems } from "./gruposAlarmesTems.entity";
 
 
 /**
@@ -19,33 +19,27 @@ export class FilterInput {
   @PrimaryGeneratedColumn()
   readonly id: number;
   
-  @Column()
+  @Column({nullable:true})
   tipoTA: string;
 
-  @Column()
+  @Column({nullable:true})
   estadoSigla: string;
 
-  @Column()
+  @Column({nullable:true})
   tipoPlanta: string;
 
-  @Column()
+  @Column({nullable:true})
   frontSpecificProblem: string;
 
-  @Column()
+  @Column({nullable:true})
   familia: string;
 
-  @Column()
+  @Column({nullable:true})
   tipoFalha: string;
 
-  @Column()
+  @Column({nullable:true})
   manager: string;
 
-
-  @Column()
+  @Column({nullable:true})
   severity: number;
-
-  // @ManyToOne(()=> GruposAlarmes,(tipoAlarme) => tipoAlarme.tiposAlarmes, {onDelete: "SET NULL"})
-  // grupoAlarme: GruposAlarmes;
-
-  // CONTINUAR DO RELACIONAMENTO
 }
