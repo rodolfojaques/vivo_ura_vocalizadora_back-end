@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { GruposAtuacao } from "./gruposAtuacao.entity";
 import { TipoAlarmeTems } from "./tipoAlarmeTems.entity";
+import { FilterInput } from "./filterInput.entity";
 
 
 @Entity()

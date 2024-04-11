@@ -11,6 +11,7 @@ import returnVocalizacaoRouter from "./returnVocalizacao.routes";
 import alarmesTemsRouter from "./alarmes-tems.routes";
 import gruposAlarmesTemsRouter from "./gruposAlarmesTems.routes";
 import tiposAlarmesTemsRouter from "./tiposAlarmesTems.routes";
+import filterInputRouter from "./filterInput.routes";
 
 export const appRoutes = (app: Express) => {
   app.use("/usuario", usuarioRoutes);
@@ -25,4 +26,5 @@ export const appRoutes = (app: Express) => {
   app.use("/alarmes-tems", alarmesTemsRouter);
   app.use("/history-alarmes", alarmesHistoryRouter);
   app.use("/return-vocalizacao", returnVocalizacaoRouter);
+  app.use("/filter-input", filterInputRouter)
 };
