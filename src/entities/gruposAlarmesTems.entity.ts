@@ -21,8 +21,4 @@ export class GruposAlarmesTems {
   @ManyToMany(()=> GruposAtuacao, {eager:true})
   @JoinTable()
   gruposAtuacao: GruposAtuacao[];
-
-  @ManyToMany(()=> FilterInput, {eager:true})
-  @JoinTable()
-  filtersInput: FilterInput[];
 }
