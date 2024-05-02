@@ -7,13 +7,13 @@ export class AlarmesHistoryTems {
   readonly id: number;  //AUTOINCREMENTAVEL
   
   @Column({ nullable: true })
-  receiveTime:number
+  receiveTime:string
   
   @Column({ nullable: true })
-  procTime:number
+  procTime:string
   
   @Column({ nullable: true })
-  eventIndex:number
+  eventIndex:string
   
   @Column({ nullable: true })
   persistent_byPass:boolean
@@ -124,7 +124,7 @@ export class AlarmesHistoryTems {
   persistent_nodePUR:string
   
   @Column({ nullable: true })
-  persistent_dataFalha:Date
+  persistent_dataFalha:string
   
   @Column({ nullable: true })
   persistent_frontPersistence:string
@@ -368,13 +368,13 @@ export class AlarmesHistoryTems {
   sendClearOnExpiration:boolean
   
   @Column({ nullable: true })
-  lastSeen:Date
+  lastSeen:string
   
   @Column({ nullable: true })
-  firtsSeen:Date
+  firtsSeen:string
   
   @Column({ nullable: true })
-  firstSeen:Date
+  firstSeen:string
   
   @Column({ nullable: true })
   idRulePolicy:number
@@ -386,10 +386,10 @@ export class AlarmesHistoryTems {
   internalId:number
   
   @Column({ nullable: true })
-  internalLast:Date
+  internalLast:string
   
   @Column({ nullable: true })
-  lastUpdate:Date
+  lastUpdate:string
   
   @Column({ nullable: true })
   ownerUid:number
