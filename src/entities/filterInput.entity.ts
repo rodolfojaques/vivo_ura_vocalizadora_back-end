@@ -5,24 +5,12 @@ import { GruposAlarmesTems } from "./gruposAlarmesTems.entity";
 export class FilterInput {
   @PrimaryGeneratedColumn()
   readonly id: number;
-  
-  @Column({nullable:true})
-  tipoTA: string;
 
   @Column({nullable:true})
   estadoSigla: string;
 
   @Column({nullable:true})
-  tipoPlanta: string;
-
-  @Column({nullable:true})
   specificProblem: string;
-
-  @Column({nullable:true})
-  familia: string;
-
-  @Column({nullable:true})
-  tipoFalha: string;
 
   @Column({nullable:true})
   manager: string;
