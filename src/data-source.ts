@@ -40,5 +40,4 @@ const AppDataSourceTemsHistory = new DataSource({
   migrations: ["src/migrations/*.ts"],
 });
 
-
 export { AppDataSource, AppDataSourceHistory, AppDataSourceTemsHistory };
