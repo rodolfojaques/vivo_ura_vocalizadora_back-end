@@ -40,6 +40,4 @@ const AppDataSourceTemsHistory = new DataSource({
   migrations: ["src/migrations/*.ts"],
 });
 
-// commit no git tech solutio
-
 export { AppDataSource, AppDataSourceHistory, AppDataSourceTemsHistory };
