@@ -10,25 +10,25 @@ export class TipoAlarmeTems {
   @Column()
   estadoSigla: string;
 
-  @Column()
+  @Column({nullable:true})
   specificProblem: string;
 
-  @Column()
+  @Column({nullable:true})
   tipoDeAlarme: string;
 
-  @Column()
+  @Column({nullable:true})
   tipoRede: string;
 
-  @Column()
+  @Column({nullable:true})
   tipoTA: string;
 
-  @Column()
+  @Column({nullable:true})
   tipoPlanta: string;
 
-  @Column()
+  @Column({nullable:true})
   tipoFalha: string;
   
-  @Column()
+  @Column({nullable:true})
   manager: string;
 
   @ManyToOne(()=> GruposAlarmesTems,(tipoAlarme) => tipoAlarme.tiposAlarmes, {onDelete: "SET NULL"})

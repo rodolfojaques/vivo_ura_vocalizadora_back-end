@@ -6,7 +6,7 @@ export class FilterInput {
   @PrimaryGeneratedColumn()
   readonly id: number;
 
-  @Column({nullable:true})
+  @Column({})
   estadoSigla: string;
 
   @Column({nullable:true})
@@ -15,7 +15,7 @@ export class FilterInput {
   @Column({nullable:true})
   manager: string;
 
-  @Column({nullable:true})
+  @Column({default:1})
   severity: number;
 
   // @ManyToMany(()=> GruposAlarmesTems, {eager:true})
