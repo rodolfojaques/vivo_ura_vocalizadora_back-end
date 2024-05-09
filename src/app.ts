@@ -8,6 +8,7 @@ import cors from "cors"
 import cron from "node-cron"
 import clearRoutine from "./utils/clearRoutine"
 import inputFilterTemsService from "./services/tems-tools/inputFilterTems.service"
+import matchGroupAlarmeService from "./services/tems-tools/matchGroupAlarm.service"
 
 const app = express()
 app.use(cors())
@@ -30,5 +31,12 @@ cron.schedule('* 3 * * *', () => {
 //     const teste = await inputFilterTemsService(data)
 //     return res.json({value:teste})
 // })
+
+// DESCOMENTAR PARA TESTAR FILTRO (body = alarme TEMS conforme vem do kafka)
+app.post("/teste-match-group", async(req:Request, res:Response) =>{
+    const data = req.body
+    const teste = await matchGroupAlarmeService(data)
+    return res.json(teste)
+})
 
 export default app

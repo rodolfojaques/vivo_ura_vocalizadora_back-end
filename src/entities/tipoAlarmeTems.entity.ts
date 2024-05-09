@@ -8,22 +8,28 @@ export class TipoAlarmeTems {
   readonly id: number;
 
   @Column()
-  uf: string;
+  estadoSigla: string;
 
-  @Column()
-  site: string;
+  @Column({nullable:true})
+  specificProblem: string;
 
-  @Column()
-  tipoAlarme: string;
+  @Column({nullable:true})
+  tipoDeAlarme: string;
 
-  @Column()
-  classificacao: string;
+  @Column({nullable:true})
+  tipoRede: string;
 
-  @Column()
-  localidade: string;
+  @Column({nullable:true})
+  tipoTA: string;
 
-  @Column()
+  @Column({nullable:true})
   tipoPlanta: string;
+
+  @Column({nullable:true})
+  tipoFalha: string;
+  
+  @Column({nullable:true})
+  manager: string;
 
   @ManyToOne(()=> GruposAlarmesTems,(tipoAlarme) => tipoAlarme.tiposAlarmes, {onDelete: "SET NULL"})
   grupoAlarme: GruposAlarmesTems;
