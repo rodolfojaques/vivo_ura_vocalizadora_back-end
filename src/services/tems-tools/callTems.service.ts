@@ -1,5 +1,7 @@
 const callTemsService = async (data:any) => {
-    return null
+    console.log("callTemsService",data);
+    
+    return data
 }
 
 export default callTemsService
