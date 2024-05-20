@@ -28,7 +28,7 @@ const vocalizacaoTemsService = async (data:any) => {
     }  
 
     const usuariosRepository = AppDataSource.getRepository(Usuarios)
-    let userX
+    let forReturn
     let x:any[] = []
     let arr:any[] = []
 
@@ -40,7 +40,8 @@ const vocalizacaoTemsService = async (data:any) => {
             
             if(x.length > 0){  
                 if(user.datas.length > 0){              
-                    arr.push(userX = {
+                    arr.push(forReturn = {
+                        alarme: data,
                         plantonista: instanceToPlain(user), 
                         dadosVoc: groupsSelected.dados_vocalizacao.filter((voc:any) => voc.id_plantonista === user.id)
                     })
@@ -51,7 +52,7 @@ const vocalizacaoTemsService = async (data:any) => {
         })
     } 
 
-    if(userX !== undefined){
+    if(forReturn !== undefined){
         if(arr.length === 1){
             const callFunc = await callTemsService(arr[0]) 
             return callFunc            
