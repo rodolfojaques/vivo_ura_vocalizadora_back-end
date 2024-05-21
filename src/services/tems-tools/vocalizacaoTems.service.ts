@@ -3,9 +3,11 @@ import { AppDataSource } from "../../data-source";
 import { Usuarios } from "../../entities/usuarios.entity";
 import callTemsService from "./callTems.service"
 import matchGroupAlarmeService from "./matchGroupAlarm.service"
+import createAlarmesHistoryTemsService from "../alarmesHistoryTems/createAlarmesHistoryTems.service";
 
 const vocalizacaoTemsService = async (data:any) => {
     const groupsSelected = await matchGroupAlarmeService(data)
+    const alarme = await createAlarmesHistoryTemsService(data)
 
     const dt = new Date();
     const ano = dt.getFullYear();
@@ -41,7 +43,7 @@ const vocalizacaoTemsService = async (data:any) => {
             if(x.length > 0){  
                 if(user.datas.length > 0){              
                     arr.push(forReturn = {
-                        alarme: data,
+                        alarme: alarme,
                         plantonista: instanceToPlain(user), 
                         dadosVoc: groupsSelected.dados_vocalizacao.filter((voc:any) => voc.id_plantonista === user.id)
                     })
