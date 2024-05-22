@@ -87,9 +87,9 @@ const callTemsService = async (data:any) => {
             } else {              
       
               const newData = vocalizacaoHistoryTemsRepository.create({
-              contact_id: data.dadosVoc.id_grupo_atuacao,
-              plantonista: data.dadosVoc.gerente1,
-              phone: data.dadosVoc.contato_ger1,
+              contact_id: data.dadosVoc[0].id_grupo_atuacao,
+              plantonista: data.dadosVoc[0].nome_gerente1,
+              phone: data.dadosVoc[0].contato_ger1,
               alarme: alarme,
               });
       
@@ -98,7 +98,7 @@ const callTemsService = async (data:any) => {
               const output = {
                 contacts: [
                   {
-                  name: data.dadosVoc.gerente1,
+                  name: data.dadosVoc.nome_gerente1,
                   code: newData.code.toString(),
                   phones: [data.dadosVoc.contato_ger1],                    
                   ALARME: data.alarme.persistent_tipoAlarme,
@@ -143,9 +143,9 @@ const callTemsService = async (data:any) => {
                 } else {
                       
                   const newData = vocalizacaoHistoryTemsRepository.create({
-                    contact_id: data.dadosVoc.id_grupo_atuacao,
-                    plantonista: data.dadosVoc.gerente2,
-                    phone: data.dadosVoc.contato_ger2,
+                    contact_id: data.dadosVoc[0].id_grupo_atuacao,
+                    plantonista: data.dadosVoc[0].nome_gerente2,
+                    phone: data.dadosVoc[0].contato_ger2,
                     alarme: alarme,
                   });
         
@@ -154,7 +154,7 @@ const callTemsService = async (data:any) => {
                   const output = {
                     contacts: [
                       {
-                        name: data.dadosVoc.gerente2,
+                        name: data.dadosVoc.nome_gerente2,
                         code: newData.code.toString(),
                         phones: [data.dadosVoc.contato_ger2],                      
                         ALARME: data.alarme.persistent_tipoAlarme,
@@ -199,21 +199,21 @@ const callTemsService = async (data:any) => {
                     console.log("Gerente2 não atendeu", " code: ", monitorando);
                     console.log();
                     console.log("não atendido");
-                  }, 320000);
+                  }, 20000);
                 }
                 console.log("acabou o tempo");
                 console.log();
                 console.log("Gerente1 não atendeu", " code: ", monitorando);
                 console.log();
                 console.log("proximo contado");
-                }, 320000);
+                }, 20000);
             }
             console.log("acabou o tempo");
             console.log();
             console.log("plantonista não atendeu", " code: ", monitorando);
             console.log();
             console.log("proximo contado");
-          }, 320000);    
+          }, 20000);    
         };  
       
         if(!data.dadosVoc || !data.plantonista){
@@ -265,7 +265,7 @@ const callTemsService = async (data:any) => {
         }
 
         
-        return alarme
+        return data
             
     } catch (error) {
         console.log("callTemsService_error: ", error)
