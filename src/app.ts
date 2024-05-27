@@ -10,6 +10,7 @@ import clearRoutine from "./utils/clearRoutine"
 import inputFilterTemsService from "./services/tems-tools/inputFilterTems.service"
 import matchGroupAlarmeService from "./services/tems-tools/matchGroupAlarm.service"
 import vocalizacaoTemsService from "./services/tems-tools/vocalizacaoTems.service"
+import arr from "../work"
 
 const app = express()
 app.use(cors())
@@ -45,6 +46,10 @@ app.post("/teste-voc-plantonista", async(req:Request, res:Response) =>{
     const data = req.body
     const teste = await vocalizacaoTemsService(data)
     return res.json(teste)
+})
+
+app.get("/work-exemple", (req:Request, res:Response) =>{
+    return res.json({response: arr})
 })
 
 export default app
