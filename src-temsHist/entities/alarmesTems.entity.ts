@@ -399,6 +399,9 @@ export class AlarmesHistoryTems {
   
   @Column({ nullable: true })
   uuid:string
+  
+  @Column({ default: false})
+  vocalizado:boolean
 
   @OneToMany(() => VocalizacaoHistoryTems, (alarme)=> alarme.alarme)
   vocsHist: VocalizacaoHistoryTems[];
