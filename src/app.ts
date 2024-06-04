@@ -14,6 +14,7 @@ import arr from "../work"
 import { AppDataSource } from "./data-source"
 import { GeradorUniqueCodePocSmartoss } from "./entities/gerador-unique-code-poc-smartoss.entity"
 import axios from "axios"
+import awaitAndPersistenceSevice from "./services/tems-tools/awaitAndPersistence.service"
 
 const app = express()
 app.use(cors())
@@ -44,12 +45,12 @@ cron.schedule('* 3 * * *', () => {
 //     return res.json(teste)
 // })
 
-// // DESCOMENTAR PARA TESTAR FILTRO (body = alarme TEMS conforme vem do kafka)
-// app.post("/teste-voc-plantonista", async(req:Request, res:Response) =>{
-//     const data = req.body
-//     const teste = await vocalizacaoTemsService(data)
-//     return res.json(teste)
-// })
+// DESCOMENTAR PARA TESTAR FILTRO (body = alarme TEMS conforme vem do kafka)
+app.post("/teste-voc-plantonista", async(req:Request, res:Response) =>{
+    const data = req.body
+    const teste = await awaitAndPersistenceSevice(data)
+    return res.json(teste)
+})
 
 // POC SMARTOSS
 // app.get("/work-exemple", (req:Request, res:Response) =>{

@@ -30,7 +30,7 @@ export class VocalizacaoHistoryTems {
   @Column({ type: "bigint", unsigned: true, generated: "increment" })
   code: number;
 
-  @ManyToOne(() => AlarmesHistoryTems, (vocHist)=> vocHist.vocsHist, { eager: true })
+  @ManyToOne(() => AlarmesHistoryTems, (vocHist)=> vocHist.vocsHist, {onDelete: "CASCADE", eager: true })
   alarme: AlarmesHistoryTems;
 
   @CreateDateColumn()

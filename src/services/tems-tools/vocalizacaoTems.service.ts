@@ -3,11 +3,10 @@ import { AppDataSource } from "../../data-source";
 import { Usuarios } from "../../entities/usuarios.entity";
 import callTemsService from "./callTems.service"
 import matchGroupAlarmeService from "./matchGroupAlarm.service"
-import createAlarmesHistoryTemsService from "../alarmesHistoryTems/createAlarmesHistoryTems.service";
 
 const vocalizacaoTemsService = async (data:any) => {
-    const groupsSelected = await matchGroupAlarmeService(data)
-    const alarme = await createAlarmesHistoryTemsService(data)
+    const groupsSelected = await matchGroupAlarmeService(data.origin)
+    const alarme = data.alarmeCreated
 
     const dt = new Date();
     const ano = dt.getFullYear();
