@@ -64,6 +64,13 @@ const vocalizacaoTemsService = async (data:any) => {
         const callFunc = await callTemsService(arr[random])        
         
         return callFunc
+    } else {
+        
+        const callFunc = await callTemsService({
+            alarme: alarme,
+        })
+
+        return callFunc
     }
 }
 

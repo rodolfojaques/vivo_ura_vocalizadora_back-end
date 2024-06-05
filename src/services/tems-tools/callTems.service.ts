@@ -227,7 +227,7 @@ const callTemsService = async (data:any) => {
       
           await vocalizacaoHistoryTemsRepository.save(newData);
       
-          return
+          return data
       
         } else if(data.plantonista.emChamada){   
           const emEspDefault = data.plantonista.emEspera +1

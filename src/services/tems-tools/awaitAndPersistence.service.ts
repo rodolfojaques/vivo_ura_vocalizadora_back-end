@@ -1,10 +1,12 @@
 import { AlarmesHistoryTems } from "../../../src-temsHist/entities/alarmesTems.entity"
 import { AppDataSourceTemsHistory } from "../../data-source"
 import createAlarmesHistoryTemsService from "../alarmesHistoryTems/createAlarmesHistoryTems.service"
+import inputFilterTemsService from "./inputFilterTems.service"
 import vocalizacaoTemsService from "./vocalizacaoTems.service"
 
 const awaitAndPersistenceSevice = async (data:any) => {
     const alarmeRepository = AppDataSourceTemsHistory.getRepository(AlarmesHistoryTems)
+    const filterIn = await inputFilterTemsService(data)
 
     const {
         identifier,
@@ -12,7 +14,7 @@ const awaitAndPersistenceSevice = async (data:any) => {
         severity
     } = data
 
-    if(!!data){
+    if(!!data && filterIn){
         const exists = await alarmeRepository.query(`
             SELECT * FROM alarmes_history_tems 
             WHERE $1::text = "identifier"
@@ -40,16 +42,22 @@ const awaitAndPersistenceSevice = async (data:any) => {
                         alarmeCreated: dataExists
                     })
 
+                    console.log(vocInit)
                     return vocInit
                 }
 
                 console.log("Alarme já foi solucionado ou não existe mais.") 
-                return {message: "Alarme já foi solucionado ou não existe mais."}
-
+                return {
+                    message: "Alarme já foi solucionado ou não existe mais.",
+                    alarme: newData
+                }
             }, 15000);
 
             console.log("Alarme criado e aguardando vocalização.")
-            return {message: "Alarme criado e aguardando vocalização."}
+            return {
+                message: "Alarme criado e aguardando vocalização.",
+                alarme: newData
+            }
         }
 
         if(itsClear.length > 0){
@@ -68,6 +76,11 @@ const awaitAndPersistenceSevice = async (data:any) => {
             return {message: "Alarme já existe e está aguardando vocalização."}
         }
         
+    }
+
+    if(!filterIn){
+        console.log("Não existe um filtro de entrada TEMS criado para este alarme.")
+        return {message: "Não existe um filtro de entrada TEMS criado para este alarme."}
     }
 
     console.log("Alarme com formato inválido para aplicação de regras de vocalização.")
