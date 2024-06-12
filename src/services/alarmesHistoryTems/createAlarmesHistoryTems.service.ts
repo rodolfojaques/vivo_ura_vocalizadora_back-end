@@ -46,6 +46,7 @@ const createAlarmesHistoryTemsService = async (data: any) => {
   persistent_nodePUR: data.persistent.nodePUR,
   persistent_dataFalha: data.persistent.dataFalha,
   persistent_frontPersistence: data.persistent.frontPersistence,
+  persistent_classificacao: data.persistent.classificacao,
   persistent_tipoTa: data.persistent.tipoTa,
   persistent_impacto: data.persistent.impacto,
   persistent_tipoAlarme: data.persistent.tipoAlarme,

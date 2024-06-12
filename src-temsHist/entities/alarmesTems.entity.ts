@@ -211,6 +211,9 @@ export class AlarmesHistoryTems {
   persistent_frontProblemCause:string
   
   @Column({ nullable: true })
+  persistent_classificacao:string
+  
+  @Column({ nullable: true })
   persistent_nodeAliasInfraPrioridade:string
   
   @Column({ nullable: true })

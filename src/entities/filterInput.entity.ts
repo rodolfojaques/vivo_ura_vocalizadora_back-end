@@ -13,9 +13,12 @@ export class FilterInput {
   specificProblem: string;
 
   @Column({nullable:true})
+  frontSpecificProblem: string;
+
+  @Column({nullable:true})
   manager: string;
 
-  @Column({default:1})
+  @Column({nullable:true})
   severity: number;
 
   // @ManyToMany(()=> GruposAlarmesTems, {eager:true})

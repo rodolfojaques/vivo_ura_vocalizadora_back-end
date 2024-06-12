@@ -32,11 +32,11 @@ cron.schedule('* 3 * * *', () => {
 })
 
 // DESCOMENTAR PARA TESTAR FILTRO (body = alarme TEMS conforme vem do kafka)
-// app.post("/teste-filter", async(req:Request, res:Response) =>{
-//     const data = req.body
-//     const teste = await inputFilterTemsService(data)
-//     return res.json({value:teste})
-// })
+app.post("/teste-filter", async(req:Request, res:Response) =>{
+    const data = req.body
+    const teste = await inputFilterTemsService(data)
+    return res.json({value:teste})
+})
 
 // DESCOMENTAR PARA TESTAR FILTRO (body = alarme TEMS conforme vem do kafka)
 // app.post("/teste-match-group", async(req:Request, res:Response) =>{
