@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from "typeorm";
 import { VocalizacaoHistoryTems } from "./vocalizacaoTems.history.entity";
 
 @Entity()
@@ -378,6 +378,9 @@ export class AlarmesHistoryTems {
   
   @Column({ nullable: true })
   firstSeen:string
+  
+  @CreateDateColumn()
+  alarmInURA:Date
   
   @Column({ nullable: true })
   idRulePolicy:number
