@@ -31,6 +31,7 @@ const awaitAndPersistenceSevice = async (data:any) => {
 
         if(exists.length === 0 && itsClear.length === 0 && data.severity !== 0){
             const newData:any = await createAlarmesHistoryTemsService(data)
+            const timeout = (Number(newData.persistent_frontPersistence) * 1000)            
 
             setTimeout(async() => {
                 const dataExists = await alarmeRepository.findOneBy({id: newData.id})
@@ -51,7 +52,7 @@ const awaitAndPersistenceSevice = async (data:any) => {
                     message: "Alarme já foi solucionado ou não existe mais.",
                     alarme: newData
                 }
-            }, 15000);
+            }, timeout);
 
             console.log("Alarme criado e aguardando vocalização.")
             return {

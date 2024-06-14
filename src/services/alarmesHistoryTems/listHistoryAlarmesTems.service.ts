@@ -1,11 +1,9 @@
 import { AlarmesHistoryTems } from "../../../src-temsHist/entities/alarmesTems.entity";
 import { AppDataSourceTemsHistory } from "../../data-source";
 
-const listAlarmesHistoryTemsService = async (data: any,page:number,size:number) => {// devolver quando virar post =>  
+const listAlarmesHistoryTemsService = async (data: any,page:number,size:number) => { 
   const limit = size || 10;
   const offset = page === 0 ? 0 : (page - 1) * limit;
-  console.log("entrou em list alarmes");
-
 
   const {
     frontTypeTa,
@@ -42,15 +40,14 @@ const listAlarmesHistoryTemsService = async (data: any,page:number,size:number) 
       return null
     }
   }
-  console.log("ultimos", ULTIMOS(ULTIMOS_EM))
 
   const query = `SELECT * FROM alarmes_history_tems 
-                 WHERE ($1::text IS NULL OR "persistent_frontTypeTa" = $1::text)
-                 AND ($2::text IS NULL OR "persistent_frontNetworkType" = $2::text)
+                 WHERE ($1::text IS NULL OR "persistent_frontTypeTa" ILIKE $1::text)
+                 AND ($2::text IS NULL OR "persistent_frontNetworkType" ILIKE $2::text)
                  AND ($3::text IS NULL OR "persistent_estadoSigla" = $3::text)
-                 AND ($4::text IS NULL OR "persistent_frontPlantType" = $4::text)
+                 AND ($4::text IS NULL OR "persistent_frontPlantType" ILIKE $4::text)
                  AND ($5::text IS NULL OR "persistent_specificProblem" = $5::text OR "persistent_frontSpecificProblem" = $5::text)
-                 AND ($6::text IS NULL OR "persistent_frontAlarmId" = $6::text)
+                 AND ($6::text IS NULL OR "persistent_frontAlarmId" ILIKE $6::text)
                  AND ($7::integer IS NULL OR "severity" = $7::integer)
                  AND ($8::timestamp IS NULL AND $9::timestamp IS NULL OR ("alarmInURA" BETWEEN $8::timestamp AND $9::timestamp))
                  AND ($10::interval IS NULL OR "alarmInURA" >= NOW() - interval '360 minute' - $10::interval) 
@@ -60,12 +57,12 @@ const listAlarmesHistoryTemsService = async (data: any,page:number,size:number) 
   ;
 
   const queryCount = `SELECT * FROM alarmes_history_tems 
-                 WHERE ($1::text IS NULL OR "persistent_frontTypeTa" = $1::text)
-                 AND ($2::text IS NULL OR "persistent_frontNetworkType" = $2::text)
+                 WHERE ($1::text IS NULL OR "persistent_frontTypeTa" ILIKE $1::text)
+                 AND ($2::text IS NULL OR "persistent_frontNetworkType" ILIKE $2::text)
                  AND ($3::text IS NULL OR "persistent_estadoSigla" = $3::text)
-                 AND ($4::text IS NULL OR "persistent_frontPlantType" = $4::text)
+                 AND ($4::text IS NULL OR "persistent_frontPlantType" ILIKE $4::text)
                  AND ($5::text IS NULL OR "persistent_specificProblem" = $5::text OR "persistent_frontSpecificProblem" = $5::text)
-                 AND ($6::text IS NULL OR "persistent_frontAlarmId" = $6::text)
+                 AND ($6::text IS NULL OR "persistent_frontAlarmId" ILIKE $6::text)
                  AND ($7::integer IS NULL OR "severity" = $7::integer)
                  AND ($8::timestamp IS NULL AND $9::timestamp IS NULL OR ("alarmInURA" BETWEEN $8::timestamp AND $9::timestamp))
                  AND ($10::interval IS NULL OR "alarmInURA" >= NOW() - interval '360 minute' - $10::interval)
