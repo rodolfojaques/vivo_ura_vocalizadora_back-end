@@ -1,6 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm";
 import { Usuarios } from "./usuarios.entity";
-import { GruposAlarmes } from "./gruposAlarmes.entity";
 
 @Entity()
 export class GruposAtuacao {

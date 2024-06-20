@@ -1,6 +1,5 @@
 import { AppDataSource } from "../../data-source";
 import { GruposAlarmes } from "../../entities/gruposAlarmes.entity";
-import { GruposAtuacao } from "../../entities/gruposAtuacao.entity";
 import { AppError } from "../../error/appError";
 
 const updateGrupoAlarmesService = async (id: number, data: any) => {

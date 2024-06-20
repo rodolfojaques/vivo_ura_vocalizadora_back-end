@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable } from "typeorm";
-import { GruposAlarmesTems } from "./gruposAlarmesTems.entity";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
 export class FilterInput {
@@ -19,9 +18,5 @@ export class FilterInput {
   manager: string;
 
   @Column({nullable:true})
-  severity: number;
-
-  // @ManyToMany(()=> GruposAlarmesTems, {eager:true})
-  // @JoinTable()
-  // gruposAlarmesTems: GruposAlarmesTems[];
+  classificacao: string;
 }

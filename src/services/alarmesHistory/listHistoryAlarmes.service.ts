@@ -4,8 +4,6 @@ import { AppDataSourceHistory } from "../../data-source";
 const listAlarmesHistoryService = async (data: any, page:number,pageSize:number) => {
   const limit = pageSize || 10;
   const offset = page === 0 ? 0 : (page - 1) * limit;
-  console.log("entrou em list alarmes");
-
 
   const {
     TIPO_TA,
@@ -42,7 +40,6 @@ const listAlarmesHistoryService = async (data: any, page:number,pageSize:number)
       return null
     }
   }
-  console.log("ultimos", ULTIMOS(ULTIMOS_EM))
 
   const query = `SELECT * FROM alarmes_history 
                  WHERE ($1::text IS NULL OR "TIPO_TA" = $1::text)

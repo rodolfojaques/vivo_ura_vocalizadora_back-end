@@ -13,7 +13,6 @@ import vocalizacaoTemsService from "./services/tems-tools/vocalizacaoTems.servic
 import arr from "../work"
 import { AppDataSource } from "./data-source"
 import { GeradorUniqueCodePocSmartoss } from "./entities/gerador-unique-code-poc-smartoss.entity"
-import axios from "axios"
 import awaitAndPersistenceSevice from "./services/tems-tools/awaitAndPersistence.service"
 
 const app = express()

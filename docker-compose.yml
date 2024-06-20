@@ -13,13 +13,13 @@ services:
       - DB_USER=ura@dev
       - DB_PASSWORD=1234
       - DB_NAME=ura_vocalizadora
-      - DB_NEW_HOST=db_new # Adicione as variáveis de ambiente para o novo banco de dados
+      - DB_NEW_HOST=db_new
       - DB_NEW_USER=ura@history
       - DB_NEW_PASSWORD=1234
       - DB_NEW_NAME=ura_history
     depends_on:
       - db
-      - db_new # Certifique-se de que o aplicativo dependa do novo serviço do banco de dados
+      - db_new
     volumes:
       - ./app:/app
 

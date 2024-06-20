@@ -9,7 +9,7 @@ const inputFilterTemsService = async (data:any) => {
         specificProblem,
         frontSpecificProblem,
         manager,
-        severity,
+        classificacao,
     } = data
 
     const query = `SELECT * FROM filter_input
@@ -17,7 +17,7 @@ const inputFilterTemsService = async (data:any) => {
     AND ($2::text IS NULL OR "specificProblem" IS NULL OR "specificProblem" = $2::text)
     AND ($3::text IS NULL OR "frontSpecificProblem" IS NULL OR "frontSpecificProblem" = $3::text)
     AND ($4::text IS NULL OR "manager" IS NULL OR "manager" = $4::text)
-    AND ($5::integer IS NULL OR "severity" IS NULL OR "severity" = $5::integer)
+    AND ($5::text IS NULL OR "classificacao" IS NULL OR "classificacao" ILIKE '%' || $5::text || '%')
     `;
 
     const totalItems = await filtersRepository.query(query, [
@@ -25,7 +25,7 @@ const inputFilterTemsService = async (data:any) => {
         specificProblem,
         frontSpecificProblem,
         manager,
-        severity,
+        classificacao,
     ]);
     
     

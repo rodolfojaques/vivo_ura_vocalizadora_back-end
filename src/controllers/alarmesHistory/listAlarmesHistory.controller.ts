@@ -6,7 +6,6 @@ const listAlarmesHistoryController = async (req: Request, res: Response) => {
   const page = req.query.page || "1";
   const size = req.query.size || "20";
   
-  const {...queryParams} = req.query
   try {
     const result = await listAlarmesHistoryService(req.body,Number(page),Number(size));
 

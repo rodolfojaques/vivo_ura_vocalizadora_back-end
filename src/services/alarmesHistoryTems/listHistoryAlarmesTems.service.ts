@@ -12,7 +12,7 @@ const listAlarmesHistoryTemsService = async (data: any,page:number,size:number) 
     frontPlantType,
     specificProblem,
     frontAlarmId,
-    severity,
+    classificacao,
     DATA_INICIO,
     DATA_FIM,
     ULTIMOS_EM
@@ -48,7 +48,7 @@ const listAlarmesHistoryTemsService = async (data: any,page:number,size:number) 
                  AND ($4::text IS NULL OR "persistent_frontPlantType" ILIKE $4::text)
                  AND ($5::text IS NULL OR "persistent_specificProblem" = $5::text OR "persistent_frontSpecificProblem" = $5::text)
                  AND ($6::text IS NULL OR "persistent_frontAlarmId" ILIKE $6::text)
-                 AND ($7::integer IS NULL OR "severity" = $7::integer)
+                 AND ($7::text IS NULL OR $7::text ILIKE '%' || "persistent_classificacao" || '%')
                  AND ($8::timestamp IS NULL AND $9::timestamp IS NULL OR ("alarmInURA" BETWEEN $8::timestamp AND $9::timestamp))
                  AND ($10::interval IS NULL OR "alarmInURA" >= NOW() - interval '360 minute' - $10::interval) 
                  ORDER BY "id" DESC
@@ -63,7 +63,7 @@ const listAlarmesHistoryTemsService = async (data: any,page:number,size:number) 
                  AND ($4::text IS NULL OR "persistent_frontPlantType" ILIKE $4::text)
                  AND ($5::text IS NULL OR "persistent_specificProblem" = $5::text OR "persistent_frontSpecificProblem" = $5::text)
                  AND ($6::text IS NULL OR "persistent_frontAlarmId" ILIKE $6::text)
-                 AND ($7::integer IS NULL OR "severity" = $7::integer)
+                 AND ($7::text IS NULL OR $7::text ILIKE '%' || "persistent_classificacao" || '%')
                  AND ($8::timestamp IS NULL AND $9::timestamp IS NULL OR ("alarmInURA" BETWEEN $8::timestamp AND $9::timestamp))
                  AND ($10::interval IS NULL OR "alarmInURA" >= NOW() - interval '360 minute' - $10::interval)
                  `;
@@ -76,7 +76,7 @@ const listAlarmesHistoryTemsService = async (data: any,page:number,size:number) 
     frontPlantType,
     specificProblem,
     frontAlarmId,
-    severity,
+    classificacao,
     DATA_INICIO,
     DATA_FIM,
     ULTIMOS(ULTIMOS_EM)
@@ -90,7 +90,7 @@ const listAlarmesHistoryTemsService = async (data: any,page:number,size:number) 
     frontPlantType,
     specificProblem,
     frontAlarmId,
-    severity,
+    classificacao,
     DATA_INICIO,
     DATA_FIM,
     ULTIMOS(ULTIMOS_EM),

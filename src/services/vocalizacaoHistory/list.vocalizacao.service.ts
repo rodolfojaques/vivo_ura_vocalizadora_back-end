@@ -2,9 +2,6 @@ import { VocalizacaoHistory } from "../../../src-new/entities/vocalizacao.histor
 import { AppDataSourceHistory } from "../../data-source";
 
 const listVocalizacaoHistoryService = async (page:number,size:number) => {
-  const limit = size;
-  const offset = page === 0 ? 0 : (page - 1) * limit;
-  const endIndex = offset + size;
 
   const vocalizacaoRepository = AppDataSourceHistory.getRepository(VocalizacaoHistory);
 

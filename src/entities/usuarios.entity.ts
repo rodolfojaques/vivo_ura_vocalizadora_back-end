@@ -1,6 +1,5 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 
-import { GruposAtuacao } from "./gruposAtuacao.entity"
 import { Datas } from "./datas.entity"
 import { hashSync } from "bcrypt"
 import { Exclude } from "class-transformer"

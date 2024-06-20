@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { TipoAlarme } from "./tipoAlarme.entity";
 import { GruposAtuacao } from "./gruposAtuacao.entity";
 

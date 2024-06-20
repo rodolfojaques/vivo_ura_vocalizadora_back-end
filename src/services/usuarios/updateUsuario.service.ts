@@ -1,9 +1,7 @@
 import { hash } from "bcrypt";
 import { AppDataSource } from "../../data-source";
 import { Usuarios } from "../../entities/usuarios.entity";
-// import { IUsuarioUpdate } from "../../interfaces/usuarios";
 import { AppError } from "../../error/appError";
-import { GruposAtuacao } from "../../entities/gruposAtuacao.entity";
 
 const updateUsuarioService = async (id: number, data: any) => {
   const usuariosRepository = AppDataSource.getRepository(Usuarios);
