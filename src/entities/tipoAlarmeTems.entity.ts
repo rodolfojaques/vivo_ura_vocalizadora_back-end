@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { GruposAlarmesTems } from "./gruposAlarmesTems.entity";
 
-
 @Entity()
 export class TipoAlarmeTems {
   @PrimaryGeneratedColumn()
@@ -13,20 +12,20 @@ export class TipoAlarmeTems {
   @Column({nullable:true})
   specificProblem: string;
 
-  @Column({nullable:true})
-  tipoDeAlarme: string;
+  // @Column({nullable:true})
+  // tipoDeAlarme: string;
 
   @Column({nullable:true})
-  tipoRede: string;
+  frontNetworkType: string;
 
   @Column({nullable:true})
-  tipoTA: string;
+  frontTypeTa: string;
 
   @Column({nullable:true})
-  tipoPlanta: string;
+  frontPlantType: string;
 
   @Column({nullable:true})
-  tipoFalha: string;
+  frontTypeFailure: string;
   
   @Column({nullable:true})
   manager: string;
