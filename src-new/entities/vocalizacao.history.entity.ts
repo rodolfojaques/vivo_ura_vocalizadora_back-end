@@ -2,15 +2,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
-  JoinColumn,
-  OneToOne,
-  AfterInsert,
-  BeforeInsert,
   ManyToOne,
 } from "typeorm";
 import { AlarmesHistory } from "./alarmes.entity";
-import { AppDataSourceHistory } from "../../src/data-source";
 
 @Entity()
 export class VocalizacaoHistory {
@@ -29,7 +23,7 @@ export class VocalizacaoHistory {
   @Column({ type: "bigint", unsigned: true, generated: "increment" })
   code: number;
 
-  @ManyToOne(() => AlarmesHistory, (vocHist)=> vocHist.vocsHist, { eager: true })
+  @ManyToOne(() => AlarmesHistory, (vocHist)=> vocHist.vocsHist,  {onDelete: "CASCADE", eager: true })
   alarme: AlarmesHistory;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })

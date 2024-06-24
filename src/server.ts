@@ -1,8 +1,10 @@
 import testConected from "../testeConect";
 import app from "./app";
-import { AppDataSource, AppDataSourceHistory, AppDataSourceTemsHistory } from "./data-source";
 import createAlarmesHistoryTemsService from "./services/alarmesHistoryTems/createAlarmesHistoryTems.service";
 import catchAlarmKafka from "./utils/consumerKafka";
+
+import { AppDataSource, AppDataSourceHistory, AppDataSourceTemsHistory } from "./data-source";
+import clearRoutine from "./utils/clearRoutine";
 
 (async () => {
   await AppDataSource.initialize().catch((err) => {
@@ -22,4 +24,6 @@ import catchAlarmKafka from "./utils/consumerKafka";
   });
   
   // catchAlarmKafka() // ATIVA CONSUMER
+
+  clearRoutine()
 })();
