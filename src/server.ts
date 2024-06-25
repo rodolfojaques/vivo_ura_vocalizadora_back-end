@@ -21,9 +21,6 @@ import clearRoutine from "./utils/clearRoutine";
 
   app.listen(3000, () => {
     console.log("Servidor executando");
-  });
-  
-  // catchAlarmKafka() // ATIVA CONSUMER
-
-  clearRoutine()
+    });
+    
 })();
