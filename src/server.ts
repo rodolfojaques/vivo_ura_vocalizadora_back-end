@@ -1,10 +1,7 @@
-import testConected from "../testeConect";
 import app from "./app";
-import createAlarmesHistoryTemsService from "./services/alarmesHistoryTems/createAlarmesHistoryTems.service";
-import catchAlarmKafka from "./utils/consumerKafka";
 
 import { AppDataSource, AppDataSourceHistory, AppDataSourceTemsHistory } from "./data-source";
-import clearRoutine from "./utils/clearRoutine";
+import catchAlarmKafka from "./services/tems-tools/consumerKafkaTems.service";
 
 (async () => {
   await AppDataSource.initialize().catch((err) => {
@@ -21,6 +18,11 @@ import clearRoutine from "./utils/clearRoutine";
 
   app.listen(3000, () => {
     console.log("Servidor executando");
-    });
+  });
+
+  /**
+   * DESCOMENTAR PARA ativar consumo de alarmes TEMS
+   */
+  // if(AppDataSourceTemsHistory.isInitialized) await catchAlarmKafka()
     
 })();
