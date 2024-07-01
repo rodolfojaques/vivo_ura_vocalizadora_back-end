@@ -18,9 +18,9 @@ const vocalizacaoService = async (data: any) => {
         
         if(hora >= 7 && hora < 15){
             return "t1"
-        } else if(hora >= 15 && hora < 22){
+        } else if(hora >= 15 && hora < 23){
             return "t2"
-        } else if(hora >= 22){
+        } else if(hora >= 23){
             return "t3"
         }
     }    

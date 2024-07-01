@@ -15,6 +15,13 @@ import { AppDataSource } from "./data-source"
 import { GeradorUniqueCodePocSmartoss } from "./entities/gerador-unique-code-poc-smartoss.entity"
 import awaitAndPersistenceSevice from "./services/tems-tools/awaitAndPersistence.service"
 
+
+import multer from 'multer';
+import csv from 'csv-parser';
+import fs from 'fs';
+import { GruposAlarmes } from "./entities/gruposAlarmes.entity"
+import { TipoAlarme } from "./entities/tipoAlarme.entity"
+
 const app = express()
 app.use(cors())
 
@@ -49,6 +56,76 @@ app.post("/teste-voc-plantonista", async(req:Request, res:Response) =>{
     const data = req.body
     const teste = await awaitAndPersistenceSevice(data)
     return res.json(teste)
+})
+
+/**
+ * 
+ * CONTINUAR A PARTIR DAQUI / CORRIGIR FOREACH ABAIXO
+ */
+
+const upload = multer({ dest: 'uploads/' })
+
+app.post('/carga-massiva-sg', upload.single('file'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).send('Nenhum arquivo enviado.')
+        }
+
+        const gpAlmRepo = AppDataSource.getRepository(GruposAlarmes)
+        const tpAlmRepo = AppDataSource.getRepository(TipoAlarme)
+
+        const filePath = req.file.path
+
+        const results:any = []
+        fs.createReadStream(filePath)
+            .pipe(csv())
+            .on('data', (data) => results.push(data))
+            .on('end', async () => {
+                await results.forEach(async (el:any) => {
+                    const elName = el.NOME_GRUPO
+                    const grupos = await gpAlmRepo.find()
+                    let gpExist;
+
+                    for(let i = 0; i < grupos.length; i++){
+                        if(grupos[i].nomeGrupo === elName){
+                            gpExist = grupos[i]
+                        }
+                    }
+
+                    if(!gpExist){
+                        const newGp = gpAlmRepo.create({nomeGrupo:elName})
+                        await gpAlmRepo.save(newGp)
+
+                        const newTp = tpAlmRepo.create({
+                            uf:el.UF,
+                            site:el.SITE,
+                            tipoAlarme:el.TIPO_ALARME,
+                            classificacao:el.CLASSIFICACAO,
+                            localidade:el.LOCALIDADE,
+                            grupoAlarme:newGp
+                        })
+                        await tpAlmRepo.save({...newTp, grupoAlarme:newGp})
+                    } else {
+                        const newTp = tpAlmRepo.create({
+                            uf:el.UF,
+                            site:el.SITE,
+                            tipoAlarme:el.TIPO_ALARME,
+                            classificacao:el.CLASSIFICACAO,
+                            localidade:el.LOCALIDADE,
+                            grupoAlarme:gpExist
+                        })
+                        await tpAlmRepo.save({...newTp, grupoAlarme:gpExist})
+                    }                
+                })
+
+                console.log(results);
+                res.json({message:'Arquivo processado com sucesso.', results:results})
+            })        
+    } catch (error) {
+        if(error instanceof Error){
+            return res.status(500).json({message:error.message})
+        }        
+    }
 })
 
 export default app
