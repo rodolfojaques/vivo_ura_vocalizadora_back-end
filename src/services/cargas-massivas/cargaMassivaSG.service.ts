@@ -1,26 +1,76 @@
-// import app from '../../app';
-// import multer from 'multer';
-// import csv from 'csv-parser';
-// import fs from 'fs';
+import { AppDataSource } from "../../data-source"
+import { GruposAlarmes } from "../../entities/gruposAlarmes.entity"
+import { TipoAlarme } from "../../entities/tipoAlarme.entity"
+import { AppError } from "../../error/appError"
 
-// // Configuração do multer
-// const upload = multer({ dest: 'uploads/' })
+import csv from 'csv-parser';
+import fs from 'fs';
+import { unlink } from 'fs/promises'
+import getOrCreateGrupoAlarmesService from "../gruposAlarmes/getOrCreateGrupoAlarmes.service"
 
-// app.post('/carga-massiva-sg', upload.single('file'), (req, res) => {
-//     if (!req.file) {
-//         return res.status(400).send('Nenhum arquivo enviado.')
-//     }
+const cargaMassivaSg = async (req:any) => {
+    try {
+        if (!req.file) {
+            throw new AppError(400, 'Nenhum arquivo enviado.')
+        }
 
-//     const filePath = req.file.path
+        const gpAlmRepo = AppDataSource.getRepository(GruposAlarmes)
+        const tpAlmRepo = AppDataSource.getRepository(TipoAlarme)
 
-//     // Ler o arquivo .csv
-//     const results:any = []
-//     fs.createReadStream(filePath)
-//         .pipe(csv())
-//         .on('data', (data) => results.push(data))
-//         .on('end', () => {
-//             // Aqui você pode tomar as ações necessárias sobre o conteúdo do arquivo
-//             console.log(results);
-//             res.send('Arquivo processado com sucesso.')
-//         })
-// })
+        const grupos = await gpAlmRepo.find()
+        const nameGrupos = grupos.map((el) => el.nomeGrupo)
+
+        const filePath = req.file.path
+
+        const results:any = []
+        fs.createReadStream(filePath)
+            .pipe(csv())
+            .on('data', (data) => results.push(data))
+            .on('end', async () => {
+                await results.forEach(async (el:any) => {
+                    if(!nameGrupos.includes(el.NOME_GRUPO)){
+                        
+                        console.log("antes:",nameGrupos);
+                        nameGrupos.push(el.NOME_GRUPO)                        
+                        console.log("depois:",nameGrupos);
+
+                        await getOrCreateGrupoAlarmesService(el) 
+                    }
+                })
+
+                setTimeout(async() => {
+                    await results.forEach(async (el:any) => {
+                        const grupo = await gpAlmRepo.findOneBy({nomeGrupo:el.NOME_GRUPO})
+
+                        if(grupo){
+                            const tp = tpAlmRepo.create({
+                                uf:el.UF,
+                                site:el.SITE,
+                                tipoAlarme:el.TIPO_ALARME,
+                                classificacao:el.CLASSIFICACAO,
+                                localidade:el.LOCALIDADE
+                            })
+
+                            await tpAlmRepo.save({...tp, grupoAlarme:grupo!})                            
+                        }
+                    })   
+                }, 2000);
+
+                try {
+                    await unlink(filePath);
+                    console.log(`Arquivo ${filePath} deletado.`);
+                } catch (error) {
+                    console.error(`Erro ao deletar o arquivo: ${error}`);
+                }
+
+                console.log(results);
+                return({message:'Arquivo processado com sucesso.', results:results})
+            })        
+    } catch (error) {
+        if(error instanceof AppError){
+            throw new AppError(500, error.message)
+        }        
+    }
+}
+
+export default cargaMassivaSg
