@@ -29,10 +29,7 @@ const cargaMassivaSg = async (req:any) => {
             .on('end', async () => {
                 await results.forEach(async (el:any) => {
                     if(!nameGrupos.includes(el.NOME_GRUPO)){
-                        
-                        console.log("antes:",nameGrupos);
-                        nameGrupos.push(el.NOME_GRUPO)                        
-                        console.log("depois:",nameGrupos);
+                        nameGrupos.push(el.NOME_GRUPO)
 
                         await getOrCreateGrupoAlarmesService(el) 
                     }

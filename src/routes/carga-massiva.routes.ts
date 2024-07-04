@@ -1,7 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 import cargaMassivaDLController from "../controllers/cargas-massivas/cargaMassivaDL.controller";
-import cargaMassivaSGController from "../controllers/cargas-massivas/cargaMassivaSg.controller";
+import cargaMassivaSGController from "../controllers/cargas-massivas/cargaMassivaSG.controller";
 
 const upload = multer({ dest: 'uploads/'})
 

@@ -1,5 +1,6 @@
 node_modules
 dist
 yarn.lock
+yarn-error.log
 .env
 ura_backend_v1.tar
