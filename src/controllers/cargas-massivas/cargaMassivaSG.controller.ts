@@ -6,7 +6,7 @@ const cargaMassivaSGController = async (req:Request, res:Response) => {
     try {
         const cargaMassiva = await cargaMassivaSg(req)
 
-        res.status(204).json(cargaMassiva)
+        return res.status(204).json(cargaMassiva)
         
     } catch (error) {
         if(error instanceof AppError){

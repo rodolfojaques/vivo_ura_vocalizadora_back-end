@@ -62,7 +62,6 @@ const cargaMassivaDl = async (req:any) => {
                     console.error(`Erro ao deletar o arquivo: ${error}`);
                 }
 
-                console.log(results);
                 return({message:'Arquivo processado com sucesso.', results:results})
             })        
     } catch (error) {
