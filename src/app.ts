@@ -45,10 +45,10 @@ cron.schedule('* 3 * * *', () => {
 // })
 
 // DESCOMENTAR PARA TESTAR FILTRO (body = alarme TEMS conforme vem do kafka)
-app.post("/teste-voc-plantonista", async(req:Request, res:Response) =>{
-    const data = req.body
-    const teste = await awaitAndPersistenceSevice(data)
-    return res.json(teste)
-})
+// app.post("/teste-voc-plantonista", async(req:Request, res:Response) =>{
+//     const data = req.body
+//     const teste = await awaitAndPersistenceSevice(data)
+//     return res.json(teste)
+// })
 
 export default app
