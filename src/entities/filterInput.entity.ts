@@ -14,9 +14,9 @@ export class FilterInput {
   @Column({nullable:true})
   frontSpecificProblem: string;
 
-  @Column({})
+  @Column({nullable:true})
   manager: string;
 
-  @Column({})
+  @Column({nullable:true})
   classificacao: string;
 }
