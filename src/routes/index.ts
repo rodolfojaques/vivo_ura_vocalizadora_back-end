@@ -13,6 +13,7 @@ import gruposAlarmesTemsRouter from "./gruposAlarmesTems.routes";
 import tiposAlarmesTemsRouter from "./tiposAlarmesTems.routes";
 import filterInputRouter from "./filterInput.routes";
 import cargaMassivaRouter from "./carga-massiva.routes";
+import returnVocalizacaoTemsRouter from "./returnVocalizacaoTems.routes";
 
 export const appRoutes = (app: Express) => {
   app.use("/usuario", usuarioRoutes);
@@ -27,6 +28,7 @@ export const appRoutes = (app: Express) => {
   app.use("/alarmes-tems", alarmesTemsRouter);
   app.use("/history-alarmes", alarmesHistoryRouter);
   app.use("/return-vocalizacao", returnVocalizacaoRouter);
+  app.use("/return-vocalizacao-tems", returnVocalizacaoTemsRouter);
   app.use("/filter-input", filterInputRouter)
   app.use("/carga-massiva", cargaMassivaRouter)
 };
