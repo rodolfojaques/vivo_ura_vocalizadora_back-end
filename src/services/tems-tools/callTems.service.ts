@@ -6,8 +6,19 @@ import { ReturnVocalizacaoTems } from "../../entities/returnVocalizacaoTems.enti
 
 const callTemsService = async (data:any) => {
     try {
-        console.log("callTemsService",data)
         const alarme = data.alarme
+
+        const classificacaoFt:any = {
+          "5": "crítico",
+          "4": "majoritário",
+          "3": "minoritário",
+          "CRITICO": "crítico",
+          "MAJORITARIO": "majoritário",
+          "MINORITARIO": "minoritário",
+          "CRITICAL": "crítico",
+          "MAJOR": "majoritário",
+          "MINOR": "minoritário",
+        }
 
         const dtFormat = new Date(data.alarme.firstSeen)
         const isoFormat = dtFormat.toISOString()
@@ -40,24 +51,24 @@ const callTemsService = async (data:any) => {
                 name: data.plantonista.nome,
                 code: newData.code.toString(),
                 phones: [data.plantonista.tel_cel],            
-                ALARME: data.alarme.persistent_tipoAlarme,
-                SEVERITY: data.alarme.severity,
-                TIPO_PLANTA: data.alarme.persistent_tipoPlanta,
+                ALARME: !!data.alarme.persistent_frontSpecificProblem? data.alarme.persistent_frontSpecificProblem.replaceAll("_","").toLowerCase() : data.alarme.persistent_specificProblem.replaceAll("_","").toLowerCase(),
+                CLASSIFICACAO: data.alarme.persistent_classificacao !== null && classificacaoFt[data.alarme.persistent_classificacao] !== null? classificacaoFt[data.alarme.persistent_classificacao] : 'crítico',
+                TIPO_PLANTA: data.alarme.persistent_frontPlantType,
                 LOCALIDADE: data.alarme.persistent_localidadeSigla,
                 ESTADO: data.alarme.persistent_estadoSigla,
                 TA: data.alarme.persistent_ta !== null? data.alarme.persistent_ta.toString() : 'SEMTA',            
-                TIPO_REDE: data.alarme.persistent_tipoRede,
+                TIPO_REDE: data.alarme.persistent_frontNetworkType,
                 DATA_HORA: dtFormatado,
               },
             ],
           };
           console.log(output);
       
-        //   axios.post("http://186.238.82.229/api/mailing/12/contacts?key=kKoD1X4n", output, {
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //   })
+          axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
       
           const monitorando = output.contacts[0].code;
       
@@ -101,24 +112,24 @@ const callTemsService = async (data:any) => {
                   name: data.dadosVoc.nome_gerente1,
                   code: newData.code.toString(),
                   phones: [data.dadosVoc.contato_ger1],                    
-                  ALARME: data.alarme.persistent_tipoAlarme,
-                  SEVERITY: data.alarme.severity,
-                  TIPO_PLANTA: data.alarme.persistent_tipoPlanta,
+                  ALARME: !!data.alarme.persistent_frontSpecificProblem? data.alarme.persistent_frontSpecificProblem.replaceAll("_","").toLowerCase() : data.alarme.persistent_specificProblem.replaceAll("_","").toLowerCase(),
+                  CLASSIFICACAO: data.alarme.persistent_classificacao !== null && classificacaoFt[data.alarme.persistent_classificacao] !== null? classificacaoFt[data.alarme.persistent_classificacao] : 'crítico',
+                  TIPO_PLANTA: data.alarme.persistent_frontPlantType,
                   LOCALIDADE: data.alarme.persistent_localidadeSigla,
                   ESTADO: data.alarme.persistent_estadoSigla,
                   TA: data.alarme.persistent_ta !== null? data.alarme.persistent_ta.toString() : 'SEMTA',                    
-                  TIPO_REDE: data.alarme.persistent_tipoRede,
+                  TIPO_REDE: data.alarme.persistent_frontNetworkType,
                   DATA_HORA: dtFormatado,
                   },
                 ],
               };
               
       
-            //   axios.post("http://186.238.82.229/api/mailing/12/contacts?key=kKoD1X4n", output, {
-            //     headers: {
-            //       "Content-Type": "application/json",
-            //     },
-            //   })
+              axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
       
               const monitorando = output.contacts[0].code;
       
@@ -157,23 +168,23 @@ const callTemsService = async (data:any) => {
                         name: data.dadosVoc.nome_gerente2,
                         code: newData.code.toString(),
                         phones: [data.dadosVoc.contato_ger2],                      
-                        ALARME: data.alarme.persistent_tipoAlarme,
-                        SEVERITY: data.alarme.severity,
-                        TIPO_PLANTA: data.alarme.persistent_tipoPlanta,
+                        ALARME: !!data.alarme.persistent_frontSpecificProblem? data.alarme.persistent_frontSpecificProblem.replaceAll("_","").toLowerCase() : data.alarme.persistent_specificProblem.replaceAll("_","").toLowerCase(),
+                        CLASSIFICACAO: data.alarme.persistent_classificacao !== null && classificacaoFt[data.alarme.persistent_classificacao] !== null? classificacaoFt[data.alarme.persistent_classificacao] : 'crítico',
+                        TIPO_PLANTA: data.alarme.persistent_frontPlantType,
                         LOCALIDADE: data.alarme.persistent_localidadeSigla,
                         ESTADO: data.alarme.persistent_estadoSigla,
                         TA: data.alarme.persistent_ta !== null? data.alarme.persistent_ta.toString() : 'SEMTA',                      
-                        TIPO_REDE: data.alarme.persistent_tipoRede,
+                        TIPO_REDE: data.alarme.persistent_frontNetworkType,
                         DATA_HORA: dtFormatado,
                       },
                     ],
                   };
       
-                //   axios.post("http://186.238.82.229/api/mailing/12/contacts?key=kKoD1X4n", output, {
-                //     headers: {
-                //       "Content-Type": "application/json",
-                //     },
-                //   })
+                  axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  })
       
                   const monitorando = output.contacts[0].code;
       
