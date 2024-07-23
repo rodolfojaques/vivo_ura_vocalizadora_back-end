@@ -9,6 +9,10 @@ import cron from "node-cron"
 import clearRoutine from "./utils/clearRoutine"
 import axios from "axios"
 
+
+import { readFileSync } from 'fs';
+import Typo from 'typo-js';
+
 const app = express()
 app.use(cors())
 
@@ -24,14 +28,45 @@ cron.schedule('* 3 * * *', () => {
     clearRoutine()
 })
 
+  async function loadDictionary(): Promise<Typo> {
+    console.log(1);
+    
+    const affix = readFileSync('./dictionaries/pt_BR.aff', 'utf-8');
+    console.log(affix);
+
+    const dictionary = readFileSync('./dictionaries/pt_BR.dic', 'utf-8');
+    console.log(dictionary);
+
+    return new Typo('pt_BR', affix, dictionary);
+  }
+
+  function correctWord(word: string, dictionary: Typo): string {
+    if (dictionary.check(word)) {
+      return word;
+    } else {
+      const suggestions = dictionary.suggest(word);
+      if (suggestions.length > 0) {
+        return suggestions[0]; // Retorna a primeira sugestão como correção
+      } else {
+        return word; // Se não houver sugestões, retorna a palavra original
+      }
+    }
+  }
+
+  async function correctText(text: string, dictionary: Typo): Promise<string> {
+    return text
+      .split(' ')
+      .map(word => correctWord(word, dictionary))
+      .join(' ');
+  } 
+
 
 
 
     // TESTE LOGICA FILTRO ALARME
 app.post("/exemple-test",async (req:Request, res:Response) => { 
-    const data = req.body
-    console.log(data);
-    console.log(data.persistent.ta);
+
+  const data = req.body
     
 
     const classificacaoFt:any = {
@@ -59,7 +94,10 @@ app.post("/exemple-test",async (req:Request, res:Response) => {
       ANG: "11994737299" 
       BUC: "11955553261"
       ANT: "11942830058"
+      PRI: "19992543340" 
+      ALE: "21998837700"
     */
+   
     const output = {
       contacts: [
         {
@@ -67,12 +105,12 @@ app.post("/exemple-test",async (req:Request, res:Response) => {
             code: "1",
             phones: ["51920000339"],                      
             ALARME: !!data.persistent.frontSpecificProblem? data.persistent.frontSpecificProblem.replaceAll("_"," ").toLowerCase() : data.persistent.specificProblem.replaceAll("_"," ").toLowerCase(),
-            CLASSIFICACAO: data.persistent.classificacao !== null && classificacaoFt[data.persistent.classificacao] !== null? classificacaoFt[data.persistent.classificacao] : 'crítico',
-            TIPO_PLANTA: data.persistent.frontPlantType,
+            CLASSIFICACAO: !!data.persistent.classificacao && !!classificacaoFt[data.persistent.classificacao]? classificacaoFt[data.persistent.classificacao] : 'crítico',
+            TIPO_PLANTA: data.persistent.frontPlantType.toLowerCase() === "movel"? "móvel" : data.persistent.frontPlantType.toLowerCase(),
             LOCALIDADE: data.persistent.localidadeSigla,
             ESTADO: data.persistent.estadoSigla,
             TA: !!data.persistent.ta? data.persistent.ta.toString() : 'SEMTA',                    
-            TIPO_REDE: data.persistent.frontNetworkType.replaceAll("_"," ").toLowerCase(),
+            TIPO_REDE: data.persistent?.frontNetworkType?.replaceAll("_"," ").toLowerCase(),
             DATA_HORA: dtFormatado,
         },
       ],
