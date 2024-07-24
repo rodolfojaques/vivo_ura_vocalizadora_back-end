@@ -95,7 +95,9 @@ app.post("/exemple-test",async (req:Request, res:Response) => {
       BUC: "11955553261"
       ANT: "11942830058"
       PRI: "19992543340" 
-      ALE: "21998837700"
+      ALE: "21998837700",
+      GON: "11931442228"
+      Samuel: "21988754180"
     */
    
     const output = {
@@ -103,14 +105,14 @@ app.post("/exemple-test",async (req:Request, res:Response) => {
         {
             name: 'SmartOss Plantonista',
             code: "1",
-            phones: ["51920000339"],                      
-            ALARME: !!data.persistent.frontSpecificProblem? data.persistent.frontSpecificProblem.replaceAll("_"," ").toLowerCase() : data.persistent.specificProblem.replaceAll("_"," ").toLowerCase(),
+            phones: ["21988754180"],                      
+            ALARME: !!data.persistent.frontSpecificProblem? data.persistent.frontSpecificProblem.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase() : data.persistent.specificProblem.replaceAll("_"," ").replaceAll("",". ").toLowerCase(),
             CLASSIFICACAO: !!data.persistent.classificacao && !!classificacaoFt[data.persistent.classificacao]? classificacaoFt[data.persistent.classificacao] : 'crítico',
-            TIPO_PLANTA: data.persistent.frontPlantType.toLowerCase() === "movel"? "móvel" : data.persistent.frontPlantType.toLowerCase(),
+            TIPO_PLANTA: data.persistent?.frontTypeTa.toLowerCase(),
             LOCALIDADE: data.persistent.localidadeSigla,
             ESTADO: data.persistent.estadoSigla,
             TA: !!data.persistent.ta? data.persistent.ta.toString() : 'SEMTA',                    
-            TIPO_REDE: data.persistent?.frontNetworkType?.replaceAll("_"," ").toLowerCase(),
+            TIPO_REDE: data.persistent?.frontNetworkType?.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase(),
             DATA_HORA: dtFormatado,
         },
       ],
