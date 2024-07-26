@@ -36,7 +36,7 @@ const matchGroupAlarmeService = async (data:any) => {
     AND ($4::text IS NULL OR tipo_alarme_tems."frontTypeTa" IS NULL OR tipo_alarme_tems."frontTypeTa" = $4::text)
     AND ($5::text IS NULL OR tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = $5::text)
     AND ($6::text IS NULL OR tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = $6::text)
-    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = $7::text)
+    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '%' || $7::text || '%')
     `;
 
     const grupo_alarme = await AppDataSource.query(query_gp_alm, [
@@ -60,7 +60,7 @@ const matchGroupAlarmeService = async (data:any) => {
     AND ($4::text IS NULL OR tipo_alarme_tems."frontTypeTa" IS NULL OR tipo_alarme_tems."frontTypeTa" = $4::text)
     AND ($5::text IS NULL OR tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = $5::text)
     AND ($6::text IS NULL OR tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = $6::text)
-    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = $7::text)
+    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '%' || $7::text || '%')
     `;
 
     const grupo_atuacao = await AppDataSource.query(query_gp_atc, [
@@ -86,7 +86,7 @@ const matchGroupAlarmeService = async (data:any) => {
     AND ($4::text IS NULL OR tipo_alarme_tems."frontTypeTa" IS NULL OR tipo_alarme_tems."frontTypeTa" = $4::text)
     AND ($5::text IS NULL OR tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = $5::text)
     AND ($6::text IS NULL OR tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = $6::text)
-    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = $7::text)
+    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '%' || $7::text || '%')
     `;
 
     const plantonista = await AppDataSource.query(query_plantonista, [
@@ -121,7 +121,7 @@ const matchGroupAlarmeService = async (data:any) => {
     AND ($4::text IS NULL OR tipo_alarme_tems."frontTypeTa" IS NULL OR tipo_alarme_tems."frontTypeTa" = $4::text)
     AND ($5::text IS NULL OR tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = $5::text)
     AND ($6::text IS NULL OR tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = $6::text)
-    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = $7::text)
+    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '%' || $7::text || '%')
     `;
 
     const dados_vocalizacao = await AppDataSource.query(data_voc, [

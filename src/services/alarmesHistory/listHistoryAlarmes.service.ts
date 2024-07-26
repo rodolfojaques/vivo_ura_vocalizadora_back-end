@@ -49,7 +49,7 @@ const listAlarmesHistoryService = async (data: any, page:number,pageSize:number)
                  AND ($5::text IS NULL OR "SITE" = $5::text)
                  AND ($6::text IS NULL OR "TIPO_ALARME" = $6::text)
                  AND ($7::text IS NULL OR "CLASSIFICACAO" = $7::text)
-                 AND ($8::timestamp IS NULL AND $9::timestamp IS NULL OR ("DATA_APRESENTACAO" BETWEEN $8::timestamp AND $9::timestamp))
+                 AND ($8::timestamp IS NULL AND $9::timestamp IS NULL OR ("DATA_APRESENTACAO" BETWEEN $8::timestamp AND $9::timestamp + interval '1 day'))                
                  AND ($10::interval IS NULL OR "DATA_APRESENTACAO" >= NOW() - interval '180 minute' - $10::interval) 
                  ORDER BY "id" DESC
                  LIMIT $11  OFFSET $12
@@ -64,7 +64,7 @@ const listAlarmesHistoryService = async (data: any, page:number,pageSize:number)
                  AND ($5::text IS NULL OR "SITE" = $5::text)
                  AND ($6::text IS NULL OR "TIPO_ALARME" = $6::text)
                  AND ($7::text IS NULL OR "CLASSIFICACAO" = $7::text)
-                 AND ($8::timestamp IS NULL AND $9::timestamp IS NULL OR ("DATA_APRESENTACAO" BETWEEN $8::timestamp AND $9::timestamp))
+                 AND ($8::timestamp IS NULL AND $9::timestamp IS NULL OR ("DATA_APRESENTACAO" BETWEEN $8::timestamp AND $9::timestamp + interval '1 day'))
                  AND ($10::interval IS NULL OR "DATA_APRESENTACAO" >= NOW() - interval '180 minute' - $10::interval)
                  `;
   ;

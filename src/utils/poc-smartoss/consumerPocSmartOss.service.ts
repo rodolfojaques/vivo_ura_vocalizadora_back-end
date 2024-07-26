@@ -68,6 +68,71 @@ import { GeradorUniqueCodePocSmartoss } from "../../entities/gerador-unique-code
 //     }
 // })
 
+/**
+ * TESTES DE VOCALIZAÇÃO
+ * 
+app.post('/exemple-test', async (req: Request, res: Response) => {
+
+    const data = req.body
+
+    const dtFormat = new Date(data.firstSeen)
+    const isoFormat = dtFormat.toISOString()
+    const dtFormatado = isoFormat.slice(0,10) + " " + isoFormat.slice(11,19)
+
+    const classificacaoFt:any = {
+        "5": "crítico",
+        "4": "majoritário",
+        "3": "minoritário",
+        "CRITICO": "crítico",
+        "MAJORITARIO": "majoritário",
+        "MINORITARIO": "minoritário",
+        "CRITICAL": "crítico",
+        "MAJOR": "majoritário",
+        "MINOR": "minoritário",
+    }
+
+    /*
+    ROD: "51920000339"
+    BUC: "11955553261"
+    ANT: "11942830058"
+    PRI: "19992543340"
+    ALE: "21998837700"
+    GON: "11931442228"
+    SAM: "21988754180"
+    *//*
+
+    const output = {
+      contacts: [
+          {
+              name: 'SmartOss Plantonista',
+              code: "1",
+              phones: ["51920000339"],                       
+              ALARME: !!data.persistent.frontSpecificProblem? data.persistent.frontSpecificProblem.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase() : data.persistent.specificProblem.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase(),
+              CLASSIFICACAO: !!data.persistent.classificacao && !!classificacaoFt[data.persistent.classificacao]? classificacaoFt[data.persistent.classificacao] : 'crítico',
+              TIPO_PLANTA: data.persistent?.frontTypeTa.toLowerCase(),
+              LOCALIDADE: data.persistent.localidadeSigla,
+              ESTADO: data.persistent.estadoSigla,
+              TA: !!data.persistent.ta? data.persistent.ta.toString() : 'SEMTA',              
+              TIPO_REDE: data.persistent?.frontNetworkType?.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase(),
+              DATA_HORA: dtFormatado,
+          },
+      ],
+  }
+
+  if(!!data){
+      axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .catch((err) => console.error(err))
+
+
+      return res.json({response: output})
+  }
+})
+ */
+
 
 const kafka = new Kafka({
     clientId: 'consumer_SmartOss',
