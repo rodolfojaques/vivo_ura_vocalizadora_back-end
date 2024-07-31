@@ -109,9 +109,9 @@ const callTemsService = async (data:any) => {
               const output = {
                 contacts: [
                   {
-                  name: data.dadosVoc.nome_gerente1,
+                  name: data.dadosVoc[0].nome_gerente1,
                   code: newData.code.toString(),
-                  phones: [data.dadosVoc.contato_ger1],            
+                  phones: [data.dadosVoc[0].contato_ger1],            
                   ALARME: !!data.alarme?.persistent_frontSpecificProblem? data.alarme?.persistent_frontSpecificProblem.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase() : data.alarme?.persistent_specificProblem.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase(),
                   CLASSIFICACAO: !!data.alarme?.persistent_classificacao && !!classificacaoFt[data.alarme?.persistent_classificacao]? classificacaoFt[data.alarme?.persistent_classificacao] : 'crítico',
                   TIPO_PLANTA: data.alarme?.persistent_frontTypeTa.toLowerCase(),
@@ -165,9 +165,9 @@ const callTemsService = async (data:any) => {
                   const output = {
                     contacts: [
                       {
-                        name: data.dadosVoc.nome_gerente2,
+                        name: data.dadosVoc[0].nome_gerente2,
                         code: newData.code.toString(),
-                        phones: [data.dadosVoc.contato_ger2],            
+                        phones: [data.dadosVoc[0].contato_ger2],            
                         ALARME: !!data.alarme?.persistent_frontSpecificProblem? data.alarme?.persistent_frontSpecificProblem.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase() : data.alarme?.persistent_specificProblem.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase(),
                         CLASSIFICACAO: !!data.alarme?.persistent_classificacao && !!classificacaoFt[data.alarme?.persistent_classificacao]? classificacaoFt[data.alarme?.persistent_classificacao] : 'crítico',
                         TIPO_PLANTA: data.alarme?.persistent_frontTypeTa.toLowerCase(),
@@ -210,21 +210,21 @@ const callTemsService = async (data:any) => {
                     console.log("Gerente2 não atendeu", " code: ", monitorando);
                     console.log();
                     console.log("não atendido");
-                  }, 20000);
+                  }, 320000);
                 }
                 console.log("acabou o tempo");
                 console.log();
                 console.log("Gerente1 não atendeu", " code: ", monitorando);
                 console.log();
                 console.log("proximo contado");
-                }, 20000);
+                }, 320000);
             }
             console.log("acabou o tempo");
             console.log();
             console.log("plantonista não atendeu", " code: ", monitorando);
             console.log();
             console.log("proximo contado");
-          }, 20000);    
+          }, 320000);    
         };  
       
         if(!data.dadosVoc || !data.plantonista){
