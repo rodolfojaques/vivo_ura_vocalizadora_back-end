@@ -70,20 +70,20 @@ const clearRoutine = async () => {
     console.error(error);
     });
 
-    async function deleteAlarmsTemsBeforeOneMonth() {
+    async function deleteAlarmsTemsBeforeOneWeek() {
       
         const result = await alarmesTemsRepository
             .createQueryBuilder()
             .delete()
             .from(AlarmesHistoryTems)
-            .where('alarmInURA < current_date - interval \'1 month\'')
+            .where('alarmInURA < current_date - interval \'1 week\'')
             .orWhere('alarmInURA is null')
             .execute();
       
         return result;
     }
     
-    deleteAlarmsTemsBeforeOneMonth().then(result => {
+    deleteAlarmsTemsBeforeOneWeek().then(result => {
     console.log(result);
     }).catch(error => {
     console.error(error);
