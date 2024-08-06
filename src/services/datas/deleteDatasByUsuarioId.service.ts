@@ -13,7 +13,7 @@ const deleteDatasByUsuarioIdService = async (id: number) => {
   let idsDatas: number[] = [];
   usuario.datas?.map((data) => idsDatas.push(data.id));
 
-  idsDatas.map(async (d_id) => await datasRepository.delete(d_id));
+  idsDatas.forEach(async (d_id) => await datasRepository.delete(d_id));
 
   return true;
 };

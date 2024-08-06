@@ -3,6 +3,7 @@ import { VocalizacaoHistoryTems } from "../../../src-temsHist/entities/vocalizac
 import { AppDataSource, AppDataSourceTemsHistory } from "../../data-source";
 import { Usuarios } from "../../entities/usuarios.entity";
 import { ReturnVocalizacaoTems } from "../../entities/returnVocalizacaoTems.entity";
+import "dotenv/config";
 
 const callTemsService = async (data:any) => {
     try {
@@ -64,7 +65,7 @@ const callTemsService = async (data:any) => {
           };
           console.log(output);
       
-          axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
+          axios.post(String(process.env.URL_SINC_DL), output, {
             headers: {
               "Content-Type": "application/json",
             },
@@ -125,7 +126,7 @@ const callTemsService = async (data:any) => {
               };
               
       
-              axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
+              axios.post(String(process.env.URL_SINC_DL), output, {
                 headers: {
                   "Content-Type": "application/json",
                 },
@@ -180,7 +181,7 @@ const callTemsService = async (data:any) => {
                     ],
                   };
       
-                  axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
+                  axios.post(String(process.env.URL_SINC_DL), output, {
                     headers: {
                       "Content-Type": "application/json",
                     },

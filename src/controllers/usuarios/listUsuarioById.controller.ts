@@ -11,9 +11,9 @@ const listUsuarioByIdController = async (req:Request,res:Response) => {
         return res.json(instanceToPlain(usuario))
         
     } catch(error){
-        if(error instanceof AppError)[
+        if(error instanceof AppError){
             handleError(error,res)
-        ]
+        }
     }
 }
 
