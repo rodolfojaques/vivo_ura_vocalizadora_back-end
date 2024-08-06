@@ -3,6 +3,7 @@ import { AppDataSource } from "../../data-source";
 import { Usuarios } from "../../entities/usuarios.entity";
 import callTemsService from "./callTems.service"
 import matchGroupAlarmeService from "./matchGroupAlarm.service"
+import { randomInt } from "crypto";
 
 const vocalizacaoTemsService = async (data:any) => {
     const groupsSelected = await matchGroupAlarmeService(data.origin)
@@ -40,12 +41,13 @@ const vocalizacaoTemsService = async (data:any) => {
             x = [...x, ...user?.datas?.filter((dia:any) => `${dia.dia.getFullYear()}-${String(dia.dia.getMonth() + 1).padStart(2, '0')}-${String(dia.dia.getDate()).padStart(2, '0')}` === diaAtual && dia.turno.toLowerCase() === turnos())]
             
             if(x.length > 0){  
-                if(user.datas.length > 0){              
-                    arr.push(forReturn = {
+                if(user.datas.length > 0){   
+                    let forReturn = {
                         alarme: alarme,
                         plantonista: instanceToPlain(user), 
                         dadosVoc: groupsSelected.dados_vocalizacao.filter((voc:any) => voc.id_plantonista === user.id)
-                    })
+                    }           
+                    arr.push(forReturn)
                     x = []
                     return arr
                 }
@@ -59,7 +61,7 @@ const vocalizacaoTemsService = async (data:any) => {
             return callFunc            
         }
 
-        const random = Math.floor(Math.random() * arr.length)
+        const random = randomInt(0, arr.length)
         
         const callFunc = await callTemsService(arr[random])        
         

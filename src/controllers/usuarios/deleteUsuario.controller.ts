@@ -5,7 +5,7 @@ import deleteUsuarioService from "../../services/usuarios/deleteUsuario.service"
 const deleteUsuarioController = async (req:Request,res:Response) => {
     try {
         const { id } = req.params 
-        const deleteUsuario = await deleteUsuarioService(Number(id))
+        await deleteUsuarioService(Number(id))
 
         return res.json({message:"Usuário excluído com sucesso"})
     } catch (error) {

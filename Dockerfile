@@ -1,14 +1,20 @@
 # Use a imagem oficial do Node.js 18 como base
 FROM node:18
 
+RUN useradd --user-group --create-home --shell /bin/false appuser
+
 # Instale o Yarn globalmente
 RUN which yarn || npm install -g yarn
 
 # Defina o diretório de trabalho no contêiner
 WORKDIR /usr/src/app
+RUN chown -R appuser:appuser /usr/src/app
 
 # Copie o arquivo `package.json` e `yarn.lock` para o contêiner
-COPY package.json ./
+COPY package.json ./ 
+
+# Alterne para o usuário não root
+USER appuser
 
 # Instale as dependências usando o Yarn
 RUN yarn install

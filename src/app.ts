@@ -1,14 +1,13 @@
 import "reflect-metadata"
 import "express-async-errors"
-import express, { Request,Response } from "express"
+import express from "express"
 import paginate from "express-paginate"
 import globalErrorMiddleware from "./middlewares/globalError.middleware"
 import { appRoutes } from "./routes"
 import cors from "cors"
 import cron from "node-cron"
 import clearRoutine from "./utils/clearRoutine"
-import axios from "axios"
-import createAlarmesHistoryTemsService from "./services/alarmesHistoryTems/createAlarmesHistoryTems.service"
+import "dotenv/config"
 
 const app = express()
 
