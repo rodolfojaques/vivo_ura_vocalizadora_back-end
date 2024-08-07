@@ -2,15 +2,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
-  JoinColumn,
-  OneToOne,
-  AfterInsert,
-  BeforeInsert,
   ManyToOne,
   CreateDateColumn,
 } from "typeorm";
-import { AppDataSourceHistory } from "../../src/data-source";
 import { AlarmesHistoryTems } from "./alarmesTems.entity";
 
 @Entity()

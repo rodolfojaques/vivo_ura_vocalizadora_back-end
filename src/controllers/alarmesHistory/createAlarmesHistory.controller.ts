@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import listAlarmesHistoryService from "../../services/alarmesHistory/listHistoryAlarmes.service";
 import { AppError, handleError } from "../../error/appError";
 import { AppDataSourceHistory } from "../../data-source";
 import { AlarmesHistory } from "../../../src-new/entities/alarmes.entity";

@@ -9,21 +9,8 @@ const vocalizacaoService = async (data: any) => {
     const ano = dt.getFullYear();
     const mes = String(dt.getMonth() + 1).padStart(2, '0');
     const dia = String(dt.getDate()).padStart(2, '0');
-
-    const hora = dt.getHours()
   
-    const diaAtual = `${ano}-${mes}-${dia}` 
-    
-    const turnos = () => {
-        
-        if(hora >= 7 && hora < 15){
-            return "t1"
-        } else if(hora >= 15 && hora < 23){
-            return "t2"
-        } else if(hora >= 23){
-            return "t3"
-        }
-    }    
+    const diaAtual = `${ano}-${mes}-${dia}`    
     
     const gruposAlarmesRepository = AppDataSource.getRepository(GruposAlarmes)
 
@@ -98,10 +85,21 @@ const vocalizacaoService = async (data: any) => {
         });
       
         await vocalizacaoHistoryRepository.save(newData);
-      
-        return
     }
 }
+
+function turnos(){
+    const dt = new Date();
+    const hora = dt.getHours()
+        
+    if(hora >= 7 && hora < 15){
+        return "t1"
+    } else if(hora >= 15 && hora < 23){
+        return "t2"
+    } else if(hora >= 23){
+        return "t3"
+    }
+} 
 
 
 export default vocalizacaoService;
