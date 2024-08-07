@@ -1,6 +1,0 @@
-projectKey=Vivo-URA-Vocalizadora-Back-v2
-serverUrl=http://100.27.164.8:9000
-serverVersion=9.9.5.90363
-dashboardUrl=http://100.27.164.8:9000/dashboard?id=Vivo-URA-Vocalizadora-Back-v2
-ceTaskId=AZEuH9q7vG77sO0yvUQF
-ceTaskUrl=http://100.27.164.8:9000/api/ce/task?id=AZEuH9q7vG77sO0yvUQF
