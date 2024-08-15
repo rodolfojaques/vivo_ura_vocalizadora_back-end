@@ -9,16 +9,16 @@ export class TipoAlarmeTems {
   @Column()
   estadoSigla: string;
 
-  @Column({nullable:true})
+  @Column({})
   specificProblem: string;
 
   // @Column({nullable:true})
   // tipoDeAlarme: string;
 
-  @Column({nullable:true})
+  @Column({})
   frontNetworkType: string;
 
-  @Column({nullable:true})
+  @Column({})
   frontTypeTa: string;
 
   @Column({nullable:true})

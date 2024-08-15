@@ -14,9 +14,15 @@ const createTipoAlarmeTemsService = async (idGrupo: number, data: any) => {
     ...data,
     grupoAlarme: grupo,
   });
-  await tiposAlarmesRepository.save(tipoAlarme);
+  
+  try {
+    await tiposAlarmesRepository.save(tipoAlarme);
 
-  return tipoAlarme;
+    return tipoAlarme;
+        
+  } catch (error) {
+    throw new AppError(400, "Erro ao criar tipo de alarme!");    
+  }
 };
 
 export default createTipoAlarmeTemsService;

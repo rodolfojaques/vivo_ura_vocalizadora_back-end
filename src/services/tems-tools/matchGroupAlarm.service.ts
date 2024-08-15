@@ -10,8 +10,11 @@ const matchGroupAlarmeService = async (data:any) => {
     const {
         estadoSigla,
         specificProblem,
+        frontSpecificProblem,
         frontNetworkType,
+        tipoRede,
         frontTypeTa,
+        tipoTA,
         frontPlantType,
         frontTypeFailure,
         manager
@@ -30,9 +33,9 @@ const matchGroupAlarmeService = async (data:any) => {
 
     const grupo_alarme = await AppDataSource.query(query_gp_alm, [
         estadoSigla,
-        specificProblem,        
-        frontNetworkType,
-        frontTypeTa,
+        specificProblem || frontSpecificProblem,        
+        frontNetworkType || tipoRede,
+        frontTypeTa || tipoTA,
         frontPlantType,
         frontTypeFailure,
         manager
@@ -53,9 +56,9 @@ const matchGroupAlarmeService = async (data:any) => {
 
     const grupo_atuacao = await AppDataSource.query(query_gp_atc, [
         estadoSigla,
-        specificProblem,        
-        frontNetworkType,
-        frontTypeTa,
+        specificProblem || frontSpecificProblem,        
+        frontNetworkType || tipoRede,
+        frontTypeTa || tipoTA,
         frontPlantType,
         frontTypeFailure,
         manager
@@ -78,9 +81,9 @@ const matchGroupAlarmeService = async (data:any) => {
 
     const plantonista = await AppDataSource.query(query_plantonista, [
         estadoSigla,
-        specificProblem,        
-        frontNetworkType,
-        frontTypeTa,
+        specificProblem || frontSpecificProblem,        
+        frontNetworkType || tipoRede,
+        frontTypeTa || tipoTA,
         frontPlantType,
         frontTypeFailure,
         manager
@@ -112,9 +115,9 @@ const matchGroupAlarmeService = async (data:any) => {
 
     const dados_vocalizacao = await AppDataSource.query(data_voc, [
         estadoSigla,
-        specificProblem,        
-        frontNetworkType,
-        frontTypeTa,
+        specificProblem || frontSpecificProblem,        
+        frontNetworkType || tipoRede,
+        frontTypeTa || tipoTA,
         frontPlantType,
         frontTypeFailure,
         manager
