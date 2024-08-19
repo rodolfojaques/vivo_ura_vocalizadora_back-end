@@ -16,9 +16,7 @@ const corsOptions = {
         String(process.env.URL_IP_URA),    
         String(process.env.URL_DNS_URA),           
         String(process.env.URL_IP_SG_INFRA),           
-        String(process.env.URL_IP_SINC)   ,
-        "http://localhost:3001"  ,      
-        "http://localhost:3002"  ,      
+        String(process.env.URL_IP_SINC)     
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With']
