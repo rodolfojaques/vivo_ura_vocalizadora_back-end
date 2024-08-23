@@ -3,7 +3,6 @@ import { AppDataSource } from "../../data-source";
 import { Usuarios } from "../../entities/usuarios.entity";
 import callTemsService from "./callTems.service"
 import matchGroupAlarmeService from "./matchGroupAlarm.service"
-import { randomInt } from "crypto";
 
 const vocalizacaoTemsService = async (data:any) => {
     const groupsSelected = await matchGroupAlarmeService(data.origin)
@@ -14,9 +13,20 @@ const vocalizacaoTemsService = async (data:any) => {
     const mes = String(dt.getMonth() + 1).padStart(2, '0');
     const dia = String(dt.getDate()).padStart(2, '0');
 
+    const hora = dt.getHours()
   
     const diaAtual = `${ano}-${mes}-${dia}` 
-  
+    
+    const turnos = () => {
+        
+        if(hora >= 7 && hora < 15){
+            return "t1"
+        } else if(hora >= 15 && hora < 23){
+            return "t2"
+        } else if(hora >= 23 || hora < 7){
+            return "t3"
+        }
+    }  
 
     const usuariosRepository = AppDataSource.getRepository(Usuarios)
     let forReturn
@@ -30,13 +40,12 @@ const vocalizacaoTemsService = async (data:any) => {
             x = [...x, ...user?.datas?.filter((dia:any) => `${dia.dia.getFullYear()}-${String(dia.dia.getMonth() + 1).padStart(2, '0')}-${String(dia.dia.getDate()).padStart(2, '0')}` === diaAtual && dia.turno.toLowerCase() === turnos())]
             
             if(x.length > 0){  
-                if(user.datas.length > 0){   
-                    let forReturn = {
+                if(user.datas.length > 0){              
+                    arr.push(forReturn = {
                         alarme: alarme,
                         plantonista: instanceToPlain(user), 
                         dadosVoc: groupsSelected.dados_vocalizacao.filter((voc:any) => voc.id_plantonista === user.id)
-                    }           
-                    arr.push(forReturn)
+                    })
                     x = []
                     return arr
                 }
@@ -50,7 +59,7 @@ const vocalizacaoTemsService = async (data:any) => {
             return callFunc            
         }
 
-        const random = randomInt(0, arr.length)
+        const random = Math.floor(Math.random() * arr.length)
         
         const callFunc = await callTemsService(arr[random])        
         
@@ -62,19 +71,6 @@ const vocalizacaoTemsService = async (data:any) => {
         })
 
         return callFunc
-    }
-}
-
-function turnos(){
-    const dt = new Date();
-    const hora = dt.getHours()    
-
-    if(hora >= 7 && hora < 15){
-        return "t1"
-    } else if(hora >= 15 && hora < 23){
-        return "t2"
-    } else if(hora >= 23){
-        return "t3"
     }
 }
 

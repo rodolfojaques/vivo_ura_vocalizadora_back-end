@@ -96,7 +96,7 @@ function turnos(){
         return "t1"
     } else if(hora >= 15 && hora < 23){
         return "t2"
-    } else if(hora >= 23){
+    } else if(hora >= 23 || hora < 7){
         return "t3"
     }
 } 

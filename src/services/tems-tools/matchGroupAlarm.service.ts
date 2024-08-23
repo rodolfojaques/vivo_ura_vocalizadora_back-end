@@ -20,22 +20,29 @@ const matchGroupAlarmeService = async (data:any) => {
         manager
     } = dataT
 
+    const tipoTaFormated = !!tipoTA? tipoTA.replaceAll('Gerência', 'Gerencia').replaceAll('Comutação', 'Comutacao') : null
+    const frontTypeTaFormated = !!frontTypeTa? frontTypeTa.replaceAll('Gerência', 'Gerencia').replaceAll('Comutação', 'Comutacao') : null    
+
     const query_gp_alm = `SELECT grupos_alarmes_tems.* FROM grupos_alarmes_tems
-    JOIN tipo_alarme_tems ON tipo_alarme_tems."grupoAlarmeId" = grupos_alarmes_tems.id
-    WHERE ($1::text IS NULL OR tipo_alarme_tems."estadoSigla" = $1::text)
-    AND ($2::text IS NULL OR tipo_alarme_tems."specificProblem" IS NULL OR tipo_alarme_tems."specificProblem" = '' OR tipo_alarme_tems."specificProblem" = $2::text)
-    AND ($3::text IS NULL OR tipo_alarme_tems."frontNetworkType" IS NULL OR tipo_alarme_tems."frontNetworkType" = '' OR tipo_alarme_tems."frontNetworkType" = $3::text)
-    AND ($4::text IS NULL OR tipo_alarme_tems."frontTypeTa" IS NULL OR tipo_alarme_tems."frontTypeTa" = '' OR tipo_alarme_tems."frontTypeTa" = $4::text)
-    AND ($5::text IS NULL OR tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = '' OR tipo_alarme_tems."frontPlantType" = $5::text)
-    AND ($6::text IS NULL OR tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = '' OR tipo_alarme_tems."frontTypeFailure" = $6::text)
-    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '' OR tipo_alarme_tems."manager" ILIKE '%' || $7::text || '%')
+    JOIN tipo_alarme_tems ON tipo_alarme_tems."grupoAlarmeId" = grupos_alarmes_tems."id"
+    WHERE tipo_alarme_tems."grupoAlarmeId" = grupos_alarmes_tems."id"
+    AND (tipo_alarme_tems."estadoSigla" = $1::text)
+    AND (tipo_alarme_tems."specificProblem" = $2::text OR tipo_alarme_tems."specificProblem" = $3::text)
+    AND (tipo_alarme_tems."frontNetworkType" = $4::text OR tipo_alarme_tems."frontNetworkType" = $5::text)
+    AND (tipo_alarme_tems."frontTypeTa" = $6::text OR tipo_alarme_tems."frontTypeTa" = $7::text)
+    AND (tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = '' OR tipo_alarme_tems."frontPlantType" = $8::text)
+    AND (tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = '' OR tipo_alarme_tems."frontTypeFailure" = $9::text)
+    AND (tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '' OR tipo_alarme_tems."manager" ILIKE '%' || $10::text || '%')
     `;
 
     const grupo_alarme = await AppDataSource.query(query_gp_alm, [
         estadoSigla,
-        specificProblem || frontSpecificProblem,        
-        frontNetworkType || tipoRede,
-        frontTypeTa || tipoTA,
+        specificProblem,
+        frontSpecificProblem,        
+        frontNetworkType,
+        tipoRede,
+        frontTypeTaFormated,
+        tipoTaFormated,
         frontPlantType,
         frontTypeFailure,
         manager
@@ -45,20 +52,24 @@ const matchGroupAlarmeService = async (data:any) => {
     JOIN tipo_alarme_tems ON tipo_alarme_tems."grupoAlarmeId" = grupos_alarmes_tems.id
     JOIN grupos_alarmes_tems_grupos_atuacao_grupos_atuacao ON grupos_alarmes_tems_grupos_atuacao_grupos_atuacao."gruposAlarmesTemsId" = grupos_alarmes_tems.id
     JOIN grupos_atuacao ON grupos_alarmes_tems_grupos_atuacao_grupos_atuacao."gruposAtuacaoId" = grupos_atuacao.id
-    WHERE ($1::text IS NULL OR tipo_alarme_tems."estadoSigla" = $1::text)
-    AND ($2::text IS NULL OR tipo_alarme_tems."specificProblem" IS NULL OR tipo_alarme_tems."specificProblem" = '' OR tipo_alarme_tems."specificProblem" = $2::text)
-    AND ($3::text IS NULL OR tipo_alarme_tems."frontNetworkType" IS NULL OR tipo_alarme_tems."frontNetworkType" = '' OR tipo_alarme_tems."frontNetworkType" = $3::text)
-    AND ($4::text IS NULL OR tipo_alarme_tems."frontTypeTa" IS NULL OR tipo_alarme_tems."frontTypeTa" = '' OR tipo_alarme_tems."frontTypeTa" = $4::text)
-    AND ($5::text IS NULL OR tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = '' OR tipo_alarme_tems."frontPlantType" = $5::text)
-    AND ($6::text IS NULL OR tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = '' OR tipo_alarme_tems."frontTypeFailure" = $6::text)
-    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '' OR tipo_alarme_tems."manager" ILIKE '%' || $7::text || '%')
+    WHERE grupos_alarmes_tems_grupos_atuacao_grupos_atuacao."gruposAtuacaoId" = grupos_atuacao.id
+    AND (tipo_alarme_tems."estadoSigla" = $1::text)
+    AND (tipo_alarme_tems."specificProblem" = $2::text OR tipo_alarme_tems."specificProblem" = $3::text)
+    AND (tipo_alarme_tems."frontNetworkType" = $4::text OR tipo_alarme_tems."frontNetworkType" = $5::text)
+    AND (tipo_alarme_tems."frontTypeTa" = $6::text OR tipo_alarme_tems."frontTypeTa" = $7::text)
+    AND (tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = '' OR tipo_alarme_tems."frontPlantType" = $8::text)
+    AND (tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = '' OR tipo_alarme_tems."frontTypeFailure" = $9::text)
+    AND (tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '' OR tipo_alarme_tems."manager" ILIKE '%' || $10::text || '%')
     `;
 
     const grupo_atuacao = await AppDataSource.query(query_gp_atc, [
         estadoSigla,
-        specificProblem || frontSpecificProblem,        
-        frontNetworkType || tipoRede,
-        frontTypeTa || tipoTA,
+        specificProblem,
+        frontSpecificProblem,        
+        frontNetworkType,
+        tipoRede,
+        frontTypeTaFormated,
+        tipoTaFormated,
         frontPlantType,
         frontTypeFailure,
         manager
@@ -70,20 +81,24 @@ const matchGroupAlarmeService = async (data:any) => {
     JOIN grupos_atuacao ON grupos_alarmes_tems_grupos_atuacao_grupos_atuacao."gruposAtuacaoId" = grupos_atuacao.id
     JOIN grupos_atuacao_usuarios_usuarios ON grupos_atuacao_usuarios_usuarios."gruposAtuacaoId" = grupos_atuacao.id
     JOIN usuarios ON grupos_atuacao_usuarios_usuarios."usuariosId" = usuarios.id
-    WHERE ($1::text IS NULL OR tipo_alarme_tems."estadoSigla" = $1::text)
-    AND ($2::text IS NULL OR tipo_alarme_tems."specificProblem" IS NULL OR tipo_alarme_tems."specificProblem" = '' OR tipo_alarme_tems."specificProblem" = $2::text)
-    AND ($3::text IS NULL OR tipo_alarme_tems."frontNetworkType" IS NULL OR tipo_alarme_tems."frontNetworkType" = '' OR tipo_alarme_tems."frontNetworkType" = $3::text)
-    AND ($4::text IS NULL OR tipo_alarme_tems."frontTypeTa" IS NULL OR tipo_alarme_tems."frontTypeTa" = '' OR tipo_alarme_tems."frontTypeTa" = $4::text)
-    AND ($5::text IS NULL OR tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = '' OR tipo_alarme_tems."frontPlantType" = $5::text)
-    AND ($6::text IS NULL OR tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = '' OR tipo_alarme_tems."frontTypeFailure" = $6::text)
-    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '' OR tipo_alarme_tems."manager" ILIKE '%' || $7::text || '%')
+    WHERE grupos_atuacao_usuarios_usuarios."usuariosId" = usuarios.id
+    AND (tipo_alarme_tems."estadoSigla" = $1::text)
+    AND (tipo_alarme_tems."specificProblem" = $2::text OR tipo_alarme_tems."specificProblem" = $3::text)
+    AND (tipo_alarme_tems."frontNetworkType" = $4::text OR tipo_alarme_tems."frontNetworkType" = $5::text)
+    AND (tipo_alarme_tems."frontTypeTa" = $6::text OR tipo_alarme_tems."frontTypeTa" = $7::text)
+    AND (tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = '' OR tipo_alarme_tems."frontPlantType" = $8::text)
+    AND (tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = '' OR tipo_alarme_tems."frontTypeFailure" = $9::text)
+    AND (tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '' OR tipo_alarme_tems."manager" ILIKE '%' || $10::text || '%')
     `;
 
     const plantonista = await AppDataSource.query(query_plantonista, [
         estadoSigla,
-        specificProblem || frontSpecificProblem,        
-        frontNetworkType || tipoRede,
-        frontTypeTa || tipoTA,
+        specificProblem,
+        frontSpecificProblem,        
+        frontNetworkType,
+        tipoRede,
+        frontTypeTaFormated,
+        tipoTaFormated,
         frontPlantType,
         frontTypeFailure,
         manager
@@ -104,20 +119,24 @@ const matchGroupAlarmeService = async (data:any) => {
     JOIN grupos_atuacao ON grupos_alarmes_tems_grupos_atuacao_grupos_atuacao."gruposAtuacaoId" = grupos_atuacao.id
     JOIN grupos_atuacao_usuarios_usuarios ON grupos_atuacao_usuarios_usuarios."gruposAtuacaoId" = grupos_atuacao.id
     JOIN usuarios ON grupos_atuacao_usuarios_usuarios."usuariosId" = usuarios.id
-    WHERE ($1::text IS NULL OR tipo_alarme_tems."estadoSigla" = $1::text)
-    AND ($2::text IS NULL OR tipo_alarme_tems."specificProblem" IS NULL OR tipo_alarme_tems."specificProblem" = '' OR tipo_alarme_tems."specificProblem" = $2::text)
-    AND ($3::text IS NULL OR tipo_alarme_tems."frontNetworkType" IS NULL OR tipo_alarme_tems."frontNetworkType" = '' OR tipo_alarme_tems."frontNetworkType" = $3::text)
-    AND ($4::text IS NULL OR tipo_alarme_tems."frontTypeTa" IS NULL OR tipo_alarme_tems."frontTypeTa" = '' OR tipo_alarme_tems."frontTypeTa" = $4::text)
-    AND ($5::text IS NULL OR tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = '' OR tipo_alarme_tems."frontPlantType" = $5::text)
-    AND ($6::text IS NULL OR tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = '' OR tipo_alarme_tems."frontTypeFailure" = $6::text)
-    AND ($7::text IS NULL OR tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '' OR tipo_alarme_tems."manager" ILIKE '%' || $7::text || '%')
+    WHERE grupos_atuacao_usuarios_usuarios."usuariosId" = usuarios.id
+    AND (tipo_alarme_tems."estadoSigla" = $1::text)
+    AND (tipo_alarme_tems."specificProblem" = $2::text OR tipo_alarme_tems."specificProblem" = $3::text)
+    AND (tipo_alarme_tems."frontNetworkType" = $4::text OR tipo_alarme_tems."frontNetworkType" = $5::text)
+    AND (tipo_alarme_tems."frontTypeTa" = $6::text OR tipo_alarme_tems."frontTypeTa" = $7::text)
+    AND (tipo_alarme_tems."frontPlantType" IS NULL OR tipo_alarme_tems."frontPlantType" = '' OR tipo_alarme_tems."frontPlantType" = $8::text)
+    AND (tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = '' OR tipo_alarme_tems."frontTypeFailure" = $9::text)
+    AND (tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '' OR tipo_alarme_tems."manager" ILIKE '%' || $10::text || '%')
     `;
 
     const dados_vocalizacao = await AppDataSource.query(data_voc, [
         estadoSigla,
-        specificProblem || frontSpecificProblem,        
-        frontNetworkType || tipoRede,
-        frontTypeTa || tipoTA,
+        specificProblem,
+        frontSpecificProblem,        
+        frontNetworkType,
+        tipoRede,
+        frontTypeTaFormated,
+        tipoTaFormated,
         frontPlantType,
         frontTypeFailure,
         manager
