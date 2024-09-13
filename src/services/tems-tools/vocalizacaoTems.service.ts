@@ -6,7 +6,7 @@ import matchGroupAlarmeService from "./matchGroupAlarm.service"
 
 const vocalizacaoTemsService = async (data:any) => {
     const groupsSelected = await matchGroupAlarmeService(data.origin)
-    const alarme = data.alarmeCreated
+    const alarme = await data.alarmeCreated    
 
     const dt = new Date();
     const ano = dt.getFullYear();
@@ -29,49 +29,78 @@ const vocalizacaoTemsService = async (data:any) => {
     }  
 
     const usuariosRepository = AppDataSource.getRepository(Usuarios)
-    let forReturn
     let x:any[] = []
     let arr:any[] = []
 
-    if(groupsSelected?.plantonista?.length > 0){
-        const plantonistas = await usuariosRepository.find({ where: { id: groupsSelected?.plantonista.id } })
+    const getArr = () => {
+        return arr
+    }
 
-        plantonistas.forEach((user:any)=>{
-            x = [...x, ...user?.datas?.filter((dia:any) => `${dia.dia.getFullYear()}-${String(dia.dia.getMonth() + 1).padStart(2, '0')}-${String(dia.dia.getDate()).padStart(2, '0')}` === diaAtual && dia.turno.toLowerCase() === turnos())]
+    const setArr = (item:any) => {
+        arr = [...arr, item]
+    }
+
+    const searchUsers = async () => {
+
+        for(let i = 0; i < groupsSelected.length; i++){
+            const userX = await usuariosRepository.findOneBy({ id: groupsSelected[i].usuario_id })            
+
+            if(!!userX) x = [...x, ...userX?.datas?.filter((dia:any) => `${dia.dia.getFullYear()}-${String(dia.dia.getMonth() + 1).padStart(2, '0')}-${String(dia.dia.getDate()).padStart(2, '0')}` === diaAtual && dia.turno.toLowerCase() === turnos())!]
             
-            if(x.length > 0){  
-                if(user.datas.length > 0){              
-                    arr.push(forReturn = {
-                        alarme: alarme,
-                        plantonista: instanceToPlain(user), 
-                        dadosVoc: groupsSelected.dados_vocalizacao.filter((voc:any) => voc.id_plantonista === user.id)
-                    })
-                    x = []
-                    return arr
-                }
+            if(x.length > 0){   
+                setArr({
+                    alarme: alarme,
+                    plantonista: instanceToPlain(userX), 
+                    dadosVoc: groupsSelected[i]
+                })
+                getArr()
+                x = []
             }
+        }
+        return getArr()
+    }
+
+    if(groupsSelected?.length > 0){
+
+        await searchUsers().then((r)=>{            
+            console.log('Plantonistas disponíveis ==> ', getArr());
         })
     } 
 
-    if(forReturn !== undefined){
-        if(arr.length === 1){
-            const callFunc = await callTemsService(arr[0]) 
-            return callFunc            
-        }
+    while(getArr().length > 0){
+        if(getArr().length > 0){
+            if(getArr().length === 1){
+                const callFunc = await callTemsService(arr[0])   
+            
+                console.log("Apenas 1 plantonista disponível");
+                console.log(getArr());
+                
+                return callFunc            
+            }
 
-        const random = Math.floor(Math.random() * arr.length)
-        
-        const callFunc = await callTemsService(arr[random])        
-        
-        return callFunc
-    } else {
-        
-        const callFunc = await callTemsService({
-            alarme: alarme,
-        })
+            const random = Math.floor(Math.random() * getArr().length)
+            
+            const callFunc = await callTemsService(getArr()[random])   
+            
+            console.log("Mais do que 1 plantonista disponível");
+            console.log(getArr());
 
-        return callFunc
+            arr = []
+            
+            return callFunc
+        } else {
+            
+            const callFunc = await callTemsService({
+                alarme: alarme,
+            })  
+            
+            console.log("sem plantonistas disponíveis", groupsSelected);
+
+            arr = []
+            return callFunc
+        }        
     }
+
 }
 
 export default vocalizacaoTemsService

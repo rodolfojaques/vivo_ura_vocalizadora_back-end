@@ -98,9 +98,9 @@ const callTemsService = async (data:any) => {
             } else {              
       
               const newData = vocalizacaoHistoryTemsRepository.create({
-              contact_id: data.dadosVoc[0].id_grupo_atuacao,
-              plantonista: data.dadosVoc[0].nome_gerente1,
-              phone: data.dadosVoc[0].contato_ger1,
+              contact_id: data.dadosVoc.id,
+              plantonista: data.dadosVoc.gerente1,
+              phone: data.dadosVoc.contato_ger1,
               alarme: alarme,
               });
       
@@ -109,9 +109,9 @@ const callTemsService = async (data:any) => {
               const output = {
                 contacts: [
                   {
-                  name: data.dadosVoc[0].nome_gerente1,
+                  name: data.dadosVoc.gerente1,
                   code: newData.code.toString(),
-                  phones: [data.dadosVoc[0].contato_ger1],            
+                  phones: [data.dadosVoc.contato_ger1],            
                   ALARME: !!data.alarme?.persistent_frontSpecificProblem? data.alarme?.persistent_frontSpecificProblem.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase() : data.alarme?.persistent_specificProblem.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase(),
                   CLASSIFICACAO: !!data.alarme?.persistent_classificacao && !!classificacaoFt[data.alarme?.persistent_classificacao]? classificacaoFt[data.alarme?.persistent_classificacao] : 'crítico',
                   TIPO_PLANTA: data.alarme?.persistent_frontTypeTa.toLowerCase() || data.alarme?.persistent_tipoTA.toLowerCase(),
@@ -154,9 +154,9 @@ const callTemsService = async (data:any) => {
                 } else {
                       
                   const newData = vocalizacaoHistoryTemsRepository.create({
-                    contact_id: data.dadosVoc[0].id_grupo_atuacao,
-                    plantonista: data.dadosVoc[0].nome_gerente2,
-                    phone: data.dadosVoc[0].contato_ger2,
+                    contact_id: data.dadosVoc.id,
+                    plantonista: data.dadosVoc.gerente2,
+                    phone: data.dadosVoc.contato_ger2,
                     alarme: alarme,
                   });
         
@@ -165,9 +165,9 @@ const callTemsService = async (data:any) => {
                   const output = {
                     contacts: [
                       {
-                        name: data.dadosVoc[0].nome_gerente2,
+                        name: data.dadosVoc.gerente2,
                         code: newData.code.toString(),
-                        phones: [data.dadosVoc[0].contato_ger2],            
+                        phones: [data.dadosVoc.contato_ger2],            
                         ALARME: !!data.alarme?.persistent_frontSpecificProblem? data.alarme?.persistent_frontSpecificProblem.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase() : data.alarme?.persistent_specificProblem.replaceAll("_"," ").replaceAll(" ",". ").toLowerCase(),
                         CLASSIFICACAO: !!data.alarme?.persistent_classificacao && !!classificacaoFt[data.alarme?.persistent_classificacao]? classificacaoFt[data.alarme?.persistent_classificacao] : 'crítico',
                         TIPO_PLANTA: data.alarme?.persistent_frontTypeTa.toLowerCase() || data.alarme?.persistent_tipoTA.toLowerCase(),
