@@ -8,7 +8,7 @@ import cors from "cors"
 import cron from "node-cron"
 import clearRoutine from "./utils/clearRoutine"
 import "dotenv/config"
-import matchGroupAlarmeService from "./services/tems-tools/matchGroupAlarm.service"
+import awaitAndPersistenceSevice from "./services/tems-tools/awaitAndPersistence.service"
 
 const app = express()
 
@@ -17,7 +17,7 @@ const corsOptions = {
         String(process.env.URL_IP_URA),    
         String(process.env.URL_DNS_URA),           
         String(process.env.URL_IP_SG_INFRA),           
-        String(process.env.URL_IP_SINC),
+        String(process.env.URL_IP_SINC), 'http://localhost:3001'
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With']
@@ -39,7 +39,7 @@ cron.schedule('* 3 * * *', () => {
 
 app.post('/teste', async (req, res) => {
     const data = req.body
-    const service = await matchGroupAlarmeService(data)
+    const service = await awaitAndPersistenceSevice(data)
     res.json(service)
 })
 

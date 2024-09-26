@@ -111,7 +111,7 @@ const vocalizacaoTemsService = async (data:any) => {
                 dadosVoc: groupsSelected[0]
             })   
         
-            console.log("Apenas 1 plantonista disponível");
+            console.log("1 plantonista disponível");
             console.log(groupsSelected);
             
             return callFunc         
@@ -126,7 +126,7 @@ const vocalizacaoTemsService = async (data:any) => {
                 dadosVoc: groupsSelected[random]
             })   
             
-            console.log("Mais do que 1 plantonista disponível");
+            console.log(`${groupsSelected?.length} plantonistas disponíveis`);
             console.log(groupsSelected);
             
             return callFunc            

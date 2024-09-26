@@ -15,8 +15,8 @@ const createDataService = async (data: IDataReq, id: number) => {
     relations: { usuario: true },
     where: {
       usuario: { id: usuario.id },
-      dia: data.dia,
-      turno: data.turno,
+      dtInicio: data.dtInicio,
+      dtFim: data.dtFim,
     },
   });
 

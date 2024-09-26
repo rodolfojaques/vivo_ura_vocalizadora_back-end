@@ -1,4 +1,4 @@
 export interface IDataReq {
-    dia: any
-    turno: string
+    dtInicio: Date,
+    dtFim: Date
 }

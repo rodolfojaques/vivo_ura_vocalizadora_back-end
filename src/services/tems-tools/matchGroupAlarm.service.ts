@@ -1,5 +1,4 @@
 import { AppDataSource } from "../../data-source";
-import vocalizacaoTemsService from "./vocalizacaoTems.service";
 
 const matchGroupAlarmeService = async (data:any) => {
 
@@ -22,15 +21,7 @@ const matchGroupAlarmeService = async (data:any) => {
     } = dataT
 
     const tipoTaFormated = !!tipoTA? tipoTA.replaceAll('Gerência', 'Gerencia').replaceAll('Comutação', 'Comutacao') : null
-    const frontTypeTaFormated = !!frontTypeTa? frontTypeTa.replaceAll('Gerência', 'Gerencia').replaceAll('Comutação', 'Comutacao') : null  
-    
-    
-    /**
-     *      
-        JOIN datas on datas."usuarioId" = usuarios.id
-        WHERE dia BETWEEN '2024-09-23 08:00:00' AND '2024-09-24 03:00:00';
-     */
-
+    const frontTypeTaFormated = !!frontTypeTa? frontTypeTa.replaceAll('Gerência', 'Gerencia').replaceAll('Comutação', 'Comutacao') : null 
     
     const query_gp_atc = `SELECT grupos_atuacao.*, usuarios."id" as usuario_id, usuarios."nome", usuarios."tel_cel" FROM grupos_alarmes_tems
     JOIN tipo_alarme_tems ON tipo_alarme_tems."grupoAlarmeId" = grupos_alarmes_tems.id
@@ -62,7 +53,7 @@ const matchGroupAlarmeService = async (data:any) => {
         frontPlantType,
         frontTypeFailure,
         manager
-    ]);   
+    ]);  
 
     return grupo_atuacao
 }

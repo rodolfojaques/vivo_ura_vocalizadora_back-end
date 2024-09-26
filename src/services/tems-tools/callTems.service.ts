@@ -64,11 +64,11 @@ const callTemsService = async (data:any) => {
           };
           console.log(output);
       
-          axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
+          // axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          // })
       
           const monitorando = output.contacts[0].code;
       
@@ -125,11 +125,11 @@ const callTemsService = async (data:any) => {
               };
               
       
-              axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              })
+              // axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
+              //   headers: {
+              //     "Content-Type": "application/json",
+              //   },
+              // })
       
               const monitorando = output.contacts[0].code;
       
@@ -180,11 +180,11 @@ const callTemsService = async (data:any) => {
                     ],
                   };
       
-                  axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                  })
+                  // axios.post("http://186.238.82.229/api/mailing/13/contacts?key=kKoD1X4n", output, {
+                  //   headers: {
+                  //     "Content-Type": "application/json",
+                  //   },
+                  // })
       
                   const monitorando = output.contacts[0].code;
       
