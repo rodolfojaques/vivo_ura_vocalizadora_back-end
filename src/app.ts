@@ -17,12 +17,12 @@ const corsOptions = {
         String(process.env.URL_IP_URA),    
         String(process.env.URL_DNS_URA),           
         String(process.env.URL_IP_SG_INFRA),           
-        String(process.env.URL_IP_SINC), 'http://localhost:3001'
+        String(process.env.URL_IP_SINC),
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With']
 };
-// app.use(cors())
+// app.use(cors()) 'http://localhost:3001'
 app.use(cors(corsOptions))
 
 app.use(express.json())
@@ -37,10 +37,10 @@ cron.schedule('* 3 * * *', () => {
     clearRoutine()
 })
 
-app.post('/teste', async (req, res) => {
-    const data = req.body
-    const service = await awaitAndPersistenceSevice(data)
-    res.json(service)
-})
+// app.post('/teste', async (req, res) => {
+//     const data = req.body
+//     const service = await awaitAndPersistenceSevice(data)
+//     res.json(service)
+// })
 
 export default app

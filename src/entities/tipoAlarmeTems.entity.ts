@@ -6,19 +6,16 @@ export class TipoAlarmeTems {
   @PrimaryGeneratedColumn()
   readonly id: number;
 
-  @Column()
+  @Column({nullable:true})
   estadoSigla: string;
 
-  @Column({})
+  @Column({nullable:true})
   specificProblem: string;
 
-  // @Column({nullable:true})
-  // tipoDeAlarme: string;
-
-  @Column({})
+  @Column({nullable:true})
   frontNetworkType: string;
 
-  @Column({})
+  @Column({nullable:true})
   frontTypeTa: string;
 
   @Column({nullable:true})
@@ -29,6 +26,30 @@ export class TipoAlarmeTems {
   
   @Column({nullable:true})
   manager: string;
+
+  @Column({nullable:true})
+  familia: string;
+
+  @Column({nullable:true})
+  identifier: string;
+
+  @Column({nullable:true})
+  frontNodeReference: string;
+
+  @Column({nullable:true})
+  frontDomain: string;
+
+  @Column({nullable:true})
+  frontElementType: string;
+
+  @Column({nullable:true})
+  frontScriptProbe: string;
+  
+  @Column({nullable:true})
+  frontAlarmId: string;
+
+  @Column({nullable:true})
+  frontPodName: string;
 
   @ManyToOne(()=> GruposAlarmesTems,(tipoAlarme) => tipoAlarme.tiposAlarmes, {onDelete: "SET NULL"})
   grupoAlarme: GruposAlarmesTems;
