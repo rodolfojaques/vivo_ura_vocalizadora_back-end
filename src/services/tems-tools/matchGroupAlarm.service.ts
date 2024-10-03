@@ -31,8 +31,7 @@ const matchGroupAlarmeService = async (data:any) => {
     } = dataT
 
     /**
-        UTILIZAR ESTE REPLACE PARA TODOS OS CAMPOS, A FIM DE EVITAR ERROS DE BUSCA POR CARACTERES ACENTUADOS:
-        
+        UTILIZAR ESTE REPLACE PARA TODOS OS CAMPOS, A FIM DE EVITAR ERROS DE BUSCA POR CARACTERES ACENTUADOS:        
         .normalize('NFD').replace(/[\u0300-\u036f]/g, "")
     */
 
