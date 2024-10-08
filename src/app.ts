@@ -8,21 +8,21 @@ import cors from "cors"
 import cron from "node-cron"
 import clearRoutine from "./utils/clearRoutine"
 import "dotenv/config"
-import awaitAndPersistenceSevice from "./services/tems-tools/awaitAndPersistence.service"
 
 const app = express()
 
 const corsOptions = {
     origin: [
         String(process.env.URL_IP_URA),    
-        String(process.env.URL_DNS_URA),           
+        String(process.env.URL_DNS_URA), 
+        String(process.env.URL_MS_CERT_URA),           
         String(process.env.URL_IP_SG_INFRA),           
-        String(process.env.URL_IP_SINC),
+        String(process.env.URL_IP_SINC), 'http://localhost:3001'       
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With']
+    allowedHeaders: '*'
 };
-// app.use(cors()) 'http://localhost:3001'
+// app.use(cors())
 app.use(cors(corsOptions))
 
 app.use(express.json())
@@ -36,11 +36,5 @@ cron.schedule('* 3 * * *', () => {
     console.log('Executando rotina de exclusão de dados do DB...')
     clearRoutine()
 })
-
-// app.post('/teste', async (req, res) => {
-//     const data = req.body
-//     const service = await awaitAndPersistenceSevice(data)
-//     res.json(service)
-// })
 
 export default app
