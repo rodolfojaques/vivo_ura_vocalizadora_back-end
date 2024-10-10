@@ -68,7 +68,7 @@ const matchGroupAlarmeService = async (data:any) => {
     AND (tipo_alarme_tems."frontTypeFailure" IS NULL OR tipo_alarme_tems."frontTypeFailure" = '' OR tipo_alarme_tems."frontTypeFailure" ILIKE $10::text OR tipo_alarme_tems."frontTypeFailure" ILIKE $11::text)
     AND (tipo_alarme_tems."manager" IS NULL OR tipo_alarme_tems."manager" = '' OR tipo_alarme_tems."manager" ILIKE '%' || $12::text || '%')
     AND (tipo_alarme_tems."familia" IS NULL OR tipo_alarme_tems."familia" ILIKE $13::text)
-    AND (tipo_alarme_tems."identifier" IS NULL OR tipo_alarme_tems."identifier" ILIKE $14::text)
+    AND (tipo_alarme_tems."identifier" IS NULL OR tipo_alarme_tems."identifier" ILIKE '%' || $14::text || '%')
     AND (tipo_alarme_tems."frontNodeReference" IS NULL OR tipo_alarme_tems."frontNodeReference" ILIKE $15::text)
     AND (tipo_alarme_tems."frontDomain" IS NULL OR tipo_alarme_tems."frontDomain" ILIKE $16::text)
     AND (tipo_alarme_tems."frontElementType" IS NULL OR tipo_alarme_tems."frontElementType" ILIKE $17::text)
