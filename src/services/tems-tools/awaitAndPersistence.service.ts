@@ -9,27 +9,30 @@ const awaitAndPersistenceSevice = async (data:any) => {
     const {
         identifier,
         matchedCounter,
-        severity
+        severity,
+        node,
     } = data
 
     if(!!data){
         const exists = await alarmeRepository.query(`
             SELECT * FROM alarmes_history_tems 
             WHERE $1::text = "identifier"
-            AND $2::integer > 1
+            AND $2::text = "node"
+            AND $3::integer > 1
             AND "vocalizado" = false;
-        `, [identifier, matchedCounter])
+        `, [identifier, node, matchedCounter])
 
         const itsClear = await alarmeRepository.query(`
             SELECT * FROM alarmes_history_tems 
             WHERE $1::text = "identifier"
-            AND $2::integer = 0
+            AND $2::text = "node"
+            AND $3::integer = 0
             AND "vocalizado" = false;
-        `, [identifier, severity])
+        `, [identifier, node, severity])
 
         if(exists.length === 0 && itsClear.length === 0 && data.severity !== 0){
             const newData:any = await createAlarmesHistoryTemsService(data)
-            const timeout = (Number(newData.persistent_frontPersistence) * 1000)
+            const timeout = (Number(newData.persistent_frontPersistence) * 1000) || (Number(newData.ttl) * 1000) || 600
 
             setTimeout(async() => {
                 const dataExists = await alarmeRepository.findOneBy({id: newData.id})
@@ -63,8 +66,9 @@ const awaitAndPersistenceSevice = async (data:any) => {
             await alarmeRepository.query(`
                 DELETE FROM alarmes_history_tems 
                 WHERE $1::text = "identifier"
+                AND $2::text = "node"
                 AND "vocalizado" = false;
-            `, [identifier])
+            `, [identifier, node])
 
             console.log("Clear recebido, alarme deletado.")
             return {message: "Clear recebido, alarme deletado."}

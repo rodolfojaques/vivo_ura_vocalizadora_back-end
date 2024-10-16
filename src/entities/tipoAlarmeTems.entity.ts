@@ -31,6 +31,9 @@ export class TipoAlarmeTems {
   familia: string;
 
   @Column({nullable:true})
+  node: string;
+
+  @Column({nullable:true})
   identifier: string;
 
   @Column({nullable:true})
