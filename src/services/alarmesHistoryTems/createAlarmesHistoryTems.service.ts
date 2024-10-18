@@ -100,6 +100,7 @@ const createAlarmesHistoryTemsService = async (data: any) => {
   persistent_estadoNome: data.persistent.estadoNome,
   persistent_familia: data.persistent.familia,
   persistent_tipoFalha: data.persistent.tipoFalha,
+  persistent_ttl: data.persistent.ttl,
   identifier: data.identifier,
   enterprise: data.enterprise,
   specificTrap: data.specificTrap,

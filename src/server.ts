@@ -22,12 +22,12 @@ const options = {
     console.error("Error during Data Source initialization", err);
   });
 
-  app.listen(3000, () => {
-    console.log("Servidor executando");
-  });
-
-  // https.createServer(options, app).listen(3000, () => {
-  //   console.log('Servidor HTTPS rodando na porta 3000');
+  // app.listen(3000, () => {
+  //   console.log("Servidor executando");
   // });
+
+  https.createServer(options, app).listen(3000, () => {
+    console.log('Servidor HTTPS rodando na porta 3000');
+  });
     
 })();

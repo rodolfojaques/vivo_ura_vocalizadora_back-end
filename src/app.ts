@@ -22,8 +22,8 @@ const corsOptions = {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: '*'
 };
-// app.use(cors())
-app.use(cors(corsOptions))
+app.use(cors())
+// app.use(cors(corsOptions))
 
 app.use(express.json())
 app.use(paginate.middleware(10,50))

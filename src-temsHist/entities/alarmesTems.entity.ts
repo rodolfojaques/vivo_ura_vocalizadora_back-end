@@ -291,6 +291,8 @@ export class AlarmesHistoryTems {
   @Column({ nullable: true })
   persistent_tipoFalha:string
 
+  @Column({ nullable: true })
+  persistent_ttl:string
   
   @Column({ nullable: true })
   identifier:string

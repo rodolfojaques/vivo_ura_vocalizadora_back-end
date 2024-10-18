@@ -1,3 +1,4 @@
+import e from "express"
 import { AlarmesHistoryTems } from "../../../src-temsHist/entities/alarmesTems.entity"
 import { AppDataSourceTemsHistory } from "../../data-source"
 import createAlarmesHistoryTemsService from "../alarmesHistoryTems/createAlarmesHistoryTems.service"
@@ -9,7 +10,8 @@ const awaitAndPersistenceSevice = async (data:any) => {
     const {
         identifier,
         matchedCounter,
-        severity,
+        severity, 
+        type,
         node,
     } = data
 
@@ -27,12 +29,13 @@ const awaitAndPersistenceSevice = async (data:any) => {
             WHERE $1::text = "identifier"
             AND $2::text = "node"
             AND $3::integer = 0
+            AND $4::integer = 2
             AND "vocalizado" = false;
-        `, [identifier, node, severity])
+        `, [identifier, node, severity, type])
 
-        if(exists.length === 0 && itsClear.length === 0 && data.severity !== 0){
+        if(exists.length === 0 && itsClear.length === 0 && data.severity !== 0, data.type !== 2){
             const newData:any = await createAlarmesHistoryTemsService(data)
-            const timeout = (Number(newData.persistent_frontPersistence) * 1000) || (Number(newData.ttl) * 1000) || 600
+            const timeout = (Number(newData.persistent_frontPersistence) * 1000) || (Number(newData.persistent_ttl) * 1000) || 600000            
 
             setTimeout(async() => {
                 const dataExists = await alarmeRepository.findOneBy({id: newData.id})
