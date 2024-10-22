@@ -5,7 +5,6 @@ import { ReturnVocalizacao } from "../../entities/returnVocalizacao.entity";
 import { Usuarios } from "../../entities/usuarios.entity";
 
 const chamadaVocalizacaoService = async (data: any) => {
-    
   const dtFormatado = data.alarme.DATA_APRESENTACAO.slice(0,10) + " " + data.alarme.DATA_APRESENTACAO.slice(11,19)
     
   const vocalizacaoHistoryRepository = AppDataSourceHistory.getRepository(VocalizacaoHistory);
@@ -210,16 +209,9 @@ const chamadaVocalizacaoService = async (data: any) => {
 
   if(!data.grupoAtuacao || !data.plantonista){
 
-    const newData = vocalizacaoHistoryRepository.create({
-      contact_id: 0,
-      plantonista: "Alarme sem plantonista responsavel",
-      phone: "Alarme sem plantonista responsavel",
-      alarme: data.alarme,
-    });
+    console.log("Alarme sem plantonista responsavel =>", data.alarme);
 
-    await vocalizacaoHistoryRepository.save(newData);
-
-    return
+    return {}
 
   } else if(data.plantonista.emChamada){   
     const emEspDefault = data.plantonista.emEspera +1

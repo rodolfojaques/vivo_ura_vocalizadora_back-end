@@ -1,80 +1,54 @@
+import { instanceToPlain } from "class-transformer";
 import { VocalizacaoHistory } from "../../../src-new/entities/vocalizacao.history.entity";
 import { AppDataSource, AppDataSourceHistory } from "../../data-source";
-import { GruposAlarmes } from "../../entities/gruposAlarmes.entity";
+import matchGroupAlarmeSGService from "./matchGroupAlarm.service";
+import { Usuarios } from "../../entities/usuarios.entity";
 
 const vocalizacaoService = async (data: any) => {
     const vocalizacaoHistoryRepository = AppDataSourceHistory.getRepository(VocalizacaoHistory);
-
-    const dt = new Date();
-    const ano = dt.getFullYear();
-    const mes = String(dt.getMonth() + 1).padStart(2, '0');
-    const dia = String(dt.getDate()).padStart(2, '0');
-  
-    const diaAtual = `${ano}-${mes}-${dia}`    
     
-    const gruposAlarmesRepository = AppDataSource.getRepository(GruposAlarmes)
+    const usuariosRepository = AppDataSource.getRepository(Usuarios)
 
-    const grupoAlarmeResponsavel = await gruposAlarmesRepository.findOne({
-        relations: {tiposAlarmes:true},
-        where:{
-            tiposAlarmes:{
-                uf: data.ESTADO,
-                tipoAlarme: data.TIPO_ALARME,
-                site: data.SITE,
-                localidade: data.LOCALIDADE,
-                classificacao: data.CLASSIFICACAO
-            }
+    const grupoAlarmeResponsavel = await matchGroupAlarmeSGService(data)
+
+    if(grupoAlarmeResponsavel.length > 0){
+
+        if(grupoAlarmeResponsavel.length === 0){
+            const newData = vocalizacaoHistoryRepository.create({
+                contact_id: 0,
+                plantonista: "Alarme sem plantonista responsavel",
+                phone: "Alarme sem plantonista responsavel",
+                alarme: data,
+            });
+          
+            await vocalizacaoHistoryRepository.save(newData);
+
+            console.log('Alarme sem plantonista disponível');
+
+            return newData
         }
-    })
-    
-    let grupoResp;
-    let responsavel;
 
-    if(!!grupoAlarmeResponsavel){
 
-        if(grupoAlarmeResponsavel.gruposAtuacao.length == 1){
-            grupoAlarmeResponsavel.gruposAtuacao[0].usuarios.forEach((user,i) => {
-                const find = user.datas?.find(dia =>`${dia.dia.getFullYear()}-${String(dia.dia.getMonth() + 1).padStart(2, '0')}-${String(dia.dia.getDate()).padStart(2, '0')}` === diaAtual && dia.turno.toLowerCase() === turnos())
-                if(find != undefined) {
-                    responsavel = user
-                    grupoResp = grupoAlarmeResponsavel.gruposAtuacao[0]
-                    
-                    return {
-                        alarme: data,
-                        grupoAtuacao: grupoResp,
-                        plantonista: responsavel
-                    }
-                }
-            })
+        if(grupoAlarmeResponsavel.length === 1){
+            const userX = await usuariosRepository.findOneBy({ id: grupoAlarmeResponsavel[0].usuario_id })
+
+            return {
+                alarme: data,
+                plantonista: instanceToPlain(userX), 
+                grupoAtuacao: grupoAlarmeResponsavel[0]
+            }         
+        } else {
+            const random = Math.floor(Math.random() * grupoAlarmeResponsavel.length)
+
+            const userX = await usuariosRepository.findOneBy({ id: grupoAlarmeResponsavel[random].usuario_id })
             
             return {
                 alarme: data,
-                grupoAtuacao: grupoResp,
-                plantonista: responsavel
-            }
-        }
-        
-        grupoAlarmeResponsavel.gruposAtuacao.forEach((grp)=>{
-            grp.usuarios.forEach((user,i) => {
-                const find = user.datas?.find(dia =>`${dia.dia.getFullYear()}-${String(dia.dia.getMonth() + 1).padStart(2, '0')}-${String(dia.dia.getDate()).padStart(2, '0')}` === diaAtual && dia.turno.toLowerCase() === turnos())
-                if(find != undefined) {
-                    responsavel = user
-                    grupoResp = grp
-                    
-                    return {
-                        alarme: data,
-                        grupoAtuacao: grupoResp,
-                        plantonista: responsavel
-                    }
-                }
-            })
-        })
+                plantonista: instanceToPlain(userX), 
+                grupoAtuacao: grupoAlarmeResponsavel[random]
+            }            
+        }        
 
-        return {
-            alarme: data,
-            grupoAtuacao: grupoResp,
-            plantonista: responsavel
-        }
     } else {
         
         const newData = vocalizacaoHistoryRepository.create({
@@ -85,21 +59,10 @@ const vocalizacaoService = async (data: any) => {
         });
       
         await vocalizacaoHistoryRepository.save(newData);
+
+        console.log('Alarme sem plantonista disponível');
+        return newData
     }
 }
-
-function turnos(){
-    const dt = new Date();
-    const hora = dt.getHours()
-        
-    if(hora >= 7 && hora < 15){
-        return "t1"
-    } else if(hora >= 15 && hora < 23){
-        return "t2"
-    } else if(hora >= 23 || hora < 7){
-        return "t3"
-    }
-} 
-
 
 export default vocalizacaoService;

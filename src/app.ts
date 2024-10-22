@@ -8,6 +8,11 @@ import cors from "cors"
 import cron from "node-cron"
 import clearRoutine from "./utils/clearRoutine"
 import "dotenv/config"
+import matchGroupAlarmeSGService from "./services/vocalizacao/matchGroupAlarm.service"
+import createAlarmeService from "./services/alarmes/createAlarme.service"
+import vocalizacaoService from "./services/vocalizacao/grupoVocalizacao.service"
+import chamadaVocalizacaoService from "./services/vocalizacao/chamadaVocalizacao.service"
+import { AppError, handleError } from "./error/appError"
 
 const app = express()
 
@@ -35,6 +40,23 @@ app.use(globalErrorMiddleware)
 cron.schedule('* 3 * * *', () => {
     console.log('Executando rotina de exclusão de dados do DB...')
     clearRoutine()
+})
+
+
+app.post('/test',async (req, res) => {
+    try {
+        const data = req.body;
+        const alarme = await createAlarmeService(data);
+    
+        if (!!alarme) {
+          const getGrupo = await vocalizacaoService(alarme);
+          if (!!getGrupo) await chamadaVocalizacaoService(getGrupo);
+        }
+    
+        return res.status(201).json(alarme);
+      } catch (error) {
+        if (error instanceof AppError) handleError(error, res);
+      }
 })
 
 export default app

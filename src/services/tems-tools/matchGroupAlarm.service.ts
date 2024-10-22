@@ -78,7 +78,7 @@ const matchGroupAlarmeService = async (data:any) => {
     AND (tipo_alarme_tems."frontAlarmId" IS NULL OR tipo_alarme_tems."frontAlarmId" ILIKE $19::text)
     AND (tipo_alarme_tems."frontPodName" IS NULL OR tipo_alarme_tems."frontPodName" ILIKE $20::text)
     AND (tipo_alarme_tems."node" IS NULL OR tipo_alarme_tems."node" ILIKE '%' || $21::text || '%')
-    AND (NOW() - INTERVAL '3 hours') BETWEEN datas."dtInicio" AND datas."dtFim";
+    AND NOW() BETWEEN datas."dtInicio" AND datas."dtFim";
     `;
 
     const grupo_atuacao = await AppDataSource.query(query_gp_atc, [
