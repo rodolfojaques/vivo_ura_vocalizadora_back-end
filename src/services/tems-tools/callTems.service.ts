@@ -6,6 +6,11 @@ import { ReturnVocalizacaoTems } from "../../entities/returnVocalizacaoTems.enti
 
 const callTemsService = async (data:any) => {
     try {
+
+      if (!data || !data.alarme || !data.plantonista) {
+        throw new Error("Dados inválidos fornecidos para callTemsService.");
+      }
+
         const alarme = data.alarme
 
         const classificacaoFt:any = {
@@ -31,10 +36,17 @@ const callTemsService = async (data:any) => {
         const usuarioRepository = AppDataSource.getRepository(Usuarios)
         
         const userId = data?.plantonista?.id
+
+        if (!userId) {
+          throw new Error("Plantonista não possui ID.");
+        }
         
         const chamadas = async () => {
       
           const usuario = await usuarioRepository.findOneBy({id:userId})
+          if (!usuario) {
+            throw new Error(`Usuário com ID ${userId} não encontrado.`);
+          }
       
           const newData = vocalizacaoHistoryTemsRepository.create({
             contact_id: data.plantonista.id,
@@ -245,6 +257,9 @@ const callTemsService = async (data:any) => {
           await usuarioRepository.update(userId,{emEspera: emEspDefault})
       
           const usuario = await usuarioRepository.findOneBy({id:userId})
+          if (!usuario) {
+            throw new Error(`Usuário com ID ${userId} não encontrado.`);
+          }
           
           let delay = 130000 //ms
           let qtdEspera = usuario?.emEspera!
@@ -278,8 +293,8 @@ const callTemsService = async (data:any) => {
         
         return data
             
-    } catch (error) {
-        console.log("callTemsService_error: ", error)
+    } catch (error:any) {
+        console.log("callTemsService_error: ", error.massage, error.stack);
     }
 }
 

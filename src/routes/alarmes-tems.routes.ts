@@ -2,11 +2,13 @@ import { Router } from "express";
 import createAlarmesHistoryTemsController from "../controllers/alarmesHistoryTems/createAlarmesHistoryTems.controller";
 import listAlarmesHistoryTemsController from "../controllers/alarmesHistoryTems/listAlarmesHistoryTems.controller";
 import filterAlarmesTemsHistoryController from "../controllers/alarmesHistoryTems/filterAlarmesTemsHistory.controller";
+import filterGeneralAlarmesTemsHistoryController from "../controllers/alarmesHistoryTems/filterGeneralAlarmesTemsHistory.controller";
 
 const alarmesTemsRouter = Router()
 
 alarmesTemsRouter.post("",listAlarmesHistoryTemsController)
 alarmesTemsRouter.post("/filter", filterAlarmesTemsHistoryController)
+alarmesTemsRouter.post("/filter-general", filterGeneralAlarmesTemsHistoryController)
 alarmesTemsRouter.post("/register",createAlarmesHistoryTemsController)
 
 export default alarmesTemsRouter

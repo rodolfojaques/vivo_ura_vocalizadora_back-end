@@ -47,7 +47,16 @@ const cargaMassivaDl = async (req:any) => {
                                 frontNetworkType: el.frontNetworkType,
                                 frontTypeTa: el.frontTypeTa,
                                 frontPlantType: el.frontPlantType,
-                                frontTypeFailure: el.frontTypeFailure
+                                frontTypeFailure: el.frontTypeFailure,                             
+                                familia: el.familia,
+                                node: el.node,
+                                identifier: el.identifier,
+                                frontNodeReference: el.frontNodeReference,
+                                frontDomain: el.frontDomain,
+                                frontElementType: el.frontElementType,
+                                frontScriptProbe: el.frontScriptProbe,                             
+                                frontAlarmId: el.frontAlarmId,
+                                frontPodName: el.frontPodName,
                             })
 
                             await tpAlmRepo.save({...tp, grupoAlarme:grupo!})                            

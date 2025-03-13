@@ -24,7 +24,7 @@ export class TipoAlarmeTems {
   @Column({nullable:true})
   frontTypeFailure: string;
   
-  @Column({nullable:true})
+  @Column()
   manager: string;
 
   @Column({nullable:true})

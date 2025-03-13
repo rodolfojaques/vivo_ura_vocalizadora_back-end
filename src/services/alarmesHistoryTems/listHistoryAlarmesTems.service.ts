@@ -50,7 +50,7 @@ const listAlarmesHistoryTemsService = async (data: any,page:number,size:number) 
                  AND ($6::text IS NULL OR "persistent_frontAlarmId" ILIKE $6::text)
                  AND ($7::text IS NULL OR $7::text ILIKE '%' || "persistent_classificacao" || '%')
                  AND ($8::timestamp IS NULL AND $9::timestamp IS NULL OR ("alarmInURA" - interval '3 hours' BETWEEN $8::timestamp AND $9::timestamp + interval '1 day'))
-                 AND ($10::interval IS NULL OR "alarmInURA" >= NOW() - interval '361 minute' - $10::interval)  
+                 AND ($10::interval IS NULL OR "alarmInURA" >= NOW() - $10::interval)  
                  ORDER BY "id" DESC
                  LIMIT $11  OFFSET $12
                  `;
@@ -65,7 +65,7 @@ const listAlarmesHistoryTemsService = async (data: any,page:number,size:number) 
                  AND ($6::text IS NULL OR "persistent_frontAlarmId" ILIKE $6::text)
                  AND ($7::text IS NULL OR $7::text ILIKE '%' || "persistent_classificacao" || '%')
                  AND ($8::timestamp IS NULL AND $9::timestamp IS NULL OR ("alarmInURA" - interval '3 hours' BETWEEN $8::timestamp AND $9::timestamp + interval '1 day'))
-                 AND ($10::interval IS NULL OR "alarmInURA" >= NOW() - interval '361 minute' - $10::interval) 
+                 AND ($10::interval IS NULL OR "alarmInURA" >= NOW() - $10::interval) 
                  `;
   ;
 

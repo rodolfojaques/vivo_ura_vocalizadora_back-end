@@ -133,10 +133,16 @@ export class AlarmesHistoryTems {
   persistent_tipoTa:string
   
   @Column({ nullable: true })
+  persistent_tipoTA:string
+  
+  @Column({ nullable: true })
   persistent_impacto:string
   
   @Column({ nullable: true })
   persistent_tipoAlarme:string
+  
+  @Column({ nullable: true })
+  persistent_tipoDeAlarme:string
   
   @Column({ nullable: true })
   persistent_frontElementType:string

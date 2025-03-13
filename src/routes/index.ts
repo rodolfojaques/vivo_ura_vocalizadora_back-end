@@ -14,6 +14,7 @@ import tiposAlarmesTemsRouter from "./tiposAlarmesTems.routes";
 import filterInputRouter from "./filterInput.routes";
 import cargaMassivaRouter from "./carga-massiva.routes";
 import returnVocalizacaoTemsRouter from "./returnVocalizacaoTems.routes";
+import clearMethodsRouter from "./clearMethods.routes";
 
 export const appRoutes = (app: Express) => {
   app.use("/usuario", usuarioRoutes);
@@ -31,4 +32,5 @@ export const appRoutes = (app: Express) => {
   app.use("/return-vocalizacao-tems", returnVocalizacaoTemsRouter);
   app.use("/filter-input", filterInputRouter)
   app.use("/carga-massiva", cargaMassivaRouter)
+  app.use("/data-clear", clearMethodsRouter)
 };

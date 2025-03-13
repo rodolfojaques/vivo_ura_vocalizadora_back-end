@@ -27,9 +27,9 @@ const clearRoutine = async () => {
     }
     
     deleteAlarmsBeforeTwoDays().then(result => {
-    console.log(result);
+        console.log(result);
     }).catch(error => {
-    console.error(error);
+        console.error(error);
     });
 
     
@@ -47,27 +47,27 @@ const clearRoutine = async () => {
     }
     
     deleteAlarmsHistoryBeforeOneMonth().then(result => {
-    console.log(result);
-    }).catch(error => {
-    console.error(error);
+        console.log(result);
+        }).catch(error => {
+        console.error(error);
     });
 
-    async function deleteReturnsBeforeTwoHours() {
+    async function deleteReturnsBeforeTwoDays() {
     
-    const result = await returnVocalizacaoRepository
-        .createQueryBuilder()
-        .delete()
-        .from(ReturnVocalizacao)
-        .where('createAt < current_timestamp - interval \'2 hours\'')
-        .execute();
-    
-    return result;
+        const result = await returnVocalizacaoRepository
+            .createQueryBuilder()
+            .delete()
+            .from(ReturnVocalizacao)
+            .where('createAt < current_timestamp - interval \'2 days\'')
+            .execute();
+        
+        return result;
     }
     
-    deleteReturnsBeforeTwoHours().then(result => {
-    console.log(result);
+    deleteReturnsBeforeTwoDays().then(result => {
+        console.log(result);
     }).catch(error => {
-    console.error(error);
+        console.error(error);
     });
 
     async function deleteAlarmsTemsBeforeOneWeek() {
@@ -84,27 +84,27 @@ const clearRoutine = async () => {
     }
     
     deleteAlarmsTemsBeforeOneWeek().then(result => {
-    console.log(result);
+        console.log(result);
     }).catch(error => {
-    console.error(error);
+        console.error(error);
     });
 
-    async function deleteReturnsTemsBeforeTwoHours() {
+    async function deleteReturnsTemsBeforeTwoDays() {
     
-    const result = await returnVocalizacaoTemsRepository
-        .createQueryBuilder()
-        .delete()
-        .from(ReturnVocalizacaoTems)
-        .where('createAt < current_timestamp - interval \'2 hours\'')
-        .execute();
-    
-    return result;
+        const result = await returnVocalizacaoTemsRepository
+            .createQueryBuilder()
+            .delete()
+            .from(ReturnVocalizacaoTems)
+            .where('createAt < current_timestamp - interval \'2 days\'')
+            .execute();
+        
+        return result;
     }
     
-    deleteReturnsTemsBeforeTwoHours().then(result => {
-    console.log(result);
+    deleteReturnsTemsBeforeTwoDays().then(result => {
+        console.log(result);
     }).catch(error => {
-    console.error(error);
+        console.error(error);
     });
 }
 

@@ -1,4 +1,3 @@
-import e from "express"
 import { AlarmesHistoryTems } from "../../../src-temsHist/entities/alarmesTems.entity"
 import { AppDataSourceTemsHistory } from "../../data-source"
 import createAlarmesHistoryTemsService from "../alarmesHistoryTems/createAlarmesHistoryTems.service"
