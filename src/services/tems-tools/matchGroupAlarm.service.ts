@@ -31,27 +31,27 @@ const matchGroupAlarmeService = async (data:any) => {
         node
     } = dataT
 
-    const estadoSiglaFormated = !!estadoSigla? estadoSigla.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const specificProblemFormated = !!specificProblem? specificProblem.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const frontSpecificProblemFormated = !!frontSpecificProblem? frontSpecificProblem.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const frontNetworkTypeFormated = !!frontNetworkType? frontNetworkType.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const tipoRedeFormated = !!tipoRede? tipoRede.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const frontTypeTaFormated = !!frontTypeTa? frontTypeTa.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const tipoTaFormated = !!tipoTa? tipoTa.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const frontPlantTypeFormated = !!frontPlantType? frontPlantType.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const tipoPlantaFormated = !!tipoPlanta? tipoPlanta.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const frontTypeFailureFormated = !!frontTypeFailure? frontTypeFailure.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const tipoFalhaFormated = !!tipoFalha? tipoFalha.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const managerFormated = !!manager? manager.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const familiaFormated = !!familia? familia.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const identifierFormated = !!identifier? identifier.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const frontNodeReferenceFormated = !!frontNodeReference? frontNodeReference.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const frontDomainFormated = !!frontDomain? frontDomain.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const frontElementTypeFormated = !!frontElementType? frontElementType.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const frontScriptProbeFormated = !!frontScriptProbe? frontScriptProbe.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const frontAlarmIdFormated = !!frontAlarmId? frontAlarmId.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const frontPodNameFormated = !!frontPodName? frontPodName.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
-    const nodeFormated = !!node? node.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const estadoSiglaFormated = !!estadoSigla? estadoSigla.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const specificProblemFormated = !!specificProblem? specificProblem.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const frontSpecificProblemFormated = !!frontSpecificProblem? frontSpecificProblem.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const frontNetworkTypeFormated = !!frontNetworkType? frontNetworkType.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const tipoRedeFormated = !!tipoRede? tipoRede.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const frontTypeTaFormated = !!frontTypeTa? frontTypeTa.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const tipoTaFormated = !!tipoTa? tipoTa.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const frontPlantTypeFormated = !!frontPlantType? frontPlantType.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const tipoPlantaFormated = !!tipoPlanta? tipoPlanta.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const frontTypeFailureFormated = !!frontTypeFailure? frontTypeFailure.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const tipoFalhaFormated = !!tipoFalha? tipoFalha.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const managerFormated = !!manager? manager.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const familiaFormated = !!familia? familia.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const identifierFormated = !!identifier? identifier.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const frontNodeReferenceFormated = !!frontNodeReference? frontNodeReference.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const frontDomainFormated = !!frontDomain? frontDomain.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const frontElementTypeFormated = !!frontElementType? frontElementType.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const frontScriptProbeFormated = !!frontScriptProbe? frontScriptProbe.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const frontAlarmIdFormated = !!frontAlarmId? frontAlarmId.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const frontPodNameFormated = !!frontPodName? frontPodName.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
+    // const nodeFormated = !!node? node.normalize('NFD').replaceAll(/[\u0300-\u036f]/g, "") : null
     
     const query_gp_atc = `SELECT grupos_atuacao.*, usuarios."id" as usuario_id, usuarios."nome", usuarios."tel_cel" FROM grupos_alarmes_tems
     JOIN tipo_alarme_tems ON tipo_alarme_tems."grupoAlarmeId" = grupos_alarmes_tems.id
@@ -82,27 +82,27 @@ const matchGroupAlarmeService = async (data:any) => {
     `;
 
     const grupo_atuacao = await AppDataSource.query(query_gp_atc, [
-        estadoSiglaFormated,
-        specificProblemFormated,
-        frontSpecificProblemFormated,        
-        frontNetworkTypeFormated,
-        tipoRedeFormated,
-        frontTypeTaFormated,
-        tipoTaFormated,
-        frontPlantTypeFormated,
-        tipoPlantaFormated,
-        frontTypeFailureFormated,
-        tipoFalhaFormated,
-        managerFormated,
-        familiaFormated,
-        identifierFormated,
-        frontNodeReferenceFormated,
-        frontDomainFormated,
-        frontElementTypeFormated,
-        frontScriptProbeFormated,
-        frontAlarmIdFormated,
-        frontPodNameFormated,
-        nodeFormated
+        estadoSigla,
+        specificProblem,
+        frontSpecificProblem,        
+        frontNetworkType,
+        tipoRede,
+        frontTypeTa,
+        tipoTa,
+        frontPlantType,
+        tipoPlanta,
+        frontTypeFailure,
+        tipoFalha,
+        manager,
+        familia,
+        identifier,
+        frontNodeReference,
+        frontDomain,
+        frontElementType,
+        frontScriptProbe,
+        frontAlarmId,
+        frontPodName,
+        node
     ]);  
 
     return grupo_atuacao

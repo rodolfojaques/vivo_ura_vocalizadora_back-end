@@ -294,7 +294,7 @@ const callTemsService = async (data:any) => {
         return data
             
     } catch (error:any) {
-        console.log("callTemsService_error: ", error.massage, error.stack);
+        console.log("callTemsService_error: ", error.message, error.stack, "Invalid data provided: ", data);
     }
 }
 

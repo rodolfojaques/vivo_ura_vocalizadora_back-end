@@ -10,9 +10,9 @@ const createTipoAlarmeTemsService = async (idGrupo: number, data: any) => {
   const grupo = await gruposAlarmesRepository.findOneBy({ id: idGrupo });
   if (!grupo) throw new AppError(400, "Grupo não encontrado!");
 
-  if(!!data.frontTypeTa){
-    data.frontTypeTa = data.frontTypeTa.replaceAll('Gerência', 'Gerencia').replaceAll('Comutação', 'Comutacao');
-  }
+  // if(!!data.frontTypeTa){
+  //   data.frontTypeTa = data.frontTypeTa.replaceAll('Gerência', 'Gerencia').replaceAll('Comutação', 'Comutacao');
+  // }
 
   const tipoAlarme = tiposAlarmesRepository.create({
     ...data,
